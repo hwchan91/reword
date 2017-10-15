@@ -1,26 +1,26 @@
 require 'pry'
-module Dict
+# module Dict
   
-  def self.generate
-    dict = {}
-    text = File.open('./wordlist.txt').read
-    text.gsub!(/\r\n?/, "\n")
-    text.each_line do |line|
-        word = line.strip()
-        dict[word] = word
-    end
-    dict
-  end
-  @@dict = Dict.generate
+#   def self.generate
+#     dict = {}
+#     text = File.open('./wordlist.txt').read
+#     text.gsub!(/\r\n?/, "\n")
+#     text.each_line do |line|
+#         word = line.strip()
+#         dict[word] = word
+#     end
+#     dict
+#   end
+#   @@dict = Dict.generate
 
-  def self.valid?(word)
-    @@dict[word]
-  end
-end
+#   def self.valid?(word)
+#     @@dict[word]
+#   end
+# end
 
 
 class Word
-  include Dict
+  require_relative "dict"
   attr_accessor :word, :match_count, :path
 
   def initialize(word, target, path = [], index_changed = nil)
@@ -78,14 +78,8 @@ class Word
     full_match_count == @match_count
   end
 
-  def count_improvement_rating(transition_word)
-    rating = transition_word.match_count - @match_count
-    rating += 1 if transition_word.only_full_match? and rating > 0
-    rating
-  end
-
   def count_improvement?(transition_word)
-    count_improvement_rating(transition_word) > 0
+    (transition_word.match_count - @match_count) > 0
   end
 
   def transition_word_objects
@@ -102,13 +96,18 @@ class Word
   end
 
   def transition_words_closer_to_target
+    return @sorted_output if @sorted_output
     output = []
     transition_word_objects.each do |word|
       output << word if self.count_improvement?(word)
     end
     full_match_words = output.select{ |word| word.only_full_match? }
     partial_match_words = output - full_match_words 
-    sorted_output = full_match_words + partial_match_words
+    @sorted_output = full_match_words + partial_match_words
+  end
+
+  def getting_closer?
+    transition_words_closer_to_target.length > 0
   end
 
   def match_target?
@@ -118,85 +117,74 @@ class Word
 end
 
 class WordTrek
-  attr_accessor :top_stack, :bottom_stack, :curr_stack, :new_transition_words, :words_in_curr_stack, :words_in_to_be_added
+  attr_accessor :top_stack, :bottom_stack, :curr_stack, :new_transition_words, :words_in_curr_stack, :words_in_to_be_added, :to_be_added
 
   def initialize(starting_word, target_word)
     @top_stack = [Word.new(starting_word, target_word)]
     @bottom_stack = [Word.new(target_word, starting_word)]
     @curr_stack = [@bottom_stack, @top_stack].cycle
     @curr_stack = @curr_stack.next
+    @result = nil
   end
 
   def switch_stack
     @curr_stack.next
   end
 
-  def words_in_stack(stack)
-    (stack.empty?) ? stack : stack.map(&:word)
-  end
-
-  def add_transition_to_stack(wordbase = @curr_stack) #should not be curr_stack by the front of new trasition words
-    # to_be_added = []
-    # wordbase.each do |word|
-    #   recursive_call_on_words_getting_closer(word)
-
-    #   word.transition_word_objects.each do |transition_word|
-    #     to_be_added.push(transition_word) if new_word?(transition_word, to_be_added)
-    #     return transition_word if transition_word.match_target?
-    #   end
-    #   clear_cache(@words_in_to_be_added)
-    # end
-    # clear_cache(@words_in_curr_stack)
-    # return "no solution" if to_be_added.empty?
+  def add_transition_to_stack(wordbase = @curr_stack) #should not be curr_stack but the front of new trasition words
     @to_be_added = []
-    words_to_be_added #change method to generate_transition_then_clear_cache
-    clear_cache(@words_in_curr_stack)
+    catch :found_solution do 
+      populate_words_to_be_added
+      clear_curr_stack_cache
 
-
-    check_if_reached_target
-    check_if_no_solution
-    @curr_stack += @to_be_added
-  end
-
-  def words_to_be_added(wordbase = @curr_stack)
-    # to_be_added = []
-    wordbase.each do |word|
-      recursive_call_on_words_getting_closer(word)
-
-      word.transition_word_objects.each do |transition_word|
-        if new_word?(transition_word)
-          @to_be_added.push(transition_word) #if new_word?(transition_word)
-          p transition_word.word
-          p words_in_stack(@curr_stack)
-          p words_in_stack(@to_be_added)
-        end
-        #return transition_word if transition_word.match_target?
-      end
-      clear_cache(@words_in_to_be_added)
+      #check_if_reached_target
+      check_if_no_solution
+      @curr_stack += @to_be_added
     end
-    # clear_cache(@words_in_curr_stack)
-    # return "no solution" if to_be_added.empty?
-    # @curr_stack += to_be_added
-    # to_be_added
+    @result if @result
   end
 
-  def check_if_reached_target
-    words_reached_target = @curr_stack.select{|word| word.match_target?}
-    return words_reached_target if words_reached_target.length > 0
+  def populate_words_to_be_added(wordbase = @curr_stack)
+    wordbase.each do |word|
+      word.transition_word_objects.each do |transition_word|
+        check_if_reached_target(transition_word)
+        add_if_new(transition_word)
+      end
+      clear_to_be_added_cache
+
+      recursive_call_on_words_getting_closer(word) if word.getting_closer?
+    end
+  end
+
+  def clear_to_be_added_cache
+    remove_instance_variable(:@words_in_to_be_added)if @words_in_to_be_added
+  end
+
+  def clear_curr_stack_cache
+    remove_instance_variable(:@words_in_curr_stack) if @words_in_curr_stack
+  end
+
+  def add_if_new(word)
+    @to_be_added.push(word) if new_word?(word)
+  end
+
+  def check_if_reached_target(word)
+    if word.match_target?
+      @result = word
+      throw :found_solution
+    end
   end
 
   def check_if_no_solution
-    return "no solution" if @to_be_added.empty?
+    if @to_be_added.empty?
+      @result = "no solution" 
+      throw :found_solution
+    end
   end
 
   def recursive_call_on_words_getting_closer(word)
     words_closer = word.transition_words_closer_to_target
-    # if words_closer.length > 0
-    #   perfect_match = words_closer.select{|w| w.match_target?}
-    #   return perfect_match if perfect_match.length > 0
-      #add_transition_to_stack(words_closer)
-      words_to_be_added(words_closer)
-    # end
+    populate_words_to_be_added(words_closer)
   end
 
   def new_word?(word)
@@ -208,14 +196,21 @@ class WordTrek
     not_in_stack and not_in_to_be_added
   end
 
-  def clear_cache(cache)
-    cache = nil
+
+  def words_in_stack(stack)
+    (stack.empty?) ? [] : stack.map(&:word)
   end
+
 
 end
 
+# w = WordTrek.new('apple', 'lemon')
+# w.add_transition_to_stack
+# w.add_transition_to_stack
+# w.words_in_stack(w.curr_stack).length
 
-
+w = WordTrek.new('aaaaa', 'zzzzz')
+w.add_transition_to_stack
 
 
 binding.pry
