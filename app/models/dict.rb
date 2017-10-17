@@ -1,5 +1,9 @@
-module Dict
-  
+class Dict
+
+  def initialize(custom_words = nil)
+    @dict = (custom_words.nil?) ? @@full_dict : Dict.generate_custom_words(custom_words)
+  end
+
   def self.generate
     dict = {}
     text = File.open('./wordlist.txt').read
@@ -10,10 +14,16 @@ module Dict
     end
     dict
   end
-  @@dict = Dict.generate
+  @@full_dict ||= Dict.generate
 
-  def self.valid?(word)
-    @@dict[word]
+  def self.generate_custom_words(words)
+    dict = {}
+    words.each{|w| dict[w] = w}
+    dict
+  end
+
+  def valid?(word)
+    @dict[word]
   end
 end
 
