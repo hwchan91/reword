@@ -4,8 +4,8 @@ class WordTrek
   attr_accessor  :to_be_added, :new_transition_words, :words_in_curr_stack, :words_in_to_be_added, :result
 
   def initialize(starting_word, target_word, dict = nil)
-    top_front = [Word.new(starting_word, target_word, dict)]
-    bottom_front = [Word.new(target_word, starting_word, dict)]
+    top_front = [Word.new(starting_word, dict)]
+    bottom_front = [Word.new(target_word, dict)]
     @fronts = [top_front, bottom_front]
   
     top_stack = bottom_stack = []
@@ -43,6 +43,10 @@ class WordTrek
     @fronts[(@curr_side_index + 1) % 2]
   end
 
+  def opposite_side
+    opposite_stack + opposite_front #try sorting so that the words with the highest match are at the front of the array so that they get returned first
+  end
+
   def continue_until_solution_found
     until @result
       find_solution
@@ -65,7 +69,8 @@ class WordTrek
     first_half = @result[0].path 
     second_half = @result[1].path 
     solution = first_half + [@result[0].word] + second_half.reverse 
-    solution.reverse if @curr_side_index = 1
+    solution.reverse! if @curr_side_index == 0
+    solution
   end
 
   def move_front
@@ -83,7 +88,7 @@ class WordTrek
       end
       clear_to_be_added_cache
 
-      recursive_call_on_words_getting_closer(word, stack, to_be_added) if word.getting_closer? #recursive call should be after add_if_new for optimal path 
+      recursive_call_on_words_getting_closer(word, stack, to_be_added) if word.getting_closer?(opposite_side) #recursive call should be after add_if_new for optimal path 
     end
     to_be_added
   end
@@ -97,7 +102,6 @@ class WordTrek
   end
 
   def check_if_reached_target(word)
-    opposite_side = opposite_stack + opposite_front
     opposite_side.each do |word_in_oppo|
       if word.word  == word_in_oppo.word
         @result = [word, word_in_oppo]
@@ -114,7 +118,7 @@ class WordTrek
   end
 
   def recursive_call_on_words_getting_closer(word, stack, to_be_added)
-    words_closer = word.transition_words_closer_to_target
+    words_closer = word.transition_words_closer_to_target(self.opposite_side)
     propagate_front(words_closer, stack, to_be_added)
   end
 
