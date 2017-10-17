@@ -40,7 +40,14 @@ class WordTrek
       check_if_no_solution
       move_front
     end
-    @result[0].path if @result
+    return_solution if @result
+  end
+
+  def return_solution
+    return 'no solution' if @result == 'no solution'
+    first_half = @result[0].path 
+    second_half = @result[1].path 
+    first_half + [@result[0].word] + second_half
   end
 
   def move_front
@@ -79,11 +86,6 @@ class WordTrek
         throw :found_solution
       end
     end
-
-    # if word.match_target?
-    #   @result = word
-    #   throw :found_solution
-    # end
   end
 
   def check_if_no_solution
@@ -106,11 +108,6 @@ class WordTrek
     not_in_to_be_added = !@words_in_to_be_added.include?(word.word)
     not_in_stack and not_in_to_be_added
   end
-
-  # def words_in_opposite_side
-  #   @words_in_opposite_side ||= opposite_stack.map(&:word) + opposite_front.map(&:word)
-  # end
-
 
   def words_in_stack(stack)
     (stack.empty?) ? [] : stack.map(&:word)
