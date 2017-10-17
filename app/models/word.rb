@@ -4,10 +4,10 @@ class Word
   require_relative "dict"
   attr_accessor :word, :target, :dict, :match_count, :path
 
-  def initialize(word, target, dict = Dict.new, path = [], index_changed = nil)
+  def initialize(word, target, dict = nil, path = [], index_changed = nil)
     @word = word
     @target = target
-    @dict = dict
+    @dict = (dict.nil?) ? Dict.new : dict
     @match_count = get_match_count
     @path = path
     @index_changed = index_changed
