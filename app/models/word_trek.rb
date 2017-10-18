@@ -12,7 +12,7 @@ class WordTrek
     @stacks = [top_stack, bottom_stack]
     @curr_side_index = 0
     
-    @result = nil
+    @result = (starting_word.length != target_word.length) ? ["no solution"] : []
   end
 
   def switch_sides
@@ -48,7 +48,7 @@ class WordTrek
   end
 
   def continue_until_solution_found
-    until @result
+    until @result[0] == 'no solution' or @result.length > 0
       find_solution
       switch_sides
     end
@@ -65,12 +65,15 @@ class WordTrek
   end
 
   def return_solution
-    return 'no solution' if @result == 'no solution'
-    first_half = @result[0].path 
-    second_half = @result[1].path 
-    solution = first_half + [@result[0].word] + second_half.reverse 
-    solution.reverse! if @curr_side_index == 0
-    solution
+    return 'no solution' if @result[0] == 'no solution'
+    results = @result.map do |result|
+      first_half = result[0].path 
+      second_half = result[1].path 
+      solution = first_half + [result[0].word] + second_half.reverse 
+      solution.reverse! if @curr_side_index == 0
+      solution
+    end
+    results
   end
 
   def move_front
@@ -105,15 +108,15 @@ class WordTrek
   def check_if_reached_target(word)
     opposite_side.each do |word_in_oppo|
       if word.word  == word_in_oppo.word
-        @result = [word, word_in_oppo]
-        throw :found_solution
+        @result << [word, word_in_oppo]
+        #throw :found_solution
       end
     end
   end
 
   def check_if_no_solution
     if @to_be_added.empty?
-      @result = "no solution" 
+      @result << "no solution" 
       throw :found_solution
     end
   end

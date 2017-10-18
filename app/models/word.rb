@@ -97,9 +97,9 @@ class Word
     original_best = best_match_count(words_to_compare)
     transition_word_objects.each do |transition_word|
       transition_word_best = transition_word.best_match_count(words_to_compare)
-      output << [transition_word, transition_word_best] if transition_word_best > original_best #+ 0.5 or (transition_word_best - original_best == 0.5 and original_best % 1 == 0.5)
+      output << [transition_word, transition_word_best] if transition_word_best > original_best - 1 # -1 for one step in the right direction
     end
-    @sorted_output = output.sort_by{|word, best_count| best_count}.reverse.map{|word, best_count| word} #full_match_words + partial_match_words
+    @sorted_output = output.sort_by{|word, best_count| best_count}.reverse.map{|word, best_count| word}
   end
 
   def getting_closer?(words_to_compare)
