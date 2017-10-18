@@ -2,7 +2,7 @@ require 'pry'
 
 class Word
   require_relative "dict"
-  attr_accessor :word, :target, :dict, :match_count, :path
+  attr_accessor :word, :dict, :path, :index_changed
 
   def initialize(word, dict = nil, path = [], index_changed = nil)
     @word = word
@@ -58,15 +58,18 @@ class Word
     full_match_count(word_to_compare) == partial_match_count(word_to_compare)
   end
 
+  #should reduce rating by length of path of compared word; full_match set as '+1'
   def match_count(word_to_compare)
-    count = partial_match_count(word_to_compare)
-    count += 0.5 if only_full_match?(word_to_compare) and count != 0
+    count = partial_match_count(word_to_compare.word)
+    count += 1 if only_full_match?(word_to_compare.word) and count != 0
+    count -= word_to_compare.path.length
+    count == path.length #TRY1: deduct own path length as well
     count
   end
 
   def best_match_count(words_to_compare)
     best = 0 # [0, nil]
-    words_to_compare.map(&:word).each do |comparison|
+    words_to_compare.each do |comparison|
       comparison_best = match_count(comparison)
       if comparison_best > best
         best = comparison_best
@@ -74,10 +77,6 @@ class Word
     end
     best
   end
-
-  # def count_improvement?(transition_word)
-  #   (transition_word.match_count - @match_count) > 0
-  # end
 
   def transition_word_objects
     @transition_word_objects ||= generate_transition_word_objects
@@ -98,20 +97,14 @@ class Word
     original_best = best_match_count(words_to_compare)
     transition_word_objects.each do |transition_word|
       transition_word_best = transition_word.best_match_count(words_to_compare)
-      output << [transition_word, transition_word_best] if transition_word_best > original_best + 0.5 or (transition_word_best - original_best == 0.5 and original_best % 1 == 0.5)
+      output << [transition_word, transition_word_best] if transition_word_best > original_best #+ 0.5 or (transition_word_best - original_best == 0.5 and original_best % 1 == 0.5)
     end
-    #full_match_words = output.select{ |word| word.only_full_match? }
-    #partial_match_words = output - full_match_words 
-    @sorted_output = output.sort_by{|word, best_count| best_count}.reverse.map{|word, best_count| word}#full_match_words + partial_match_words
+    @sorted_output = output.sort_by{|word, best_count| best_count}.reverse.map{|word, best_count| word} #full_match_words + partial_match_words
   end
 
   def getting_closer?(words_to_compare)
     transition_words_closer_to_target(words_to_compare).length > 0
   end
-
-  # def match_target?
-  #   @word == @target
-  # end
 
 end
 

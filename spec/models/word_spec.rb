@@ -94,34 +94,25 @@ RSpec.describe Word, type: :model do
       compare_words = [xxxxx]
       expect(abcde.best_match_count(compare_words)).to eq(0)
       compare_words = [aXXXX]
-      expect(abcde.best_match_count(compare_words)).to eq(1.5)
+      expect(abcde.best_match_count(compare_words)).to eq(2)
       compare_words = [aXXXX, abXXX]
-      expect(abcde.best_match_count(compare_words)).to eq(2.5)
+      expect(abcde.best_match_count(compare_words)).to eq(3)
       compare_words = [aXXXX, abXXX, abcXX]
-      expect(abcde.best_match_count(compare_words)).to eq(3.5)
+      expect(abcde.best_match_count(compare_words)).to eq(4)
       compare_words = [aXXXX, abXXX, abcXX, abcdX]
-      expect(abcde.best_match_count(compare_words)).to eq(4.5)
+      expect(abcde.best_match_count(compare_words)).to eq(5)
       compare_words = [aXXXX, abXXX, abcXX, abcdX, abcde]
-      expect(abcde.best_match_count(compare_words)).to eq(5.5)
+      expect(abcde.best_match_count(compare_words)).to eq(6)
       compare_words = [aXXXX, abXXX, abcXX, abcdX, edcba]
       expect(abcde.best_match_count(compare_words)).to eq(5)
       compare_words = [aXXXX, abXXX, abcXX, abcdX, edcba, abcde]
-      expect(abcde.best_match_count(compare_words)).to eq(5.5)
+      expect(abcde.best_match_count(compare_words)).to eq(6)
+
+      abcde.path = [1,2,3,4] #representing four words in path
+      compare_words = [aXXXX, abcde]
+      expect(abcde.best_match_count(compare_words)).to eq(2)
     end
   end
-
-  # describe "count_improvement" do
-  #   it "should return true if the difference of matches of the new word if greater than the counr of the original word" do
-  #     dict_words = ['apple', 'ample', 'apply', 'lemon', 'appel', 'pepla']
-  #     dict = Dict.new(dict_words)
-  #     apple = Word.new('apple', 'lemon', dict)
-      
-  #     expect(apple.count_improvement?(Word.new('ample', 'lemon', dict))).to be true
-  #     expect(apple.count_improvement?(Word.new('amply', 'lemon', dict))).to be false
-  #     expect(apple.count_improvement?(Word.new('appel', 'lemon', dict))).to be false
-  #     expect(apple.count_improvement?(Word.new('pepla', 'lemon', dict))).to be false
-  #   end
-  # end
 
   describe "transition_word_objects" do
     it "should return array of transition word objects, each uses the same dict, and a path that includes the prior transition word(s)" do
@@ -149,29 +140,31 @@ RSpec.describe Word, type: :model do
       dict_words = ["place", "plant", "glace", "peace", "plage", "plane", "plate", "plack", "caple"]
       dict = Dict.new(dict_words)
 
-      place = Word.new('place', dict)
+      place = Word.new('place', dict) #place vs plant: 3 match + 1 full match
       compare_words = [Word.new('plant', dict)]
-      expect(place.transition_words_closer_to_target(compare_words).map(&:word)).to eq(['plane','plate']) #plane should come first
+      expect(place.transition_words_closer_to_target(compare_words).map{|word, count| word.word}).to eq(['plane']) #plane: 4 match + 1 full match; plate: 4 match (does not get included)
+      #plane should come first
 
       dict_words = ["creed", "dreed", "freed", "greed", "preed", "treed", "bleed", "bread", "breid", "breem", "breer", "brees", "brede"]
       dict = Dict.new(dict_words)
       breed = Word.new('breed', dict)
-      compare_words = [Word.new('plant', dict)]
+      compare_words1 = [Word.new('plant', dict)]
 
-      result = breed.transition_words_closer_to_target(compare_words).map(&:word)
-      expected = ['preed','bleed','treed','bread']
-      expect((result - expected).empty?).to be true
-      expect((expected - result).empty?).to be true
-      expect(result.index('preed') < result.index('treed')).to be true
-      expect(result.index('bleed') < result.index('treed')).to be true
+      result1 = breed.transition_words_closer_to_target(compare_words1).map(&:word)
+      expected1 = ['preed','bleed','treed','bread']
+      expect((result1 - expected1).empty?).to be true
+      expect((expected1 - result1).empty?).to be true
+      expect(result1.index('preed') < result1.index('treed')).to be true
+      expect(result1.index('bleed') < result1.index('treed')).to be true
+      
 
-      compare_words = [Word.new('plant', dict), Word.new('plane')]
-      result = breed.transition_words_closer_to_target(compare_words).map(&:word) #breed: best- 1 partial with 'plane'
-      expected = ['bread','bleed','preed'] #bread: 2 partial; bleed: 2 patial, preed: 2 partial, brede: 1 full shouldnt count
-      expect((result - expected).empty?).to be true
-      expect((expected - result).empty?).to be true
-      # expect(result.index('preed') < result.index('treed')).to be true
-      # expect(result.index('bleed') < result.index('treed')).to be true
+      breed = Word.new('breed', dict) #need to redefine breed because transition_words_closer_to_target caches the result
+      compare_words2 = [Word.new('plant', dict), Word.new('plane', dict)]
+      result2 = breed.transition_words_closer_to_target(compare_words2).map(&:word)#{|word, count| [word.word, count]} #breed: best- 1 partial with 'plane'
+      expected2 = ['bread','bleed','preed','brede'] #bread: 2 partial; bleed: 2 patial, preed: 2 partial, treed: 1 partial; brede: 1 match + 1 full
+      p result2
+      expect((result2 - expected2).empty?).to be true
+      expect((expected2 - result2).empty?).to be true
 
     end
   end

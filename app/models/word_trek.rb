@@ -74,7 +74,7 @@ class WordTrek
   end
 
   def move_front
-    clear_curr_stack_cache
+    clear_curr_cache
     self.curr_stack += self.curr_front
     self.curr_front = @to_be_added
   end
@@ -84,11 +84,11 @@ class WordTrek
     wordbase.each do |word|
       word.transition_word_objects.each do |transition_word|
         check_if_reached_target(transition_word)
-        to_be_added << transition_word if new_word?(transition_word, stack)
+        to_be_added << transition_word if new_word?(transition_word, front, stack)
       end
       clear_to_be_added_cache
 
-      recursive_call_on_words_getting_closer(word, stack, to_be_added) if word.getting_closer?(opposite_side) #recursive call should be after add_if_new for optimal path 
+      recursive_call_on_words_getting_closer(word, front, stack, to_be_added) if word.getting_closer?(opposite_side) #recursive call should be after add_if_new for optimal path 
     end
     to_be_added
   end
@@ -97,7 +97,8 @@ class WordTrek
     remove_instance_variable(:@words_in_to_be_added)if @words_in_to_be_added
   end
 
-  def clear_curr_stack_cache
+  def clear_curr_cache
+    remove_instance_variable(:@words_in_curr_front) if @words_in_curr_front 
     remove_instance_variable(:@words_in_curr_stack) if @words_in_curr_stack
   end
 
@@ -117,18 +118,21 @@ class WordTrek
     end
   end
 
-  def recursive_call_on_words_getting_closer(word, stack, to_be_added)
+  def recursive_call_on_words_getting_closer(word, front, stack, to_be_added)
     words_closer = word.transition_words_closer_to_target(self.opposite_side)
-    propagate_front(words_closer, stack, to_be_added)
+    words_closer_not_already_included = words_closer.select{|word| new_word?(word, front, stack)}
+    propagate_front(words_closer_not_already_included, stack, to_be_added)
   end
 
-  def new_word?(word, curr_stack)
+  def new_word?(word, curr_front, curr_stack)
     @words_in_curr_stack ||= words_in_stack(curr_stack)
+    @words_in_curr_front ||= words_in_stack(curr_front)
     @words_in_to_be_added ||= words_in_stack(@to_be_added)
 
     not_in_stack = !@words_in_curr_stack.include?(word.word)
+    not_in_front = !@words_in_curr_front.include?(word.word)
     not_in_to_be_added = !@words_in_to_be_added.include?(word.word)
-    not_in_stack and not_in_to_be_added
+    not_in_stack and not_in_front and not_in_to_be_added
   end
 
   def words_in_stack(stack)
@@ -139,12 +143,6 @@ class WordTrek
 end
 
  w = WordTrek.new('apple', 'lemon')
-# w.add_transition_to_stack
-# w.add_transition_to_stack
-# w.words_in_stack(w.curr_stack).length
-
-# w = WordTrek.new('aaaaa', 'zzzzz')
-# w.add_transition_to_stack
 
 
  binding.pry
