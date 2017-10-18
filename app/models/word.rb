@@ -4,11 +4,12 @@ class Word
   require_relative "dict"
   attr_accessor :word, :dict, :path, :index_changed
 
-  def initialize(word, dict = nil, path = [], index_changed = nil)
+  def initialize(word, dict = nil, no_reorder = false, path = [], index_changed = nil)
     @word = word
     @dict = (dict.nil?) ? Dict.new : dict
     @path = path
     @index_changed = index_changed
+    @no_reorder = no_reorder
   end
 
   def transition_words_through_substitution
@@ -34,7 +35,10 @@ class Word
 
   def transition_words
     output = self.transition_words_through_substitution
-    output += self.transition_words_through_reordering
+    unless @no_reorder
+      output += self.transition_words_through_reordering
+    end
+    output
   end
 
   def partial_match_count(word_to_compare)
@@ -60,11 +64,15 @@ class Word
 
   #should reduce rating by length of path of compared word; full_match set as '+1'
   def match_count(word_to_compare)
-    count = partial_match_count(word_to_compare.word)
-    count += 1 if only_full_match?(word_to_compare.word) and count != 0
-    count -= word_to_compare.path.length
-    count == path.length #TRY1: deduct own path length as well
-    count
+    unless @no_reorder
+      count = partial_match_count(word_to_compare.word)
+      count += 1 if only_full_match?(word_to_compare.word) and count != 0
+      count -= word_to_compare.path.length
+      count -= path.length #TRY1: deduct own path length as well
+      count
+    else
+      count = full_match_count(word_to_compare.word) - word_to_compare.path.length - path.length
+    end
   end
 
   def best_match_count(words_to_compare)
@@ -86,7 +94,7 @@ class Word
     output = []
     path = @path.clone.push(@word)
     transition_words.each do |word, index_changed|
-      output << Word.new(word, @dict, path, index_changed)
+      output << Word.new(word, @dict, @no_reorder, path, index_changed)
     end
     output
   end

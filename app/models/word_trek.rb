@@ -3,9 +3,9 @@ class WordTrek
   require_relative "word"
   attr_accessor  :to_be_added, :new_transition_words, :words_in_curr_stack, :words_in_to_be_added, :result
 
-  def initialize(starting_word, target_word, dict = nil)
-    top_front = [Word.new(starting_word, dict)]
-    bottom_front = [Word.new(target_word, dict)]
+  def initialize(starting_word, target_word, dict = nil, no_reorder = false)
+    top_front = [Word.new(starting_word, dict, no_reorder)]
+    bottom_front = [Word.new(target_word, dict, no_reorder)]
     @fronts = [top_front, bottom_front]
   
     top_stack = bottom_stack = []
