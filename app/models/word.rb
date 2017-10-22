@@ -6,10 +6,11 @@ class Word
 
   def initialize(word, dict = nil, no_reorder = false, path = [], index_changed = nil)
     @word = word
-    @dict = (dict.nil?) ? Dict.new : dict
+    @dict = (dict.nil?) ? Dict.new : dict #cannot set default dict = Dict.new, because WordTrek passess nil as dict instead of nothing
     @path = path
     @index_changed = index_changed
     @no_reorder = no_reorder
+    @choices = choices
   end
 
   def transition_words_through_substitution
@@ -62,13 +63,11 @@ class Word
     full_match_count(word_to_compare) == partial_match_count(word_to_compare)
   end
 
-  #should reduce rating by length of path of compared word; full_match set as '+1'
+  #should reduce rating by length of path of compared word and self; full_match set as '+1'
   def match_count(word_to_compare)
     unless @no_reorder
-      count = partial_match_count(word_to_compare.word)
+      count = partial_match_count(word_to_compare.word) - word_to_compare.path.length - path.length
       count += 1 if only_full_match?(word_to_compare.word) and count != 0
-      count -= word_to_compare.path.length
-      count -= path.length #TRY1: deduct own path length as well
       count
     else
       count = full_match_count(word_to_compare.word) - word_to_compare.path.length - path.length
@@ -76,7 +75,7 @@ class Word
   end
 
   def best_match_count(words_to_compare)
-    best = 0 # [0, nil]
+    best = 0
     words_to_compare.each do |comparison|
       comparison_best = match_count(comparison)
       if comparison_best > best
@@ -112,6 +111,18 @@ class Word
 
   def getting_closer?(words_to_compare)
     transition_words_closer_to_target(words_to_compare).length > 0
+  end
+
+  def choices
+    hash = {}
+    transition_words.each do |word, index|
+      if hash[index] 
+        hash[index] << word
+      else
+        hash[index] = [word]
+      end
+    end
+    hash
   end
 
 end

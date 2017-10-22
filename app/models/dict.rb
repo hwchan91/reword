@@ -1,7 +1,14 @@
+#require 'pry'
 class Dict
+  attr_accessor :dict
 
   def initialize(custom_words = nil)
-    @dict = (custom_words.nil?) ? @@full_dict : Dict.generate_custom_words(custom_words)
+    @dict = case custom_words
+            when nil then @@full_dict
+            when 'common' then @@common_dict
+            else Dict.generate_custom_words(custom_words)
+            end
+    #@dict = (custom_words.nil?) ? @@full_dict : Dict.generate_custom_words(custom_words)
   end
 
   def self.generate
@@ -16,6 +23,18 @@ class Dict
   end
   @@full_dict ||= Dict.generate
 
+  def self.generate_common
+    dict = {}
+    text = File.open('./american-82k.txt').read
+    text.gsub!(/\r\n?/, "\n")
+    text.each_line do |line|
+      word = line.scan(/[\w']+/)[0]
+      dict[word] = word
+    end
+    dict
+  end
+  @@common_dict ||= Dict.generate_common
+
   def self.generate_custom_words(words)
     dict = {}
     words.each{|w| dict[w] = w}
@@ -27,3 +46,4 @@ class Dict
   end
 end
 
+#binding.pry

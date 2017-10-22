@@ -1,0 +1,49 @@
+<div class="start_word text-center"><%= @level.start.upcase %></div>
+
+<div class="curr_word text-center">
+  <% @word.word.upcase.split("").each_with_index do |letter, index| %>
+    <% choosable = (@word.choices[index]) ? 'choosable' : 'unchoosable' %>
+    <div class="btn text-center curr_word_letter <%= choosable %>" data-toggle='modal' data-target="#switch_index_<%= index %>"><%= letter %></div>
+  <% end %>
+  <% if @word.choices.empty? %>
+    <div class="dead_end">No possible choices</div>
+  <% end %>
+</div>
+
+
+
+
+  
+<% if @word.choices[nil] %>
+  <div class="reorder_btn" data-toggle='modal' data-target="#reorder_letters"><span class="glyphicon glyphicon-transfer"></span></div>
+<% end %>
+
+
+
+<% @word.choices.each do |changed_index, words| %>
+  <% id = changed_index ? "switch_index_#{changed_index}" : "reorder_letters" %>
+  <div id= <%= id %> class="choices modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <% words.each do |word| %>
+            <div class="next_word_container text-center">
+              <div class="btn next_word">
+                <% word.upcase.split("").each_with_index do |letter, letter_index| %>
+                  <% unless changed_index.nil? %>
+                    <% highlight = (letter_index == changed_index) ? "highlight" : "" %>
+                  <% else %>
+                    <% highlight = "highlight" %>
+                  <% end %>
+                  <div class='next_word_letter <%= highlight %>'><%= letter %></div>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<div class="target_word text-center"><%= @level.target.upcase %></div>
