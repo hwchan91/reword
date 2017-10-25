@@ -1,19 +1,43 @@
+require 'pry'
 class LevelsController < ApplicationController
   before_action :set_level
 
   def show
-    @poss_words = @word.transition_words
   end
 
-  def make_guess
-    session[:"level#{params[:id]}_guesses"] << params[:chosen_word]
+  def move
+    new_word = params[:word]
+    history = session[:"level#{params[:id]}_history"] ||= []
+    if last_word.valid_transition?(new_word, history)
+      if session[:"level#{params[:id]}_history"]
+        session[:"level#{params[:id]}_history"] << new_word
+      else
+        session[:"level#{params[:id]}_history"] = [new_word]
+      end
+    end
+    redirect_to level_path(params[:id])
+  end
+
+  def reset
+    session[:"level#{params[:id]}_history"] = nil
+    redirect_to level_path(params[:id])
   end
 
   private
     def set_level
       @level = Level.find(params[:id])
-      @history = session[:"level#{params[:id]}_history"]
-      @word = (@history and @history.any?) ? Word.new(@history[-1], Dict.new('common')) : Word.new('aaaa') #Word.new(@level.start, Dict.new('common'))
+      if session[:"level#{params[:id]}_history"].is_a? Array
+        @history = session[:"level#{params[:id]}_history"]
+      else
+        @history = session[:"level#{params[:id]}_history"] = [@level.start]
+      end
+      @word = last_word
+      @choices = @word.choices(@history)
+
+    end
+
+    def last_word
+      (@history and @history.any?) ? Word.new(@history[-1], Dict.new('common')) : Word.new(@level.start, Dict.new('common'))
     end
 
 end

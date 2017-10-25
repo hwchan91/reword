@@ -10,7 +10,6 @@ class Word
     @path = path
     @index_changed = index_changed
     @no_reorder = no_reorder
-    @choices = choices
   end
 
   def transition_words_through_substitution
@@ -113,9 +112,9 @@ class Word
     transition_words_closer_to_target(words_to_compare).length > 0
   end
 
-  def choices
+  def choices(history)
     hash = {}
-    transition_words.each do |word, index|
+    transition_words_not_used(history).each do |word, index|
       if hash[index] 
         hash[index] << word
       else
@@ -123,6 +122,14 @@ class Word
       end
     end
     hash
+  end
+
+  def valid_transition?(new_word, history)
+    transition_words_not_used(history).map{|word, index| word}.include?(new_word)
+  end
+
+  def transition_words_not_used(history)
+    transition_words.select{|word, index| !history.include?(word)}
   end
 
 end

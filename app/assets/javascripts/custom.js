@@ -20,15 +20,16 @@
 
 }(jQuery));
 
-$(function() {
+$(document).on('turbolinks:load', function() {
   function centerReorderBtn() {
     offset = $('.curr_word_letter:last-child').offset();
-    from_top = offset.top
-    from_left = offset.left
+    from_top = Math.round(offset.top);
+    from_left = Math.round(offset.left);
     width = $('.curr_word_letter:last-child').width()
-    $('.reorder_btn').css('top', from_top + 2);
-    $('.reorder_btn').css('left', from_left + width + 10)
+    $('.reorder_btn').css('top', from_top + 4);
+    $('.reorder_btn').css('left', from_left + width + 16)
   }
+
   centerReorderBtn();
 
   $(window).on("resize", function() {

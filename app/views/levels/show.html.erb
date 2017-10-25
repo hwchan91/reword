@@ -1,26 +1,37 @@
 <div class="start_word text-center"><%= @level.start.upcase %></div>
 
+<div class="reset"><a href="/levels/<%= params[:id] %>/reset"><span class="glyphicon glyphicon-refresh"></span></a></div>
+
+<div class="history text-center">
+  <% if @history.length > 4 %>
+   <span class="glyphicon glyphicon-option-vertical"></span>
+  <% end %>
+
+  <% (-4..-2).to_a.each do |index| %>
+    <% if @history[index]%>
+      <span class="last_<%= -(index) - 1 %>"><%= @history[index].upcase %></span>
+    <% end %>
+  <% end %>
+</div>
+
 <div class="curr_word text-center">
+  <div style="color: red;"><%= flash[:notice] if flash[:notice]%></div>
   <% @word.word.upcase.split("").each_with_index do |letter, index| %>
-    <% choosable = (@word.choices[index]) ? 'choosable' : 'unchoosable' %>
+    <% choosable = (@choices[index]) ? 'choosable' : 'unchoosable' %>
     <div class="btn text-center curr_word_letter <%= choosable %>" data-toggle='modal' data-target="#switch_index_<%= index %>"><%= letter %></div>
   <% end %>
-  <% if @word.choices.empty? %>
+  <% if @choices.empty? %>
     <div class="dead_end">No possible choices</div>
   <% end %>
 </div>
 
 
-
-
-  
-<% if @word.choices[nil] %>
+<% if @choices[nil] %>
   <div class="reorder_btn" data-toggle='modal' data-target="#reorder_letters"><span class="glyphicon glyphicon-transfer"></span></div>
 <% end %>
 
 
-
-<% @word.choices.each do |changed_index, words| %>
+<% @choices.each do |changed_index, words| %>
   <% id = changed_index ? "switch_index_#{changed_index}" : "reorder_letters" %>
   <div id= <%= id %> class="choices modal fade" role="dialog">
     <div class="modal-dialog">
@@ -28,16 +39,18 @@
         <div class="modal-body">
           <% words.each do |word| %>
             <div class="next_word_container text-center">
-              <div class="btn next_word">
-                <% word.upcase.split("").each_with_index do |letter, letter_index| %>
-                  <% unless changed_index.nil? %>
-                    <% highlight = (letter_index == changed_index) ? "highlight" : "" %>
-                  <% else %>
-                    <% highlight = "highlight" %>
+              <a href= <%= "/levels/#{params[:id]}/move?word=#{word}"%> >
+                <div class="btn next_word">
+                  <% word.upcase.split("").each_with_index do |letter, letter_index| %>
+                    <% unless changed_index.nil? %>
+                      <% highlight = (letter_index == changed_index) ? "highlight" : "" %>
+                    <% else %>
+                      <% highlight = "highlight" %>
+                    <% end %>
+                    <div class='next_word_letter <%= highlight %>'><%= letter %></div>
                   <% end %>
-                  <div class='next_word_letter <%= highlight %>'><%= letter %></div>
-                <% end %>
-              </div>
+                </div>
+              </a>
             </div>
           <% end %>
         </div>

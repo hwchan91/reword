@@ -1,0 +1,1 @@
+Level.create(start: "word", target:"link", path: ["word", "work", "wonk", "wink", "link"])
