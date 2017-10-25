@@ -118,20 +118,28 @@
 
 .history {
   position: fixed;
-  top: 30%;
+  top: 27%;
   left: 50%;
-  width: 100%;
+  width: 50%;
   /* bring your own prefixes */
   transform: translate(-50%, -50%);
   span {
     display: block;
     width: 50%;
-    margin: 15px auto;
+    margin: 10px auto;
     letter-spacing: 10px;
     padding-left: 10px;
   }
+  // span:before {
+  //   content: " ";
+  //   display: block;
+  //   width: 15px;
+  //   height: 10px;
+  // }
   .glyphicon-option-vertical {
-    color: #ccc;
+    color: #eee;
+    padding-left: 20px;
+    font-size: 12px;
   }
   .last_1 {
     font-size: 20px;
@@ -143,6 +151,10 @@
   }
   .last_3 {
     font-size: 16px;
+    color: #eee;
+  }
+  .last_4, .last_5 {
+    font-size: 14px;
     color: #eee;
   }
 }

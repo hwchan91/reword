@@ -3,6 +3,11 @@ class LevelsController < ApplicationController
   before_action :set_level
 
   def show
+    if complete
+      render 'complete'
+    else
+      render 'show'
+    end
   end
 
   def move
@@ -39,5 +44,12 @@ class LevelsController < ApplicationController
     def last_word
       (@history and @history.any?) ? Word.new(@history[-1], Dict.new('common')) : Word.new(@level.start, Dict.new('common'))
     end
+
+    def complete
+      @level.target == @word.word
+    end
+
+
+  
 
 end
