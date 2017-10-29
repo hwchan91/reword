@@ -1,4 +1,3 @@
-#require 'pry'
 class Dict
   attr_accessor :dict
 

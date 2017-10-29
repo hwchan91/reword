@@ -1,4 +1,3 @@
-require 'pry'
 class LevelsController < ApplicationController
   before_action :set_level, only: [:show, :move]
   before_action :get_word, only: [:show]

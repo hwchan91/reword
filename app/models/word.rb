@@ -1,5 +1,3 @@
-require 'pry'
-
 class Word
   require_relative "dict"
   attr_accessor :word, :dict, :path, :index_changed
