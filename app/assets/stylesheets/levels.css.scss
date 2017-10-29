@@ -68,8 +68,18 @@
   }
 }
 
+.curr_word_letter_container {
+  position: relative;
+}
+
 .reorder_btn {
+  //position: absolute;
   position: absolute;
+  bottom: -12px;
+  left: 50px;
+  //right: 200px;
+  /* bring your own prefixes */
+  //transform: translate(-50%, -50%);
   color: #8be0de;
   font-size: 24px;
 }

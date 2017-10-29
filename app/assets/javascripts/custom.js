@@ -30,12 +30,25 @@ $(document).on('turbolinks:load', function() {
     $('.reorder_btn').css('left', from_left + width + 16)
   }
 
-  centerReorderBtn();
+  //centerReorderBtn();
 
   $(window).on("resize", function() {
-    centerReorderBtn();
+    //centerReorderBtn();
     centerDefinition();
   });
+
+  $('.reorder_btn').click(function(event) {
+    event.stopPropagation();
+    $("#reorder_letters").modal("show");
+  })
+
+  // $('.reorder_btn').hover(function(event) {
+  //   $('.curr_word_letter:last-child').
+  // })
+
+  // $('.curr_word_letter:last-child').click(function(){
+  //   $(this).children('.reorder_btn').trigger("click")
+  // });
 
   function centerDefinition() {
     offset = $('.curr_word_letter').first().offset();

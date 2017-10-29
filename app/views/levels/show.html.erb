@@ -34,15 +34,24 @@
     <div style="color: red;"><%= flash[:notice] if flash[:notice]%></div>
     <% @word.word.upcase.split("").each_with_index do |letter, index| %>
       <% choosable = (@choices[index]) ? 'choosable' : 'unchoosable' %>
-      <div class="btn text-center curr_word_letter <%= choosable %>" data-toggle='modal' data-target="#switch_index_<%= index %>"><%= letter %></div>
+      <span class="curr_word_letter_container">
+        <div class="btn text-center curr_word_letter <%= choosable %>" data-toggle='modal' data-target="#switch_index_<%= index %>">
+          <%= letter %>
+        </div>        
+        <% if index == (@word.word.length - 1 ) and @choices[nil] %>
+          <div class="reorder_btn" data-toggle='modal' data-target="#reorder_letters"><span class="glyphicon glyphicon-transfer"></span></div>
+        <% end %>
+      </span>
     <% end %>
     <% if @choices.empty? %>
       <div class="dead_end">No possible choices</div>
     <% end %>
   </div>
 
+  <% if false %>
   <% if @choices[nil] %>
     <div class="reorder_btn" data-toggle='modal' data-target="#reorder_letters"><span class="glyphicon glyphicon-transfer"></span></div>
+  <% end %>
   <% end %>
 
   <div class="definition">
