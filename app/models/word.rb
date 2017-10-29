@@ -132,6 +132,55 @@ class Word
     transition_words.select{|word, index| !history.include?(word)}
   end
 
+  def get_definition
+    inflection_url = "https://od-api.oxforddictionaries.com:443/api/v1/inflections/en/#{word}"
+    inflection_response = HTTParty.get(inflection_url,
+                                        headers: {
+                                                  "Accept": "application/json",          
+                                                  'app_id': ENV['OXFORD_ID'],
+                                                  'app_key': ENV["OXFORD_KEY"] 
+                                                  })
+    if inflection_response['results']
+      lexical_entries = inflection_response['results'][0]["lexicalEntries"]
+      word_bases = lexical_entries.map{|entry| {
+                                                word: entry["inflectionOf"][0]["text"], 
+                                                form: entry["lexicalCategory"]} 
+                                              }
+      word_base = preferred_word_base(word_bases)
+    end
+    
+    definition_url = "https://od-api.oxforddictionaries.com:443/api/v1/entries/en/#{word_base[:word]}"
+    response =  HTTParty.get(definition_url,
+                            headers: {
+                                      "Accept": "application/json",          
+                                      'app_id': ENV['OXFORD_ID'],
+                                      'app_key': ENV["OXFORD_KEY"] 
+                                      })
+    
+                                    
+    if response['results']    
+      entries = response['results'][0]['lexicalEntries'].find{|entry| entry['lexicalCategory'] == word_base[:form]}['entries']
+      definitions = entries.map{|entry| entry['senses'].map{|s| (s['definitions']) ? s['definitions'][0]: nil }}.compact
+      #response['results'][0]['lexicalEntries'][0]['entries'][0]['senses'].map{|s| s['definitions']}
+      first_definitions = []
+      if definitions.length > 1
+        definitions.each_with_index do |defin, index| 
+          first_definitions << "#{index + 1}. #{defin[0].capitalize}"
+        end
+      else
+        first_definitions << "#{definitions[0][0].capitalize}"
+      end
+    end
+    return first_definitions.join("\t")
+  end
+  
+  #get noun form first if noun form is a possible base, otherwise get verb, else get anything that comes first
+  def preferred_word_base(word_bases)
+    word_bases.find{|word| word[:form] == "Noun"} ||
+    word_bases.find{|word| word[:form] == "Verb"} ||
+    word_bases[0]
+  end
+
 end
 
 #binding.pry

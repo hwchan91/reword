@@ -1,6 +1,10 @@
 <div class="start_word text-center"><%= @level.start.upcase %></div>
 
-<div class="reset"><a href="/levels/<%= params[:id] %>/reset"><span class="glyphicon glyphicon-refresh"></span></a></div>
+<div class="reset">
+  <%= link_to reset_level_path(@level.id) do %>
+    <span class="glyphicon glyphicon-refresh"></span>
+  <% end %>
+</div>
 
 <div class="history text-center">
   <% if @history.length > 6 %>
@@ -9,27 +13,34 @@
 
   <% (-6..-2).to_a.each do |index| %>
     <% if @history[index]%>
-      <span class="last_<%= -(index) - 1 %>"><%= @history[index].upcase %></span>
+      <% index_from_curr = -(index) - 2 %> <%# originally -1 to be last_1, now last_0; use jquery to change to last_1 %>
+      <%= link_to undo_level_path(@level.id, steps: index_from_curr + 1), class: "undo_link" do %>
+        <span class="last_<%= index_from_curr %>"><%= @history[index]['word'].upcase %></span>
+      <% end %>
     <% end %>
   <% end %>
 </div>
 
-<div class="curr_word text-center">
-  <div style="color: red;"><%= flash[:notice] if flash[:notice]%></div>
-  <% @word.word.upcase.split("").each_with_index do |letter, index| %>
-    <% choosable = (@choices[index]) ? 'choosable' : 'unchoosable' %>
-    <div class="btn text-center curr_word_letter <%= choosable %>" data-toggle='modal' data-target="#switch_index_<%= index %>"><%= letter %></div>
+<div class="curr_word_container">
+  <div class="curr_word text-center">
+    <div style="color: red;"><%= flash[:notice] if flash[:notice]%></div>
+    <% @word.word.upcase.split("").each_with_index do |letter, index| %>
+      <% choosable = (@choices[index]) ? 'choosable' : 'unchoosable' %>
+      <div class="btn text-center curr_word_letter <%= choosable %>" data-toggle='modal' data-target="#switch_index_<%= index %>"><%= letter %></div>
+    <% end %>
+    <% if @choices.empty? %>
+      <div class="dead_end">No possible choices</div>
+    <% end %>
+  </div>
+
+  <% if @choices[nil] %>
+    <div class="reorder_btn" data-toggle='modal' data-target="#reorder_letters"><span class="glyphicon glyphicon-transfer"></span></div>
   <% end %>
-  <% if @choices.empty? %>
-    <div class="dead_end">No possible choices</div>
-  <% end %>
+
+  <div class="definition">
+    <div class="definition_content"><%= simple_format(@definition) %></div>
+  </div>
 </div>
-
-
-<% if @choices[nil] %>
-  <div class="reorder_btn" data-toggle='modal' data-target="#reorder_letters"><span class="glyphicon glyphicon-transfer"></span></div>
-<% end %>
-
 
 <% @choices.each do |changed_index, words| %>
   <% id = changed_index ? "switch_index_#{changed_index}" : "reorder_letters" %>
@@ -39,7 +50,11 @@
         <div class="modal-body">
           <% words.each do |word| %>
             <div class="next_word_container text-center">
+              <% if false %>
               <a href= <%= "/levels/#{params[:id]}/move?word=#{word}"%> >
+              <% end %>
+
+              <%= link_to move_level_path(@level.id, word: word, changed_index: changed_index.to_s) do %>  
                 <div class="btn next_word">
                   <% word.upcase.split("").each_with_index do |letter, letter_index| %>
                     <% unless changed_index.nil? %>
@@ -50,7 +65,7 @@
                     <div class='next_word_letter <%= highlight %>'><%= letter %></div>
                   <% end %>
                 </div>
-              </a>
+              <% end %> <%# </a> %>
             </div>
           <% end %>
         </div>
@@ -60,3 +75,20 @@
 <% end %>
 
 <div class="target_word text-center"><%= @level.target.upcase %></div>
+
+<script>
+  setTimeout(function() {
+    if ($(".undo_link").length > 0 ) {
+      [...Array($(".undo_link").length - 1).keys()].forEach(function(index) {
+        $(".last_" + (index + 1) ).addClass("last_" + (index + 2), 500).removeClass("last_" + (index + 1) )
+      })
+    }
+
+    $(".last_0").addClass("last_1").fadeIn(500).removeClass("last_0");
+    $(".curr_word_container").animate({opacity: "1"}, 500);
+  }, 1000)
+
+  $(".next_word").click(function() {
+    $(".curr_word_container").fadeOut(800);
+  })
+</script>

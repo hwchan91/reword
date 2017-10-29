@@ -34,7 +34,15 @@ $(document).on('turbolinks:load', function() {
 
   $(window).on("resize", function() {
     centerReorderBtn();
+    centerDefinition();
   });
+
+  function centerDefinition() {
+    offset = $('.curr_word_letter').first().offset();
+    from_top = Math.round(offset.top);
+    $('.definition').css('top', from_top + 50 );
+  }
+  centerDefinition();
 
   $('.next_word_container').click(function() {
     $('.modal').modal('hide');
