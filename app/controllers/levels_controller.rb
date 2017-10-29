@@ -31,8 +31,13 @@ class LevelsController < ApplicationController
 
   def undo
     undo_to_index = -(params[:steps].to_i + 1)
-    session[:"level#{params[:id]}_history"] = session[:"level#{params[:id]}_history"][0..undo_to_index]
-    redirect_to level_path(params[:id])
+    history = session[:"level#{params[:id]}_history"]
+    session[:"level#{params[:id]}_history"] = history[0..undo_to_index] unless history.length <= 1
+    #redirect_to level_path(params[:id])
+    set_level
+    get_word
+    @undo = "true"
+    render 'show'
   end
 
   private
@@ -41,7 +46,7 @@ class LevelsController < ApplicationController
       if session[:"level#{params[:id]}_history"].is_a? Array
         @history = session[:"level#{params[:id]}_history"]
       else
-        @history = session[:"level#{params[:id]}_history"] = [ {"word" => @level.start, "changed_index" => nil } ]#[@level.start]
+        @history = session[:"level#{params[:id]}_history"] = [ {"word" => @level.start, "changed_index" => nil } ]
       end
     end
 

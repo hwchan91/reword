@@ -1,3 +1,5 @@
+ <span id="check_if_undo" data-undo="<%= @undo %>"></span>
+
 <div class="start_word text-center"><%= @level.start.upcase %></div>
 
 <div class="reset">
@@ -11,10 +13,16 @@
    <span class="glyphicon glyphicon-option-vertical"></span>
   <% end %>
 
-  <% (-6..-2).to_a.each do |index| %>
+  <% (-7..-2).to_a.each do |index| %>
     <% if @history[index]%>
-      <% index_from_curr = -(index) - 2 %> <%# originally -1 to be last_1, now last_0; use jquery to change to last_1 %>
-      <%= link_to undo_level_path(@level.id, steps: index_from_curr + 1), class: "undo_link" do %>
+      <% if @undo != "true" %>
+        <% index_from_curr = -(index) - 2 %> <%# originally -1 to be last_1, now last_0; use jquery to change to last_1 %>
+        <% steps = index_from_curr + 1 %>
+      <% else %>
+        <% index_from_curr = steps = -(index) - 1 %> <%# originally -1 to be last_1, now last_0; use jquery to change to last_1 %>
+      <% end %>
+
+      <%= link_to undo_level_path(@level.id, steps: steps), class: "undo_link" do %>
         <span class="last_<%= index_from_curr %>"><%= @history[index]['word'].upcase %></span>
       <% end %>
     <% end %>
@@ -77,18 +85,30 @@
 <div class="target_word text-center"><%= @level.target.upcase %></div>
 
 <script>
-  setTimeout(function() {
-    if ($(".undo_link").length > 0 ) {
-      [...Array($(".undo_link").length - 1).keys()].forEach(function(index) {
-        $(".last_" + (index + 1) ).addClass("last_" + (index + 2), 500).removeClass("last_" + (index + 1) )
-      })
-    }
+  $(document).on('turbolinks:load', function() {
 
-    $(".last_0").addClass("last_1").fadeIn(500).removeClass("last_0");
+  if ($("#check_if_undo").data("undo") != true) {
+    setTimeout(function() {
+      if ($(".undo_link").length > 0 ) {
+        [...Array($(".undo_link").length - 1).keys()].forEach(function(index) {
+          $(".last_" + (index + 1) ).addClass("last_" + (index + 2), 500).removeClass("last_" + (index + 1), function() {
+          })
+        })
+      }
+      $(".last_0").addClass("last_1").fadeIn(500).removeClass("last_0");
+    }, 1000)
+
+    $(".last_5").delay(1000).slideUp(500).fadeOut(500);
+  } 
+
+  setTimeout(function() {
     $(".curr_word_container").animate({opacity: "1"}, 500);
-  }, 1000)
+  }, 1000);
 
   $(".next_word").click(function() {
     $(".curr_word_container").fadeOut(800);
   })
+  
+  })
+
 </script>

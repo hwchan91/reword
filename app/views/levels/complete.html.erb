@@ -35,7 +35,7 @@
 
       <% if_last = (hist_index != (@history.length - 1) ) ? "not_last" : "last" %>
       <div class="path_word_container <%= if_last %>">
-        <div class="path_word">
+        <span class="path_word">
           <% word.upcase.split("").each_with_index do |letter, index| %>
             <% unless changed_index == "" %>
               <% highlight = (index.to_s == changed_index) ? "highlight" : "" %>
@@ -44,7 +44,7 @@
             <% end %>
             <span class="<%= highlight %>"><%= letter %></span>
           <% end %>
-        </div>
+        </span>
 
         <div class="path_word_definition"><%= simple_format(Rails.cache.fetch("define_#{word}"){Word.new(word,"common").get_definition}) %></div>
       </div>
@@ -87,19 +87,30 @@
   $(".path_word_container").each(function(index) {
     $(this).delay(6500 + index  * 500).fadeIn('slow', function() {
       automaticScroll()
-      var definition = $(this).children(".path_word_definition")
-      $(this).hover(function() { 
-          definition.animate({ height: 'toggle', opacity: 'toggle' }, 'slow') 
-      }, function() { 
-          definition.animate({ height: 'toggle', opacity: 'toggle' }, 'slow');
-      });
+      // var definition = $(this).children(".path_word_definition")
+      // $(this).hover(function() { 
+      //     definition.animate({ height: 'toggle', opacity: 'toggle' }, 'slow') 
+      // }, function() { 
+      //     definition.animate({ height: 'toggle', opacity: 'toggle' }, 'slow');
+      // });
     });
   })
 
   setTimeout(function() {
     $(".path_word_definition").animate({ height: 'toggle', opacity: 'toggle' }, 500);
     $(".btn_custom").delay(500).fadeIn();
-  }, 6500 + $(".path_word_container").length * 500 + 2000 )
+  }, 8500 + $(".path_word_container").length * 500 )
+
+  setTimeout(function() {
+    $(".path_word").each(function() {
+      var definition = $(this).next(".path_word_definition")
+      $(this).hover(function() { 
+          definition.animate({ height: 'toggle', opacity: 'toggle' }, 'slow') 
+      }, function() { 
+          definition.animate({ height: 'toggle', opacity: 'toggle' }, 'slow');
+      });
+    })
+  }, 9000 + $(".path_word_container").length * 500 )
 
   function automaticScroll() {
     $("html,body").stop().animate({ scrollTop: $(document).height() }, 'slow');

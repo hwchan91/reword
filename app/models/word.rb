@@ -176,6 +176,8 @@ class Word
   
   #get noun form first if noun form is a possible base, otherwise get verb, else get anything that comes first
   def preferred_word_base(word_bases)
+    word_bases.find{|word| word[:form] == "Adjective"} ||
+    word_bases.find{|word| word[:form] == "Adverb"} ||
     word_bases.find{|word| word[:form] == "Noun"} ||
     word_bases.find{|word| word[:form] == "Verb"} ||
     word_bases[0]
