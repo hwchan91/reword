@@ -146,6 +146,3 @@ class WordTrek
 end
 
  w = WordTrek.new('apple', 'lemon')
-
-
- binding.pry
