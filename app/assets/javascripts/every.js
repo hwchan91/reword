@@ -7,7 +7,9 @@ function everyFunction() {
     bottomMargin = parseInt($dialog.css('marginBottom'), 10);
 
     // Make sure you don't hide the top part of the modal w/ a negative margin if it's longer than the screen height, and keep the margin equal to the bottom margin of the modal
-    if(offset < bottomMargin) offset = bottomMargin;
+    if (offset < bottomMargin) { 
+      offset = bottomMargin;
+    }
     $dialog.css("margin-top", offset);
   }
 
@@ -136,11 +138,17 @@ function everyFunction() {
         highlight_color = getRGB(highlight_color);
 
         var red = Number(highlight_color.red) + index * 2
-        if (red > 255) { red = 255 }
+        if (red > 255) { 
+          red = 255 
+        }
         var green = Number(highlight_color.green) - index * 2
-        if (green < 0) { green = 0 }
+        if (green < 0) { 
+          green = 0 
+        }
         var blue = Number(highlight_color.blue) - index * 10
-        if (blue < 0) { blue = 0 }
+        if (blue < 0) { 
+          blue = 0 
+        }
 
         $(this).css("color", "rgb(" + red + ", " + green  +", " + blue + ")")
       })
