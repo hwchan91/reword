@@ -1,6 +1,5 @@
 <div> <%# this div is necessary to select last-child element in css %>
   <% @history.each_with_index do |record, index| %>
-  <%#= binding.pry if index == 1 %>
     <div class="path_word_container">
       <span class="path_word">
         <% used_word(record).upcase.split("").each_with_index do |letter, letter_index| %>
