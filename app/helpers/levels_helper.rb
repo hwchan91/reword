@@ -33,7 +33,7 @@ module LevelsHelper
   end
 
   def reorder_letters?(changed_index)
-    changed_index.nil? #nil signifies reorder, "none"(defined below) signifies starting word
+    changed_index == "all" #nil signifies reorder, "none"(defined below) signifies starting word
   end
 
   def describe_action(changed_index)
@@ -46,7 +46,31 @@ module LevelsHelper
 
   def changed_index(record)
     changed_index = record["changed_index"]
-    changed_index.nil? ? "none" : changed_index.to_i
+    case changed_index
+    when nil then "none" 
+    when "" then "all"
+    else changed_index.to_i
+    end
+  end
+
+  def remaining_steps_to_optimal
+    @level.path.length - @history.length
+  end
+
+  def within_optimal?
+    @history.length <= @level.path.length 
+  end
+
+  def within_limit?
+    @history.length < @limit
+  end
+
+  def steps_before_limit_after_optimal
+    @limit - @level.path.length - 1
+  end
+
+  def limit_exist_after_optimal
+    @limit != @level.path.length
   end
 
 end

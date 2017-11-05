@@ -1,5 +1,5 @@
 <div class="reset">
-  <%= link_to reset_level_path(@level.id) do %>
+  <%= link_to reset_level_path(@level.id), remote: true do %>
     <span class="glyphicon glyphicon-refresh"></span>
   <% end %>
 </div>

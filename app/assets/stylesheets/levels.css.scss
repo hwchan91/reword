@@ -2,35 +2,35 @@
 @import "bootstrap";
 
 :root {
-  // --main-background-color: #8be0de;
-  // --main-background-text-color: white;
-  // --main-border-color: #8be0de;
-  // --main-text-color: black;
-  // --unchoosable-color: #f4f4f4;
-  // --choices-background-color: white;
-  // --highlight-color: #8be0de;
-  // --choosable-hover-color: white;
-  // --modal-backdrop-color: #6a8389;
-  // --box-shadow-color: #e8f8ff;
-  // --word-choice-color: #337ab7;
-  // --word-choice-hover-color: black;
-  // --definition-color: #aaa;
-  // --complete-highlight-color: rgb(50, 163, 202);
-
-  --main-background-color: black;
-  --main-background-text-color: orange;
-  --main-border-color: orange;
-  --main-text-color: white;
+  --main-background-color: #8be0de;
+  --main-background-text-color: white;
+  --main-border-color: #8be0de;
+  --main-text-color: black;
   --unchoosable-color: #f4f4f4;
   --choices-background-color: white;
-  --highlight-color: black;
+  --highlight-color: #8be0de;
   --choosable-hover-color: white;
-  --modal-backdrop-color: #5c5c5c;
-  --box-shadow-color: rgb(255, 235, 200);
-  --word-choice-color: orange;
-  --word-choice-hover-color: rgb(177, 136, 90);
+  --modal-backdrop-color: #6a8389;
+  --box-shadow-color: #e8f8ff;
+  --word-choice-color: #337ab7;
+  --word-choice-hover-color: black;
   --definition-color: #aaa;
-  --complete-highlight-color: rgb(165, 78, 7);
+  --complete-highlight-color: rgb(50, 163, 202);
+
+  // --main-background-color: black;
+  // --main-background-text-color: orange;
+  // --main-border-color: orange;
+  // --main-text-color: white;
+  // --unchoosable-color: #f4f4f4;
+  // --choices-background-color: white;
+  // --highlight-color: black;
+  // --choosable-hover-color: white;
+  // --modal-backdrop-color: #5c5c5c;
+  // --box-shadow-color: rgb(255, 235, 200);
+  // --word-choice-color: orange;
+  // --word-choice-hover-color: rgb(177, 136, 90);
+  // --definition-color: #aaa;
+  // --complete-highlight-color: rgb(165, 78, 7);
 }
 
 .start_word, .target_word {
@@ -171,13 +171,13 @@
 
 .history {
   position: fixed;
-  top: 27%;
+  top: 23%;
   left: 50%;
   width: 50%;
   transform: translate(-50%, -50%);
   span {
     display: block;
-    margin: 10px auto;
+    margin: 5px auto;
     letter-spacing: 10px;
     padding-left: 10px;
   }
@@ -215,9 +215,12 @@
   }
 }
 
-.reset {
+.reset, .limit_count {
   position: fixed;
   top: 11vh;
+}
+
+.reset {
   right: 5px;
   font-size: 4vh;
   color: #ccc;
@@ -226,11 +229,27 @@
   }
 }
 
+.limit_count {
+  left: 10px;
+  color: var(--main-background-color);
+  opacity: 0.5;
+  .limit_dot {
+    width: 3vh;
+    height: 3vh;
+    text-align: center;
+    font-size: 3vh;
+    display: block;
+  }
+  .glyphicon-heart-empty {
+    margin-left: -2px;
+  }
+}
+
 .definition {
   position: fixed;
   width: 100%;
   .definition_content {
-    padding: 20px;
+    padding: 40px;
     max-width: 500px;
     color: var(--definition-color);
     text-align: center;
@@ -238,6 +257,15 @@
     white-space: pre-wrap;
     margin: 0 auto;
   }
+}
+
+.no_moves_left {
+  position: fixed;
+  width: 100%;
+  text-align: center;
+  padding-top: 80px;
+  color: var(--main-background-color);
+  font-weight: bold;
 }
 
 .message_container {
@@ -298,33 +326,37 @@
   }
 }
 
-.message_container {
-  // .path_word_container:not(:last-child):after {
-  //   content: " ";
-  //   display: block;
-  //   height: 1px;
-  //   background: var(--main-background-text-color);
-  //   width: 300px;
-  //   margin: 0px auto;
-  //   opacity: 0;
-  // }
-  .path_word_container:last-child {
-    margin-bottom: 50px; 
-  }
-}
-
 .btn_custom {
-  display: none;
   background-color: var(--main-background-text-color);
   color: var(--main-background-color);
   font-size: 3vh;
   font-weight: bold;
-  margin-top: 50px;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
   padding: 10px 20px;
-  box-shadow: 0px 0px 30px --box-shadow-color;
+  box-shadow: 0px 0px 30px var(--box-shadow-color);
+}
+
+.next_level_btn_container {
+  display: none;
+  margin: 0 auto;
+  margin-top: 50px;
+  .play_again_link {
+    display: block;
+    text-decoration: none;
+    color: white;
+  }
 }
 
 .undo_link, .undo_link:active, .undo_link:hover, .undo_link:link, .undo_link:visited {
   text-decoration: none;
 }
+.achievement {
+  display: none;
+  text-shadow: 0px 0px 5px var(--box-shadow-color);
+  font-weight: bold;
+  margin-top: 30px;
+  #achievement_header {
+    font-size: 3.5vh;
+  }
+}
+

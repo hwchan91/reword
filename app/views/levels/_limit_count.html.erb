@@ -1,0 +1,19 @@
+<div class="limit_count">
+  <% remaining_steps_to_optimal.times do %>
+    <div class="limit_dot glyphicon glyphicon-chevron-down"></div>
+  <% end %>
+
+  <% if within_optimal? %>
+    <div class="limit_dot glyphicon glyphicon-flag"></div>
+  <% end %>
+
+  <% if within_limit? %>
+    <% steps_before_limit_after_optimal.times do%>
+      <div class="limit_dot glyphicon glyphicon-chevron-down"></div>
+    <% end %>
+  <% end %>
+  
+  <% if limit_exist_after_optimal %>
+    <div class="limit_dot glyphicon glyphicon-remove-circle"></div>
+  <% end %>
+</div>

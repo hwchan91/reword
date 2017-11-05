@@ -3,11 +3,12 @@ class LevelsController < ApplicationController
   before_action :get_word, only: [:show]
 
   def show
-    if complete
-      render 'complete'
-    else
-      @undo = params[:undo]
-      render 'show'
+    respond_to do |format|
+      format.html do 
+        @complete = true if complete
+        render (complete ? 'complete' : 'show')
+      end
+      format.js { reload_show }
     end
   end
 
@@ -16,29 +17,32 @@ class LevelsController < ApplicationController
     history = session[:"level#{params[:id]}_history"] ||= [] #empty array is necc for valid_transition method
     if last_word.valid_transition?(new_word, history)
       if session[:"level#{params[:id]}_history"]
-        session[:"level#{params[:id]}_history"] << {word: new_word, changed_index: params[:changed_index]} #new_word
+        session[:"level#{params[:id]}_history"] << word_hash 
       else
-        session[:"level#{params[:id]}_history"] = [ {word: new_word, changed_index: params[:changed_index]} ] #[new_word]
+        session[:"level#{params[:id]}_history"] = [word_hash]
       end
     end
-    redirect_to level_path(params[:id])
+    reload_show
   end
 
   def reset
     session[:"level#{params[:id]}_history"] = nil
-    redirect_to level_path(params[:id])
+    reload_show
   end
 
   def undo
     undo_to_index = -(params[:steps].to_i + 1)
     history = session[:"level#{params[:id]}_history"]
     session[:"level#{params[:id]}_history"] = history[0..undo_to_index] unless history.length <= 1
-    redirect_to level_path(params[:id], undo: 'true')
+
+    @undo = true
+    reload_show
   end
 
   private
     def set_level
       @level = Level.find(params[:id])
+      @limit = @level.limit ||= @level.path.length + 2
       if session[:"level#{params[:id]}_history"].is_a? Array
         @history = session[:"level#{params[:id]}_history"]
       else
@@ -60,7 +64,20 @@ class LevelsController < ApplicationController
       @level.target == @word.word
     end
 
+    def reload_show
+      set_level
+      get_word
+      if complete
+        @complete = true
+        render 'complete.js'
+      else
+        render 'reload_show.js'
+      end
+    end
 
-  
+    def word_hash
+      {"word" => params[:word], "changed_index" => params[:changed_index]}
+    end
+
 
 end

@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171021072534) do
+ActiveRecord::Schema.define(version: 20171105072010) do
 
   create_table "levels", force: :cascade do |t|
     t.string "start"
     t.string "target"
     t.text "path"
+    t.integer "limit"
   end
 
 end

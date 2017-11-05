@@ -1,4 +1,4 @@
-<%= link_to move_level_path(@level.id, word: word, changed_index: changed_index.to_s) do %>  
+<%= link_to move_level_path(@level.id, word: word, changed_index: changed_index.to_s), remote: true do %>  
   <div class="btn next_word">
     <% word.upcase.split("").each_with_index do |letter, letter_index| %>
       <div class='next_word_letter <%= highlight_letter_if_changed(letter_index, changed_index) %>'><%= letter %></div>

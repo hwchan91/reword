@@ -1,0 +1,17 @@
+<% if @undo %>
+ <span class="hidden" id="undo"></span>
+<% end %>
+
+<%= render 'start_word' %>
+<%= render 'reset_button' %>
+<%= render 'history' %>
+
+<% if @history.length == @limit %>
+  <%= render 'curr_word_disabled' %>
+<% else %>
+  <%= render 'curr_word_choices' %>
+<% end %>
+
+<%= render 'limit_count' %>
+<%= render 'choices_modal' %>
+<%= render 'target_word' %>

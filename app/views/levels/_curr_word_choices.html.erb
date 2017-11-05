@@ -6,11 +6,11 @@
       <%= render 'curr_word_choice_letter', letter: letter, index: index %>
     <% end %>
 
-    <% if @choices.empty? %>
-      <div class="dead_end">No possible choices</div>
-    <% end %>
-
     <%= render 'word_definition' %>
+
+    <% if @choices.empty? %>
+      <div class="no_moves_left">NO MORE CHOICES</div>
+    <% end %>
   </div>
 
 </div>

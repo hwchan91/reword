@@ -9,6 +9,9 @@
   </head>
 
   <body>
-    <%= yield %>
+    <%= audio_tag('air.mp3', autoplay:true, controls: false, loop: true, preload: 'auto') %>
+    <div class="content">
+      <%= yield %>
+    </div>
   </body>
 </html>
