@@ -1,0 +1,15 @@
+<div> <%# this div is necessary to select last-child element in css %>
+  <% @history.each do |record| %>
+    <div class="path_word_container">
+      <span class="path_word">
+        <% used_word(record).upcase.split("").each_with_index do |letter, letter_index| %>
+          <span class="<%= highlight_letter_if_changed(letter_index, changed_index(record) ) %>"><%= letter %></span>
+        <% end %>
+      </span>
+
+      <div class="path_word_definition">
+        <%= simple_format(Rails.cache.fetch("define_#{used_word(record)}") {Word.new(used_word(record),"common").get_definition}) %>
+      </div>
+    </div>
+  <% end %>
+</div>

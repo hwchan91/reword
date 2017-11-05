@@ -1,0 +1,16 @@
+<div class="curr_word_container">
+  <div class="curr_word text-center">
+    <%= render 'flash_notice' if flash[:notice] %>
+    
+    <% @word.word.upcase.split("").each_with_index do |letter, index| %>
+      <%= render 'curr_word_choice_letter', letter: letter, index: index %>
+    <% end %>
+
+    <% if @choices.empty? %>
+      <div class="dead_end">No possible choices</div>
+    <% end %>
+    
+  </div>
+
+  <%= render 'word_definition' %>
+</div>

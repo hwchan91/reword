@@ -1,0 +1,8 @@
+<span class="curr_word_letter_container">
+  <div class="btn text-center curr_word_letter <%= choosable?(index) %>" data-toggle='modal' data-target="#switch_index_<%= index %>">
+    <%= letter %>
+  </div>        
+  <% if index == (@word.word.length - 1 ) and @choices[nil] %>
+    <div class="reorder_btn" data-toggle='modal' data-target="#reorder_letters"><span class="glyphicon glyphicon-transfer"></span></div>
+  <% end %>
+</span>

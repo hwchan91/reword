@@ -1,0 +1,14 @@
+<div class="history text-center">
+  <% if number_of_prev_steps_exceed(6) %>
+   <span class="glyphicon glyphicon-option-vertical"></span>
+  <% end %>
+
+  <% range_of_prev_steps(6).each do |number_of_prev_steps| %>
+    <% if history_at(number_of_prev_steps) %>
+      <%= link_to undo_level_path(@level.id, steps: backstep(number_of_prev_steps) ), class: "undo_link" do %>
+        <span class="last_<%= distance_from_curr(number_of_prev_steps) %>"><%= history_at(number_of_prev_steps)['word'].upcase %></span>
+      <% end %>
+    <% end %>
+
+  <% end %>
+</div>

@@ -1,0 +1,9 @@
+<div class="curr_word_container">
+  <div class="curr_word text-center">
+    <% @word.word.upcase.split("").each_with_index do |letter, index| %>
+      <div class="btn text-center curr_word_letter"><%= letter %></div>
+    <% end %>
+  </div>
+
+  <%= render 'word_definition' %>
+</div>

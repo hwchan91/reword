@@ -1,0 +1,17 @@
+<% @choices.each do |changed_index, words| %>
+  <div id= <%= describe_action(changed_index) %> class="choices modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+
+          <% words.each do |word| %>
+            <div class="next_word_container text-center">
+              <%= render 'word_choice_button', word: word, changed_index: changed_index %>
+            </div>
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

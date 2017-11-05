@@ -32,10 +32,10 @@ class LevelsController < ApplicationController
     undo_to_index = -(params[:steps].to_i + 1)
     history = session[:"level#{params[:id]}_history"]
     session[:"level#{params[:id]}_history"] = history[0..undo_to_index] unless history.length <= 1
-    #redirect_to level_path(params[:id])
+
     set_level
     get_word
-    @undo = "true"
+    @undo = 'true'
     render 'show'
   end
 
