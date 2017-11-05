@@ -183,7 +183,9 @@ function everyFunction() {
     if ($("#undo").length == 0) {
       setTimeout(function() {
         if ($(".undo_link").length > 0 ) {
-          [...Array($(".undo_link").length - 1).keys()].forEach(function(index) {
+          var undo_link_length = $(".undo_link").length
+          var range =  new Array(undo_link_length - 1).join().split(',').map(function(item, index){ return ++index;})
+          range.forEach(function(index) {
             $(".last_" + (index + 1) ).addClass("last_" + (index + 2), 500).removeClass("last_" + (index + 1), function() {
             })
           })
@@ -203,5 +205,6 @@ function everyFunction() {
     })
   }
   moveAnimation();
+
   
 }
