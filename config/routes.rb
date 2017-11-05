@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root to: 'levels#show', id: 1
   resources :levels, only: [:show] do
     member do
       get "move"
