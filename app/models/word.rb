@@ -154,19 +154,24 @@ class Word
                                       'app_id': ENV['OXFORD_ID'],
                                       'app_key': ENV["OXFORD_KEY"] 
                                       })
-    
-                                    
-    if response['results']    
-      entries = response['results'][0]['lexicalEntries'].find{|entry| entry['lexicalCategory'] == word_base[:form]}['entries']
+                                
+    if response['results']
+      # occassionally, the lemma will return a form that does not exist in the entries
+      begin
+        entries = response['results'][0]['lexicalEntries'].find{|entry| entry['lexicalCategory'] == word_base[:form]}['entries']
+      rescue
+        entries = response['results'][0]['lexicalEntries'][0]['entries']
+      end
       definitions = entries.map{|entry| entry['senses'].map{|s| (s['definitions']) ? s['definitions'][0]: nil }}.compact
+      definitions.map!{|entry| entry[0]}.reject!{|entry| entry.blank?}
       #response['results'][0]['lexicalEntries'][0]['entries'][0]['senses'].map{|s| s['definitions']}
       first_definitions = []
       if definitions.length > 1
         definitions.each_with_index do |defin, index| 
-          first_definitions << "#{index + 1}. #{defin[0].capitalize}"
+          first_definitions << "#{index + 1}. #{defin.capitalize}"
         end
       else
-        first_definitions << "#{definitions[0][0].capitalize}"
+        first_definitions << "#{definitions[0].capitalize}"
       end
     end
     return first_definitions.join("\t")

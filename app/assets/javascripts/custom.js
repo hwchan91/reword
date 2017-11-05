@@ -23,25 +23,20 @@
 
 $(document).on('turbolinks:load', function() {
 
-  function centerDefinition() {
-    offset = $('.curr_word_letter').first().offset();
-    from_top = Math.round(offset.top);
-    $('.definition').css('top', from_top + 50 );
+  function openReorderModal() {
+    $('.reorder_btn').click(function(event) {
+      event.stopPropagation();
+      $("#reorder_letters").modal("show");
+    })
   }
-  centerDefinition();
+  openReorderModal();
 
-  $(window).on("resize", function() {
-    centerDefinition();
-  });
-
-  $('.reorder_btn').click(function(event) {
-    event.stopPropagation();
-    $("#reorder_letters").modal("show");
-  })
-
-  $('.next_word_container').click(function() {
-    $('.modal').modal('hide');
-  })
+  function closeModalWhenClickedOutside() {
+    $('.next_word_container').click(function() {
+      $('.modal').modal('hide');
+    })
+  }
+  closeModalWhenClickedOutside();
 
   function endingAnimation() {
     function closeLevelAnimation() {
@@ -115,7 +110,7 @@ $(document).on('turbolinks:load', function() {
     }
 
     function automaticScroll() {
-      $("html,body").stop().animate({ scrollTop: $(document).height() }, 'slow');
+      $("html,body").stop().delay(2000).animate({ scrollTop: $(document).height() }, 'slow');
     }
 
     function gradientHighlightLetter() {

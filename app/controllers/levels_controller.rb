@@ -6,6 +6,7 @@ class LevelsController < ApplicationController
     if complete
       render 'complete'
     else
+      @undo = params[:undo]
       render 'show'
     end
   end
@@ -32,11 +33,7 @@ class LevelsController < ApplicationController
     undo_to_index = -(params[:steps].to_i + 1)
     history = session[:"level#{params[:id]}_history"]
     session[:"level#{params[:id]}_history"] = history[0..undo_to_index] unless history.length <= 1
-
-    set_level
-    get_word
-    @undo = 'true'
-    render 'show'
+    redirect_to level_path(params[:id], undo: 'true')
   end
 
   private

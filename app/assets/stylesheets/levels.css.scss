@@ -94,14 +94,21 @@
 
 .curr_word_letter_container {
   position: relative;
+  height: 7vh;
+  width: 7vh;
+  display: inline-block;
 }
 
 .reorder_btn {
   position: absolute;
-  bottom: -2.7vh;
+  top: 0;
   left: 10vh;
   color: var(--main-border-color);
   font-size: 5vh;
+  height: 7vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .modal-backdrop {
