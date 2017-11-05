@@ -146,6 +146,7 @@ class Word
                                               }
       word_base = preferred_word_base(word_bases)
     end
+    word_base = { word: @word, form: nil } if word_base.nil?
     
     definition_url = "https://od-api.oxforddictionaries.com:443/api/v1/entries/en/#{word_base[:word]}"
     response =  HTTParty.get(definition_url,
@@ -154,7 +155,7 @@ class Word
                                       'app_id': ENV['OXFORD_ID'],
                                       'app_key': ENV["OXFORD_KEY"] 
                                       })
-                                
+    
     if response['results']
       # occassionally, the lemma will return a form that does not exist in the entries
       begin

@@ -33,6 +33,7 @@ function everyFunction() {
   function clickAndDisable() {
     $('a').each(function() {
       $(this).click(function(event) {
+        console.log($(this));
         $('a, .btn').css('pointerEvents', 'none'); //disables the link once clicked
         $('.reorder_btn').off();
         $('.modal-backdrop').fadeOut("fast");
@@ -175,7 +176,10 @@ function everyFunction() {
   };
 
   function disableBackLinks() {
-    $(".undo_link").css('pointerEvents', 'none');
+    $(".undo_link").each(function() {
+     $(this).css('pointer-events', 'none');
+     $(this).css('cursor', 'default');
+    })
   }
 
 
@@ -184,10 +188,9 @@ function everyFunction() {
       setTimeout(function() {
         if ($(".undo_link").length > 0 ) {
           var undo_link_length = $(".undo_link").length
-          var range =  new Array(undo_link_length - 1).join().split(',').map(function(item, index){ return ++index;})
+          var range =  new Array(undo_link_length - 1).join().split(',').map(function(item, index){ return index++;})
           range.forEach(function(index) {
-            $(".last_" + (index + 1) ).addClass("last_" + (index + 2), 500).removeClass("last_" + (index + 1), function() {
-            })
+            $(".last_" + (index + 1) ).addClass("last_" + (index + 2), 500)//.removeClass("last_" + (index + 1))
           })
         }
         $(".last_0").addClass("last_1").fadeIn(500).removeClass("last_0");
