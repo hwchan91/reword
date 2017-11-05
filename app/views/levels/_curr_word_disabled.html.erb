@@ -4,13 +4,15 @@
         <div class="btn text-center curr_word_letter"><%= letter %></div>
     <% end %>
 
-    <%= render 'word_definition' %>
+    <div class="below_curr_word">
+      <%= render 'word_definition' %>
 
-    <% unless @complete %>
-      <div class="no_moves_left">
-      NO MOVES LEFT
-      </div>
-    <% end %>
+      <% unless @complete %>
+        <div class="no_moves_left">
+        NO MOVES LEFT
+        </div>
+      <% end %>
+    </div>
 
   </div>
 

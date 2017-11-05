@@ -35,6 +35,7 @@ function everyFunction() {
       $(this).click(function(event) {
         $('a, .btn').css('pointerEvents', 'none'); //disables the link once clicked
         $('.reorder_btn').off();
+        $('.modal-backdrop').fadeOut("fast");
       })
     });
   }
@@ -47,6 +48,7 @@ function everyFunction() {
     })
   }
   closeModalWhenClickedOutside();
+
 
   function endingAnimation() {
     function closeLevelAnimation() {
@@ -166,10 +168,15 @@ function everyFunction() {
   }
 
   if ($("#level_complete").length > 0) { 
+    disableBackLinks();
     setTimeout(function() {
       endingAnimation();
     }, 2000);
   };
+
+  function disableBackLinks() {
+    $(".undo_link").css('pointerEvents', 'none');
+  }
 
 
   function moveAnimation() {

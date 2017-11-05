@@ -55,6 +55,10 @@
   bottom: 0;
 }
 
+#start, #target {
+  padding-left: 20px;
+}
+
 .curr_word_container {
   opacity: 0;
 }
@@ -232,12 +236,12 @@
 .limit_count {
   left: 10px;
   color: var(--main-background-color);
-  opacity: 0.5;
+  opacity: 0.8;
   .limit_dot {
-    width: 3vh;
-    height: 3vh;
+    width: 4vh;
+    height: 4vh;
     text-align: center;
-    font-size: 3vh;
+    font-size: 4vh;
     display: block;
   }
   .glyphicon-heart-empty {
@@ -245,8 +249,12 @@
   }
 }
 
+.below_curr_word {
+  position: fixed; 
+  width: 100%;
+}
+
 .definition {
-  position: fixed;
   width: 100%;
   .definition_content {
     padding: 40px;
@@ -260,12 +268,11 @@
 }
 
 .no_moves_left {
-  position: fixed;
   width: 100%;
   text-align: center;
-  padding-top: 80px;
   color: var(--main-background-color);
   font-weight: bold;
+  font-size: 2.5vh;
 }
 
 .message_container {

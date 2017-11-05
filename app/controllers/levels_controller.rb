@@ -3,6 +3,10 @@ class LevelsController < ApplicationController
   before_action :get_word, only: [:show]
 
   def show
+    if params[:next_level]
+      session.delete(:"level#{params[:id].to_i - 1}_history")
+    end
+
     respond_to do |format|
       format.html do 
         @complete = true if complete
