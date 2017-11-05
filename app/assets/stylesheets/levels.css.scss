@@ -56,7 +56,8 @@
 }
 
 #start, #target {
-  padding-left: 20px;
+  padding-left: 4.5vh;
+  letter-spacing: 2.5vh;
 }
 
 .curr_word_container {
@@ -258,10 +259,10 @@
   width: 100%;
   .definition_content {
     padding: 40px;
-    max-width: 500px;
+    max-width: 800px;
     color: var(--definition-color);
     text-align: center;
-    font-size: 2.5vh;
+    font-size: 1.7vh;
     white-space: pre-wrap;
     margin: 0 auto;
   }
