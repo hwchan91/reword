@@ -43,6 +43,10 @@ class LevelsController < ApplicationController
     reload_show
   end
 
+  def index
+    @levels = Level.all
+  end
+
   private
     def set_level
       @level = Level.find(params[:id])

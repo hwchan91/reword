@@ -207,14 +207,12 @@ function everyFunction() {
   }
   moveAnimation();
 
-  var soundcloud_elem = $('#sc_player')[0];
-  var soundcloud_player = SC.Widget(soundcloud_elem);
-
-  $('.music_btn').click(function() {
-    soundcloud_player.toggle();
-  })
 
   $(".music_btn").click(function() {
+    var soundcloud_elem = $('#sc_player')[0];
+    var soundcloud_player = SC.Widget(soundcloud_elem);
+    soundcloud_player.toggle();
+
     var btn = $(this).children('.glyphicon')
     if (btn.hasClass('glyphicon-music')) {
       btn.addClass('glyphicon-volume-off');
@@ -223,7 +221,22 @@ function everyFunction() {
       btn.addClass('glyphicon-music');
       btn.removeClass('glyphicon-volume-off');
     }
+    
   })
+
+    
+
+  // $(".music_btn").bind(SC.Widget.Events.PLAY,function() {
+  //   var btn = $(".music_btn").children('.glyphicon');
+  //   btn.addClass('glyphicon-music');
+  //   btn.removeClass('glyphicon-volume-off');
+  // });
+  // $(".music_btn").bind(SC.Widget.Events.PAUSE,function() {
+  //   var btn = $(".music_btn").children('.glyphicon');
+  //   btn.addClass('glyphicon-volume-off');
+  //   btn.removeClass('glyphicon-music');
+  // });
+
 
 
 }
