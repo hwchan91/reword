@@ -33,7 +33,7 @@ module LevelsHelper
   end
 
   def reorder_letters?(changed_index)
-    changed_index == "all" #nil signifies reorder, "none"(defined below) signifies starting word
+    changed_index.nil? #nil signifies reorder, "none"(defined below) signifies starting word
   end
 
   def describe_action(changed_index)
@@ -48,7 +48,7 @@ module LevelsHelper
     changed_index = record["changed_index"]
     case changed_index
     when nil then "none" 
-    when "" then "all"
+    when "" then nil
     else changed_index.to_i
     end
   end

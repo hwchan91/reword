@@ -120,9 +120,7 @@ function everyFunction() {
     function displayDefinitionWhenHover(that) {
       var word = $(that)
       var definition = word.next(".path_word_definition")
-      word.hover(function() { 
-        toggleDefinition(definition)
-      }, function() { 
+      word.click(function() { 
         toggleDefinition(definition)
       });
     }
@@ -209,5 +207,23 @@ function everyFunction() {
   }
   moveAnimation();
 
-  
+  var soundcloud_elem = $('#sc_player')[0];
+  var soundcloud_player = SC.Widget(soundcloud_elem);
+
+  $('.music_btn').click(function() {
+    soundcloud_player.toggle();
+  })
+
+  $(".music_btn").click(function() {
+    var btn = $(this).children('.glyphicon')
+    if (btn.hasClass('glyphicon-music')) {
+      btn.addClass('glyphicon-volume-off');
+      btn.removeClass('glyphicon-music');
+    } else {
+      btn.addClass('glyphicon-music');
+      btn.removeClass('glyphicon-volume-off');
+    }
+  })
+
+
 }

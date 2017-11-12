@@ -4,15 +4,15 @@
 :root {
   --main-background-color: #8be0de;
   --main-background-text-color: white;
-  --main-border-color: #8be0de;
+  --main-border-color: var(--main-background-color); //#8be0de;
   --main-text-color: black;
   --unchoosable-color: #f4f4f4;
   --choices-background-color: white;
-  --highlight-color: #8be0de;
+  --highlight-color: var(--main-background-color); //#8be0de;
   --choosable-hover-color: white;
-  --modal-backdrop-color: #6a8389;
+  --modal-backdrop-color: rgb(204, 204, 204);
   --box-shadow-color: #e8f8ff;
-  --word-choice-color: #337ab7;
+  --word-choice-color: var(--complete-highlight-color);
   --word-choice-hover-color: black;
   --definition-color: #aaa;
   --complete-highlight-color: rgb(50, 163, 202);
@@ -148,7 +148,7 @@
     font-size: 5vh;
     border: 1px solid var(--main-border-color);
     margin: 10px auto;
-    padding: 0px 10px 0px 20px;
+    padding: 0px 10px;
     opacity: 1;
     background-color: var(--choices-background-color);
   }
@@ -156,11 +156,10 @@
     background-color: none;
     .next_word_letter {
       margin: 0;
-      padding: 3px;
       display: inline-block;
+      width: 5vh;
     }
     .next_word_letter:last-child {
-      padding-right: 13px;
     }
     .highlight {
       color: var(--highlight-color);
@@ -230,8 +229,14 @@
   right: 5px;
   font-size: 4vh;
   color: #ccc;
-  a, a:hover, a:active, a:link, a:visited {
+  a:active, a:link, a:visited {
     color: #ccc;
+  }
+  a:hover, .instruction_btn:hover, .music_btn:hover {
+    color: var(--main-background-color);
+  }
+  .instruction_btn, .music_btn {
+    cursor: pointer;
   }
 }
 
@@ -316,6 +321,10 @@
     font-weight: bold;
     font-size: 5vh;
     margin-bottom: 0px;
+    span {
+      width: 4vh;
+      display: inline-block;
+    }
   }
   .path_word:hover + .path_word_definition {
     display: block;
