@@ -387,10 +387,16 @@ html, body {
   max-width: 100%;
   overflow-x: hidden;
 }
-iframe {
-  position: absolute;
-  left: 99999px;
+.overflow_div {
+  overflow: hidden;
+  max-width: 100vw;
+  position: relative;
+  iframe {
+    position: absolute;
+    left: 99999px;
+  }
 }
+
 
 
 #instructions {
