@@ -597,22 +597,25 @@ html, body {
   }
   .options_container {
     position: relative;
-    width: 70vw;
     max-width: 300px;
     padding: 30px;
     background: white;
     color: var(--main-background-color);
     margin: 0 auto;
+    font-size: 28px;
     .close_options {
       position: absolute;
       top: 5px;
       right: 5px;
-      font-size: 3vh;
+      font-size: 20px;
       color: #ccc;
     }
     .select_level_btn:link {
       text-decoration: none;
       color: #aaa;
+    }
+    .glyphicon-remove {
+      -webkit-text-stroke: 4px white;
     }
   }
 }
