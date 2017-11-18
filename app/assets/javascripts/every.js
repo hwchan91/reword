@@ -298,4 +298,9 @@ function everyFunction() {
   $('#start').lettering();
   $('#target').lettering();
 
+  $('.select_level_btn').click(function() {
+    //$('#options_overlay').modal('hide');
+    $('.content>div').fadeOut('fast');
+  })
+
 }
