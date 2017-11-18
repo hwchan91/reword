@@ -33,7 +33,6 @@ function everyFunction() {
   function clickAndDisable() {
     $('a').each(function() {
       $(this).click(function(event) {
-        console.log($(this));
         $('a, .btn').css('pointerEvents', 'none'); //disables the link once clicked
         $('.reorder_btn').off();
         $('.modal-backdrop').fadeOut("fast");
@@ -208,35 +207,95 @@ function everyFunction() {
   moveAnimation();
 
 
-  $(".music_btn").click(function() {
+  $(".music_btn, .music_row").click(function() {
+    togglePlayer();
+    checkIfMusicPlaying();
+  })
+
+  function togglePlayer() {
     var soundcloud_elem = $('#sc_player')[0];
     var soundcloud_player = SC.Widget(soundcloud_elem);
     soundcloud_player.toggle();
+  }
 
-    var btn = $(this).children('.glyphicon')
-    if (btn.hasClass('glyphicon-music')) {
-      btn.addClass('glyphicon-volume-off');
-      btn.removeClass('glyphicon-music');
-    } else {
-      btn.addClass('glyphicon-music');
-      btn.removeClass('glyphicon-volume-off');
+  function checkIfMusicPlaying() {
+    var soundcloud_elem = $('#sc_player')[0];
+    var soundcloud_player = SC.Widget(soundcloud_elem);
+    var btn = $('.music_btn').children('.glyphicon')
+    soundcloud_player.isPaused(function(e) {
+      if (e) {
+        btn.addClass('glyphicon-volume-off');
+        btn.removeClass('glyphicon-volume-up');
+      } else {;
+        btn.addClass('glyphicon-volume-up');
+        btn.removeClass('glyphicon-volume-off');
+      }
+    })
+    // $('.music_btn').fadeIn();
+  }
+  setTimeout(checkIfMusicPlaying, 1000);
+  
+  
+  //level selection page functions
+  function addSpanAroundLetters() {
+    $(".level_start_word").lettering();
+    $(".level_target_word").lettering();
+  }
+  addSpanAroundLetters();
+
+  function goToLevel() {
+    $('.level_btn').click(function() {
+      var $self = $(this)
+      var $level = $self.parent('.level')
+      if (!$self.hasClass("loading") && ( $level.hasClass('completed_level') || $level.prev('.level').hasClass('completed_level') ) ) {
+        var level = $level.data('level')
+        var $start = $level.children('.level_start_word')
+        var $target = $level.children('.level_target_word')
+
+        if (!$start.is(':visible')) {
+          $('.level_start_word').fadeOut('slow');
+          $('.level_target_word').fadeOut('slow');
+          $start.fadeIn('slow');
+          $target.fadeIn('slow');
+        } else {
+          $('.level_btn').addClass("loading");
+          $.getScript('/levels/' + level);
+          $('.level_selection_page').fadeOut(1000);
+        }
+      }
+    })
+  }
+  goToLevel();
+
+  function scrollToLatestLevel() {
+    var incomplete_levels = $('.level:not(.completed_level)')
+    if (incomplete_levels.length > 0 ) {
+      var window_height = $(window).height();
+      var top_offset = incomplete_levels.first().offset().top + incomplete_levels.first().height() / 2 - window_height / 2
+      $('html, body').delay(500).animate({scrollTop: top_offset}, "slow")
     }
-    
+  }
+  scrollToLatestLevel();
+
+  $(".options").click(function() {
+    $(".options_overlay").css("display", "flex");
   })
 
-    
+  $(".back_btn").click(function() {
+    $(".options_overlay").css("display", "none");
+  });
 
-  // $(".music_btn").bind(SC.Widget.Events.PLAY,function() {
-  //   var btn = $(".music_btn").children('.glyphicon');
-  //   btn.addClass('glyphicon-music');
-  //   btn.removeClass('glyphicon-volume-off');
-  // });
-  // $(".music_btn").bind(SC.Widget.Events.PAUSE,function() {
-  //   var btn = $(".music_btn").children('.glyphicon');
-  //   btn.addClass('glyphicon-volume-off');
-  //   btn.removeClass('glyphicon-music');
-  // });
+  $('body').click(function() {
+    if (!$('body').hasClass("music_started")) {
+      var soundcloud_elem = $('#sc_player')[0];
+      var soundcloud_player = SC.Widget(soundcloud_elem);
+      soundcloud_player.play();
+      checkIfMusicPlaying();
+      $('body').addClass("music_started") 
+    }
+  });
 
-
+  $('#start').lettering();
+  $('#target').lettering();
 
 }

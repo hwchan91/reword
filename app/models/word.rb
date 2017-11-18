@@ -164,7 +164,6 @@ class Word
         rescue
           entries = response['results'][0]['lexicalEntries'][0]['entries']
         end
-        binding.pry
         definitions = entries.map{|entry| entry['senses'].map{|s| (s['definitions']) ? s['definitions'][0]: nil }}.compact
         definitions.map!{|entry| entry[0]}.reject!{|entry| entry.blank?}
         #response['results'][0]['lexicalEntries'][0]['entries'][0]['senses'].map{|s| s['definitions']}

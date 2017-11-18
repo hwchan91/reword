@@ -2,14 +2,39 @@
   <%= link_to reset_level_path(@level.id), remote: true do %>
     <span class="glyphicon glyphicon-refresh"></span>
   <% end %>
+  <% if false %>
   <div class="instruction_btn" data-toggle='modal' data-target="#instructions">
     ?
   </div>
-  <div class="music_btn">
-    <span class="glyphicon glyphicon-volume-off"></span>
+  <%= render 'music_btn' %>
+  <% end %>
+  <div class="options_btn" data-toggle='modal' data-target="#options_overlay">
+  <span class="glyphicon glyphicon-th-large"></span>
   </div>
 </div>
 
+<div id="options_overlay" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+      
+        <div class="options_container">
+          <span data-dismiss="modal" class="glyphicon glyphicon-remove close_options"></span>
+          <div class="music_row">
+            Music 
+            <%= render 'music_btn' %>
+          </div>
+          <div><%=link_to "Select Level", levels_path, remote: true, class:  "select_level_btn" %></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<% if false %>
 <div id="instructions" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -36,3 +61,4 @@
     </div>
   </div>
 </div>
+<% end %>

@@ -1,7 +1,7 @@
 <div class="message_container">
   <div class="message">
     <div id="well_done">WELL <span></span> DONE</div>
-    <div id="completed_in">YOU HAVE COMPLETED IN <span id="path_length"><%= @history.length - 1 %></span><%= pluralize_without_count((@history.length - 1), 'move').upcase %></div>
+    <div id="completed_in">YOU HAVE COMPLETED IN <span id="path_length"><%= @history.length - 1 %></span> <%= pluralize_without_count((@history.length - 1), 'move').upcase %></div>
     <%= render 'history_all' %>
     <%= render 'achievement' if within_optimal?  %>
     <div class="next_level_btn_container">

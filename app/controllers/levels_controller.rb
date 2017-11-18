@@ -45,6 +45,13 @@ class LevelsController < ApplicationController
 
   def index
     @levels = Level.all
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
+  def home
   end
 
   private

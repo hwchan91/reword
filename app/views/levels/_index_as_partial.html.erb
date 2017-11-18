@@ -1,0 +1,22 @@
+<% up_to = 4 %>
+
+<div class="level_selection_page">
+  <div class="chapter">beginnings</div>
+
+  <% @levels.each do |level| %>
+    <% completed_level = (level.id <= up_to) ? "completed_level" : ""%>
+    <% all_complete = up_to > 10 ? "all_complete" : "" %>
+    <div class="level <%=completed_level%> <%= all_complete %>" data-level="<%= level.id %>">
+      <div class="level_start_word"><%= level.start %></div>
+
+      <div class="level_btn">
+        <span class="glyphicon glyphicon-flag"></span>
+        <span class="level_id"><%= level.id %></span>
+      </div>
+
+      <div class="level_target_word"><%= level.target %></div>
+    </div>
+
+  <% end %>
+
+</div>

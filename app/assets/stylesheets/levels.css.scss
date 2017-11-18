@@ -13,7 +13,7 @@
   --modal-backdrop-color: rgb(204, 204, 204);
   --box-shadow-color: #e8f8ff;
   --word-choice-color: var(--complete-highlight-color);
-  --word-choice-hover-color: black;
+  --word-choice-hover-color: var(--complete-highlight-color);
   --definition-color: #aaa;
   --complete-highlight-color: rgb(50, 163, 202);
 
@@ -56,8 +56,11 @@
 }
 
 #start, #target {
-  padding-left: 4.5vh;
-  letter-spacing: 2.5vh;
+  span {
+    width: 7vh;
+    display: inline-block;
+    letter-spacing: 0;
+  }
 }
 
 .curr_word_container {
@@ -107,7 +110,7 @@
 .reorder_btn {
   position: absolute;
   top: 0;
-  left: 10vh;
+  left: calc(7vh + 5px);
   color: var(--main-border-color);
   font-size: 5vh;
   height: 7vh;
@@ -284,7 +287,7 @@
 
 .message_container {
   display: none;
-  min-height: 100vh;
+  //min-height: 100vh;
   width: 100%;
   text-align: center;
   background-color: var(--main-background-color);
@@ -333,7 +336,6 @@
     color: var(--main-background-text-color);
     text-align: center;
     font-size: 12px;
-    //white-space: pre-wrap;
     max-width: 80vw;
     margin: 0px auto;
     margin-top: 10px;
@@ -352,6 +354,8 @@
   margin-bottom: 20px;
   padding: 10px 20px;
   box-shadow: 0px 0px 30px var(--box-shadow-color);
+  width: 80%;
+  max-width: 250px;
 }
 
 .next_level_btn_container {
@@ -379,8 +383,13 @@
   }
 }
 
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
 iframe {
-  display: none;
+  position: absolute;
+  left: 99999px;
 }
 
 #instructions {
@@ -395,5 +404,219 @@ iframe {
 
 .instruction_btn {
   font-weight: bold;
-  margin-left: 5px;
+  margin-left: 0.8vh;
+}
+
+.level_selection_page, .starting_page {
+  background: var(--main-background-color);
+  background: -webkit-linear-gradient(left, var(--complete-highlight-color), var(--main-background-color)); /*Safari 5.1-6*/
+  background: -o-linear-gradient(right, var(--complete-highlight-color), var(--main-background-color)); /*Opera 11.1-12*/
+  background: -moz-linear-gradient(right, var(--complete-highlight-color), var(--main-background-color)); /*Fx 3.6-15*/
+  background: linear-gradient(to right, var(--complete-highlight-color), var(--main-background-color)); /*Standard*/
+  padding: 20px 0px;
+}
+
+// .starting_page, .level_selection_page {
+//   .music_btn {
+//     position: absolute;
+//     top: 5px;
+//     right: 5px;
+//     font-size: 3vh;
+//     color: white;
+//     opacity: 0.5;
+//   }
+// }
+
+.starting_page {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center; 
+  .play_btn {
+    width: 100vw;
+    font-size: 10vh;
+    color: white;
+    text-align: right;
+    margin-top: 70px;
+    padding-right: 20px;
+    font-family: "Trebuchet MS", Helvetica, sans-serif; 
+  }
+  .game_title {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 7vh;
+    color: white;
+    opacity: 0.3;
+  }
+  #play_link:link {
+    text-decoration: none;
+    color: white;
+    margin-right: 20px;
+  }
+  .options {
+    font-size: 5vh;
+    opacity: 0.7;
+    margin-right: 20px;
+  }
+  .options_overlay {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: var(--main-background-color);
+    background: -webkit-linear-gradient(left, var(--complete-highlight-color), var(--main-background-color)); /*Safari 5.1-6*/
+    background: -o-linear-gradient(right, var(--complete-highlight-color), var(--main-background-color)); /*Opera 11.1-12*/
+    background: -moz-linear-gradient(right, var(--complete-highlight-color), var(--main-background-color)); /*Fx 3.6-15*/
+    background: linear-gradient(to right, var(--complete-highlight-color), var(--main-background-color)); /*Standard*/
+    color: white;
+    align-items: center; 
+    justify-content: center;
+    font-size: 5vh;
+    .back_btn {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      opacity: 0.8;
+      font-size: 4vh;
+    }
+  }
+}
+
+.options_container {
+  width: 70vw;
+  div {
+    margin: 25px 0px;
+  }
+  .music_row {
+    position: relative;
+    .music_btn {
+      position: absolute;
+      left: 15vh;
+      top: 0.5vh;
+      margin: 0 !important;
+      margin-left: 10px !important;
+    }
+  }
+}
+.options_container > div {
+  cursor: pointer;
+}
+
+.level_selection_page {
+  .level {
+    display: flex;
+    width: 100%;
+    align-items: center; 
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  .level:last-child {
+    margin-bottom: 0px;
+  } 
+  .level_btn {
+    width: 15vh;
+    height: 15vh;
+    line-height: 15vh;
+    text-align: center;
+    font-size: 10vh;
+    border-radius: 50%;
+    background-color: white;
+    color: #eee;
+    box-shadow: 0px 0px 30px var(--box-shadow-color);
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    margin: 0 30px;
+    position: relative;
+    .level_id {
+      z-index: 10;
+      top: 0;
+    }
+    .glyphicon-flag, .level_id {
+      position: absolute;
+      left: 0;
+      font-size: 10vh;
+      width: 100%;
+      text-align: center;
+    }
+    .glyphicon-flag {
+      top: 2vh;
+      z-index: 5;
+      opacity: 0.3;
+    }
+
+  }
+  .completed_level .level_btn {
+    color: var(--main-background-color);
+  }
+  .completed_level:not(.all_complete) .level_start_word, .completed_level:not(.all_complete) .level_target_word {
+    display: none;
+  }
+  .level:not(.completed_level) ~ .level:not(.completed_level) {
+    .level_start_word, .level_target_word {
+      display: none;
+    }
+    .level_btn {
+    opacity: 0.3;
+    }
+  } 
+  .level_start_word span, .level_target_word span {
+    width: 2.5vh;
+    display: inline-block;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 2.5vh;
+    color: white;
+  }
+  .chapter {
+    text-transform: uppercase;
+    color: #eee;
+    font-size: 7vh;
+    font-family:  "Trebuchet MS", Helvetica, sans-serif;
+    text-align: center;
+  }
+}
+
+#options_overlay {
+  color: #aaa;
+  font-size: 5vh;
+  @media (min-width: 768px) {
+    .modal-dialog{
+      position: relative;
+      display: table; /* This is important */ 
+      overflow-y: auto;    
+      overflow-x: auto;
+      width: auto;
+      min-width: 10px;   
+    }
+  }
+  .modal-content, .modal-body {
+    background-color: transparent;
+    -webkit-box-shadow: 0 0px 0px rgba(0,0,0,0);
+    box-shadow: 0 0px 0px rgba(0,0,0,0);
+    border-width: 0px;
+    padding: 0;
+  }
+  .options_container {
+    position: relative;
+    width: 70vw;
+    max-width: 300px;
+    padding: 30px;
+    background: white;
+    color: var(--main-background-color);
+    margin: 0 auto;
+    .close_options {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      font-size: 3vh;
+      color: #ccc;
+    }
+    .select_level_btn:link {
+      text-decoration: none;
+      color: #aaa;
+    }
+  }
 }
