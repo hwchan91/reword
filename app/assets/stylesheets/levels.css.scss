@@ -392,6 +392,7 @@ iframe {
   left: 99999px;
 }
 
+
 #instructions {
   color: #aaa;
   font-size: 2vh;
@@ -415,17 +416,6 @@ iframe {
   background: linear-gradient(to right, var(--complete-highlight-color), var(--main-background-color)); /*Standard*/
   padding: 20px 0px;
 }
-
-// .starting_page, .level_selection_page {
-//   .music_btn {
-//     position: absolute;
-//     top: 5px;
-//     right: 5px;
-//     font-size: 3vh;
-//     color: white;
-//     opacity: 0.5;
-//   }
-// }
 
 .starting_page {
   width: 100vw;
@@ -506,6 +496,7 @@ iframe {
 }
 
 .level_selection_page {
+  width: 100vw;
   .level {
     display: flex;
     width: 100%;
