@@ -270,8 +270,9 @@
     padding: 40px;
     max-width: 800px;
     color: var(--definition-color);
+    opacity: 0.7;
     text-align: center;
-    font-size: 2.5vh;
+    font-size: 2vh;
     white-space: pre-wrap;
     margin: 0 auto;
   }
@@ -335,7 +336,7 @@
   .path_word_definition {
     color: var(--main-background-text-color);
     text-align: center;
-    font-size: 12px;
+    font-size: 2vh;
     max-width: 80vw;
     margin: 0px auto;
     margin-top: 10px;
