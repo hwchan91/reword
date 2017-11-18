@@ -235,10 +235,10 @@
   a:active, a:link, a:visited {
     color: #ccc;
   }
-  a:hover, .instruction_btn:hover, .music_btn:hover {
+  a:hover, .options_btn:hover {
     color: var(--main-background-color);
   }
-  .instruction_btn, .music_btn {
+  .options_btn {
     cursor: pointer;
   }
 }
