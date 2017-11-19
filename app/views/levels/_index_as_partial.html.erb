@@ -1,4 +1,4 @@
-<% up_to = 4 %>
+<% up_to = @completed_levels.last ? @completed_levels.last.level_id : 0 %>
 
 <div class="level_selection_page">
   <div class="chapter">beginnings</div>
@@ -10,7 +10,9 @@
       <div class="level_start_word"><%= level.start %></div>
 
       <div class="level_btn">
-        <span class="glyphicon glyphicon-flag"></span>
+        <% if @completed_levels[level.id - 1] and @completed_levels[level.id - 1].optimal_achieved %>
+          <span class="glyphicon glyphicon-flag"></span>
+        <% end %>
         <span class="level_id"><%= level.id %></span>
       </div>
 

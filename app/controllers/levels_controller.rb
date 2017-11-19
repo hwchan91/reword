@@ -1,16 +1,19 @@
 class LevelsController < ApplicationController
+  before_action :check_if_hack, only: [:show, :move, :reset, :undo]
   before_action :set_level, only: [:show, :move]
   before_action :get_word, only: [:show]
+  before_action :get_completed_levels, only: [:index]
 
   def show
-    if params[:next_level]
-      session.delete(:"level#{params[:id].to_i - 1}_history")
-    end
-
     respond_to do |format|
       format.html do 
-        @complete = true if complete
-        render (complete ? 'complete' : 'show')
+        if complete
+          @complete = true
+          update_records
+          render 'complete'
+        else
+          render 'show'
+        end
       end
       format.js { reload_show }
     end
@@ -84,6 +87,7 @@ class LevelsController < ApplicationController
       get_word
       if complete
         @complete = true
+        update_records
         render 'complete.js'
       else
         render 'reload_show.js'
@@ -93,6 +97,34 @@ class LevelsController < ApplicationController
     def word_hash
       {"word" => params[:word], "changed_index" => params[:changed_index]}
     end
+
+    def update_records
+      level_id = params[:id]
+      path = session[:"level#{level_id}_history"]
+      optimal_achieved = path.length == @level.path.length
+
+      if prev_record = current_user.completed_levels.find_by(level_id: level_id)
+        if prev_record.best_path.length >= path.length
+          prev_record.update_attributes(best_path: path, optimal_achieved: optimal_achieved)
+        end
+      else
+        current_user.completed_levels.create(level_id: params[:id], best_path: path, optimal_achieved: optimal_achieved)
+      end
+      session.delete(:"level#{params[:id]}_history")
+    end
+
+    def get_completed_levels
+      @completed_levels = current_user.completed_levels.order("level_id")
+    end
+
+    def check_if_hack
+      latest_level = current_user.completed_levels.order("level_id").last
+      if (latest_level and params[:id].to_i > latest_level.id + 1 ) or (latest_level.nil? and params[:id].to_i > 1 )
+        redirect_to levels_path, format: :js
+      end
+    end
+
+
 
 
 end

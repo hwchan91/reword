@@ -1,8 +1,25 @@
 <div class="options_container">
-  <div class="music_row">
-    Music 
-    <%= render 'music_btn' %>
+  <div class="default_content">
+    <div class="music_row">
+      Music 
+      <%= render 'music_btn' %>
+    </div>
+    <div class="credits_btn">Credits</div>
+    <div class="send_email">Support</div>
   </div>
-  <div>Credits</div>
-  <div>Support</div>
+
+  <div class="credits_content">
+    <h5>Game Design & Programming</h5>
+    Dion Chan<br><br>
+    <h5>Music</h5>
+    <%= link_to "Jan Amit - Heal [Quok Remix]", "https://soundcloud.com/quok/jan-amit-heal-quok-remix", class:"music_title" %>
+
+    <div class="soundcloud_links">
+      <%= link_to "Jan Amit", "https://soundcloud.com/jan-amit", class: "jan_amit" %>
+      <%= link_to "https://soundcloud.com/quok/jan-amit-heal-quok-remix" do %>
+        <% image_tag "https://spadgos.github.io/sfjs-next-soundcloud/cloud.png", class:"soundcloud_logo" %>
+      <% end %>
+      <%= link_to "Quok", "https://soundcloud.com/quok", class: "quok" %>
+    </div>
+  </div>
 </div>

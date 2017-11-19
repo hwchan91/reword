@@ -254,8 +254,9 @@
     font-size: 4vh;
     display: block;
   }
-  .glyphicon-heart-empty {
-    margin-left: -2px;
+  .glyphicon-triangle-bottom {
+    font-size: 2.5vh;
+    padding-top: 0.5vh;
   }
 }
 
@@ -326,7 +327,7 @@
     font-size: 5vh;
     margin-bottom: 0px;
     span {
-      width: 4vh;
+      width: 5vh;
       display: inline-block;
     }
   }
@@ -429,6 +430,9 @@ html, body {
   height: 100vh;
   display: flex;
   align-items: center; 
+  .options {
+    cursor: pointer;
+  }
   .play_btn {
     width: 100vw;
     font-size: 10vh;
@@ -446,7 +450,7 @@ html, body {
     color: white;
     opacity: 0.3;
   }
-  #play_link:link {
+  #play_link {
     text-decoration: none;
     color: white;
     margin-right: 20px;
@@ -497,10 +501,11 @@ html, body {
       margin-left: 10px !important;
     }
   }
+  .default_content > div {
+    cursor: pointer;
+  }
 }
-.options_container > div {
-  cursor: pointer;
-}
+
 
 .level_selection_page {
   width: 100vw;
@@ -611,7 +616,7 @@ html, body {
       font-size: 20px;
       color: #ccc;
     }
-    .select_level_btn:link {
+    .select_level_btn {
       text-decoration: none;
       color: #aaa;
     }
@@ -622,5 +627,36 @@ html, body {
       left: 80px;
       top: 3px;
     }
+  }
+}
+
+.credits_content {
+  font-size: 4vh;
+  display: none;
+  text-align: center;
+  h5 {
+    font-size: 5vh !important;
+  }
+  .music_title {
+    font-size: 4vh;
+    color: white;
+    text-decoration: none;
+  }
+  .soundcloud_links {
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    a, a:link, a:hover {
+      color: white;
+      font-size: 3vh;
+      text-decoration: none;
+    }
+  }
+  .soundcloud_logo {
+    height: 100px;
+    width: 150px;
+    object-fit: contain;
+    margin-left: 20px;
+    margin-right: 15px;
   }
 }

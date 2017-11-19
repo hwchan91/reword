@@ -39,6 +39,7 @@ gem 'figaro'
 gem "httparty"
 gem 'jquery-ui-rails'
 gem 'dalli'
+gem 'evercookie'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -48,7 +49,8 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'rspec-rails', '~> 3.6'
   gem 'pry'
-  gem 'sqlite3'
+  #gem 'sqlite3'
+  gem 'pg'
 end
 
 group :development do

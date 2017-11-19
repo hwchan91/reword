@@ -33,7 +33,7 @@ function everyFunction() {
   function clickAndDisable() {
     $('a').each(function() {
       $(this).click(function(event) {
-        $('a, .btn').css('pointerEvents', 'none'); //disables the link once clicked
+        $('a, .btn, .options_btn').css('pointerEvents', 'none'); //disables the link once clicked
         $('.reorder_btn').off();
         $('.modal-backdrop').fadeOut("fast");
       })
@@ -207,7 +207,8 @@ function everyFunction() {
   moveAnimation();
 
 
-  $(".music_btn, .music_row").click(function() {
+  $(".music_btn, .music_row").click(function(e) {
+    e.stopPropagation();
     togglePlayer();
     checkIfMusicPlaying();
   })
@@ -231,9 +232,10 @@ function everyFunction() {
         btn.removeClass('glyphicon-volume-off');
       }
     })
-    // $('.music_btn').fadeIn();
   }
-  setTimeout(checkIfMusicPlaying, 1000);
+  if ( $('.starting_page').length == 0 ) {
+    checkIfMusicPlaying();
+  }
   
   
   //level selection page functions
@@ -247,7 +249,7 @@ function everyFunction() {
     $('.level_btn').click(function() {
       var $self = $(this)
       var $level = $self.parent('.level')
-      if (!$self.hasClass("loading") && ( $level.hasClass('completed_level') || $level.prev('.level').hasClass('completed_level') ) ) {
+      if (!$self.hasClass("loading") && ( $level.hasClass('completed_level') || $level.prev('.level').hasClass('completed_level') || $level.prev().hasClass('chapter')   ) ) {
         var level = $level.data('level')
         var $start = $level.children('.level_start_word')
         var $target = $level.children('.level_target_word')
@@ -263,6 +265,8 @@ function everyFunction() {
           $('.level_selection_page').fadeOut(1000);
         }
       }
+
+     
     })
   }
   goToLevel();
@@ -282,25 +286,46 @@ function everyFunction() {
   })
 
   $(".back_btn").click(function() {
-    $(".options_overlay").css("display", "none");
-  });
-
-  $('body').click(function() {
-    if (!$('body').hasClass("music_started")) {
-      var soundcloud_elem = $('#sc_player')[0];
-      var soundcloud_player = SC.Widget(soundcloud_elem);
-      soundcloud_player.play();
-      checkIfMusicPlaying();
-      $('body').addClass("music_started") 
+    if ($('.default_content').is(":visible")) {
+      $(".options_overlay").css("display", "none");
+    } else {
+      $('.credits_content').hide();
+      $('.default_content').show();
     }
   });
+
+  //seems soundcloud takes a while to load, which may cause this function to not work
+  setTimeout(function() {
+    $('body').click(function() {
+      if (!$('body').hasClass("music_started")) {
+        var soundcloud_elem = $('#sc_player')[0];
+        var soundcloud_player = SC.Widget(soundcloud_elem);
+        soundcloud_player.play();
+        checkIfMusicPlaying();
+        $('body').addClass("music_started") 
+      }
+    })  
+  }, 1000);
 
   $('#start').lettering();
   $('#target').lettering();
 
   $('.select_level_btn').click(function() {
-    //$('#options_overlay').modal('hide');
     $('.content>div').fadeOut('fast');
   })
+
+
+  $('.send_email').click(function (event) {
+    var email = 'wordlinkthegame@gmail.com';
+    var subject = 'Comments on Word Link';
+    var emailBody = 'Hi, here are my comments on Word Link:';
+    document.location = "mailto:"+email+"?subject="+subject+"&body="+emailBody;
+  });
+
+  $('.credits_btn').click(function() {
+    $('.credits_content').show();
+    $('.default_content').hide();
+  })
+
 
 }

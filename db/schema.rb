@@ -10,13 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171105072010) do
+ActiveRecord::Schema.define(version: 20171119075504) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "completed_levels", force: :cascade do |t|
+    t.integer "level_id"
+    t.text "best_path", default: [], array: true
+    t.boolean "optimal_achieved", default: false
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "levels", force: :cascade do |t|
     t.string "start"
     t.string "target"
     t.text "path"
     t.integer "limit"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "uid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
