@@ -1,5 +1,5 @@
 PATH
-  remote: evercookie
+  remote: vendor/gems/evercookie
   specs:
     evercookie (0.1.2)
       chunky_png
