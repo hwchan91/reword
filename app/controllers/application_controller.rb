@@ -2,20 +2,18 @@ class ApplicationController < ActionController::Base
   include Evercookie::ControllerHelpers
 
   protect_from_forgery with: :exception
-  before_action :log_in_user
+  before_action :set_cookie
 
   private
-    def log_in_user
-      binding.pry
+    def set_cookie
       unless evercookie_is_set?("uid")
         new_uid = random_uid
         set_evercookie("uid", new_uid)
-        User.create(uid: new_uid)
       end
     end
 
     def current_user
-      @current_user ||= User.find_by(uid: evercookie_get_value("uid"))
+      @current_user ||= User.find_or_create_by(uid: evercookie_get_value("uid"))
     end
 
     def random_uid
