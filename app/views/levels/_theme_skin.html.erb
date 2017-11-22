@@ -1,8 +1,24 @@
-<% if false and @level.id % 2 == 1 %>
-  <style>
+<style>
+<% if level.id.between?(11,20) %>
+  :root {
+    --main-background-color: #1e488c;
+    --complete-highlight-color: rgb(112, 159, 204);
+  }
+<% elsif level.id.between?(21,30) %>
     :root {
-      --main-background-color: #1e488c;
-      --complete-highlight-color: rgb(112, 159, 204);
-    }
-  </style>
+    --main-background-color: #6e845c;
+    --complete-highlight-color: rgb(204, 206, 97);
+  }
+<% elsif level.id.between?(31,40) %>
+    :root {
+    --main-background-color: #580b59;
+    --complete-highlight-color: rgb(119, 126, 168);
+  }
+<% elsif level.id.between?(41,50) %>
+    :root {
+    --main-background-color: black;
+    --complete-highlight-color: rgb(104, 53, 53);
+  }
 <% end %>
+
+</style>

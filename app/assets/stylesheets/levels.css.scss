@@ -356,8 +356,9 @@
   margin-bottom: 20px;
   padding: 10px 20px;
   box-shadow: 0px 0px 30px var(--box-shadow-color);
-  width: 80%;
   max-width: 250px;
+  width: 80%;
+
 }
 
 .next_level_btn_container {
@@ -578,6 +579,39 @@ html, body {
     font-size: 7vh;
     font-family:  "Trebuchet MS", Helvetica, sans-serif;
     text-align: center;
+    margin: 0 auto;
+    position: relative;
+    // display: -webkit-flex; /* Safari */
+
+    a {
+      color: white;
+      text-decoration: none;
+      font-size: 5vh;
+      height: 7vh;
+    }
+    .prev_chap, .next_chap {
+      position: absolute;
+      .glyphicon {
+        //top: 1.6vh;
+      }
+    }
+    .prev_chap {
+      top: -0.2vh;
+      left: 5px;
+    }
+    .next_chap {
+      top: -0.2vh;
+      right: 5px;
+    }
+    // .prev_chap a {
+    //   float:left;
+    //   margin-left: 5px;
+    // }
+    // .next_chap a {
+    //   float: right;
+    //   margin-right: 5px;
+    // }
+
   }
 }
 

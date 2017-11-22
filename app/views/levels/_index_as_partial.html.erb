@@ -1,11 +1,30 @@
+<%= render 'theme_skin', level: @levels.last %>
 <% up_to = @completed_levels.last ? @completed_levels.last.level_id : 0 %>
 
 <div class="level_selection_page">
-  <div class="chapter">beginnings</div>
+  <div class="chapter">
+    <% if @chapter != 1 %>
+      <div class="prev_chap">
+      <%= link_to levels_path(chapter: @chapter - 1), remote: true do %>
+        <span class="glyphicon glyphicon-chevron-left"></span>
+      <% end %>
+      </div>
+    <% end %>
+
+    <div class="chapter_title"><%= @chapter_title %></div>
+
+    <% if @chapter != 5 and (up_to + 1)/10 + 1> @chapter %>
+      <div class="next_chap">
+        <%= link_to levels_path(chapter: @chapter + 1), remote: true do %>
+          <span class="glyphicon glyphicon-chevron-right"></span>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 
   <% @levels.each do |level| %>
     <% completed_level = (level.id <= up_to) ? "completed_level" : ""%>
-    <% all_complete = up_to > 10 ? "all_complete" : "" %>
+    <% all_complete = up_to >= @levels.last.id ? "all_complete" : "" %>
     <div class="level <%=completed_level%> <%= all_complete %>" data-level="<%= level.id %>">
       <div class="level_start_word"><%= level.start %></div>
 

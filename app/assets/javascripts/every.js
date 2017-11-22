@@ -94,6 +94,7 @@ function everyFunction() {
       setTimeout(function() {
         toggleDefinition($(".path_word_definition"));
         fadeInPlayAgain();
+        
       }, 8500 + $(".path_word_container").length * 500 )
     }
     hideDefinitionThenShowButton();
@@ -101,9 +102,11 @@ function everyFunction() {
     function fadeInPlayAgain() {
       if ($(".achievement").length == 0) {
         $(".next_level_btn_container").delay(500).fadeIn();
+        $("html,body").stop().delay(0).animate({ scrollTop: $(document).height() }, 'slow');
       } else {
         $(".achievement").delay(1500).fadeIn(1500);
-        $(".next_level_btn_container").delay(3500).fadeIn();
+        $(".next_level_btn_container").delay(2500).fadeIn();
+        $("html,body").stop().delay(3500).animate({ scrollTop: $(document).height() }, 'slow');
       }
     }
 

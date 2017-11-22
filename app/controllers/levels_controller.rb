@@ -2,7 +2,8 @@ class LevelsController < ApplicationController
   #before_action :check_if_hack, only: [:show, :move, :reset, :undo]
   before_action :set_level, only: [:show, :move]
   before_action :get_word, only: [:show]
-  before_action :get_completed_levels, only: [:index]
+  before_action :get_completed_levels, only: [:index, :chapter_1, :chapter_2]
+  before_action :get_chapter, only: [:index]
 
   def show
     respond_to do |format|
@@ -47,7 +48,9 @@ class LevelsController < ApplicationController
   end
 
   def index
-    @levels = Level.all
+    @levels = Level.where(id: ((@chapter-1) * 10 + 1).. ((@chapter-1) * 10 + 10))
+    @chapter_title = Chapter.find(@chapter).name
+
     respond_to do |format|
       format.html
       format.js
@@ -56,6 +59,16 @@ class LevelsController < ApplicationController
 
   def home
   end
+
+  def chapter_1
+    @levels = Level.first(10)
+  end
+
+  def chapter_2
+    @levels = Level.where(id: 11..20)
+  end
+
+  
 
   private
     def set_level
@@ -121,6 +134,15 @@ class LevelsController < ApplicationController
       latest_level = current_user.completed_levels.order("level_id").last
       if (latest_level and params[:id].to_i > latest_level.id + 1 ) or (latest_level.nil? and params[:id].to_i > 1 )
         redirect_to levels_path, format: :js
+      end
+    end
+
+    def get_chapter
+      @curr_chapter = @completed_levels.empty? ?  1 : (@completed_levels.last.level_id / 10 ) + 1
+      @chapter = params[:chapter].nil? ? @curr_chapter : params[:chapter].to_i
+      # no cheating
+      if params[:chapter] and (@completed_levels.empty? or (@completed_levels.last.level_id / 10) + 1 < @chapter)
+        @chapter = @curr_chapter
       end
     end
 
