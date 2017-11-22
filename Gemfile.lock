@@ -1,5 +1,6 @@
-PATH
-  remote: vendor/gems/evercookie
+GIT
+  remote: https://github.com/hwchan91/evercookie.git
+  revision: 27d3a4e8ec7053deba7e7515f4f7a9ab617406c8
   specs:
     evercookie (0.1.2)
       chunky_png

@@ -39,7 +39,7 @@ gem 'figaro'
 gem "httparty"
 gem 'jquery-ui-rails'
 gem 'dalli'
-gem 'evercookie', :path => "vendor/gems/evercookie"
+gem 'evercookie', :git => "https://github.com/hwchan91/evercookie.git"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
