@@ -1,5 +1,5 @@
 class LevelsController < ApplicationController
-  #before_action :check_if_hack, only: [:show, :move, :reset, :undo]
+  before_action :check_if_hack, only: [:show, :move, :reset, :undo]
   before_action :set_level, only: [:show, :move]
   before_action :get_word, only: [:show]
   before_action :get_completed_levels, only: [:index, :chapter_1, :chapter_2]
@@ -132,7 +132,7 @@ class LevelsController < ApplicationController
 
     def check_if_hack
       latest_level = current_user.completed_levels.order("level_id").last
-      if (latest_level and params[:id].to_i > latest_level.id + 1 ) or (latest_level.nil? and params[:id].to_i > 1 )
+      if (latest_level and params[:id].to_i > latest_level.level_id + 1 ) or (latest_level.nil? and params[:id].to_i > 1 )
         redirect_to levels_path, format: :js
       end
     end
@@ -144,6 +144,7 @@ class LevelsController < ApplicationController
       if params[:chapter] and (@completed_levels.empty? or (@completed_levels.last.level_id / 10) + 1 < @chapter)
         @chapter = @curr_chapter
       end
+      @chapter = 5 if @chapter > 5
     end
 
 

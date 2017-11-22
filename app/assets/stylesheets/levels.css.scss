@@ -315,6 +315,19 @@
     margin-bottom: 3vh;
     display: none;
   }
+  .chapter_complete {
+    font-weight: bold;
+    font-size: 5vh;
+  }
+  .congrats {
+    font-weight: bold;
+    font-size: 7vh;
+  }
+  .congrats_message {
+    font-weight: bold;
+    font-size: 5vh;
+    margin-bottom: 30px;
+  }
 }
 
 .path_word_container {
@@ -348,9 +361,9 @@
   }
 }
 
-.btn_custom {
+.btn_custom, .btn_custom:hover, .btn_custom:active, .btn_custom:visited, .btn_custom:link {
   background-color: var(--main-background-text-color);
-  color: var(--main-background-color);
+  color: var(--main-background-color) !important;
   font-size: 3vh;
   font-weight: bold;
   margin-bottom: 20px;
