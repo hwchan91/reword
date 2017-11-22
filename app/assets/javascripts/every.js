@@ -330,7 +330,7 @@ function everyFunction() {
   function loopSoundcloud() {
     var soundcloud_elem = $('#sc_player')[0];
     var soundcloud_player = SC.Widget(soundcloud_elem);
-    soundcloud_player.bind(SC.Widget.FINISH, function() {
+    soundcloud_player.bind(SC.Widget.Events.FINISH, function() {
       soundcloud_player.seekTo(0);
       soundcloud_player.play();
     });
