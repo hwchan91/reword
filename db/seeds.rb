@@ -31,7 +31,7 @@ Level.create(start: "apple", target:"zebra", path: ["apple", "ample", "amble", "
 Level.create(start: "deep", target:"wide", path:["deep", "weep", "weer", "weir", "wire", "wide"], limit: 10)
 Level.create(start: "poor", target:"rich", path:["poor", "boor", "book", "rook", "rock", "rick", "rich"], limit: 10)
 Level.create(start: "four", target:"five", path:["four","dour","doer","rode","rove","rive","five"],  limit: 10)
-Level.create(start: "nprth", target:"south", path:["north", "thorn", "shorn", "short", "shout", "south"],  limit: 10)
+Level.create(start: "north", target:"south", path:["north", "thorn", "shorn", "short", "shout", "south"],  limit: 10)
 Level.create(start: "duck", target:"swan", path:["duck","puck","punk","puns","spun","span","swan"],  limit: 10)
 Level.create(start: "fret", target:"calm", path:["fret", "feet", "felt", "fell", "fall", "call", "calm"],  limit: 10)
 Level.create(start: "black", target:"white", path:["black","clack","click","chick","chink","chine","whine","white"],  limit: 12)

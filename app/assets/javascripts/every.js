@@ -75,9 +75,12 @@ function everyFunction() {
       $("#completed_in").delay(5500).fadeIn('fast');
       $("#path_length").delay(6000).fadeIn('slow');
       $(".path_word_container").each(function(index) {
-        $(this).delay(6500 + index  * 500).fadeIn('slow', function() {
-          automaticScroll()
-        });
+        var self = $(this);
+        setTimeout(function() {
+          self.fadeIn('slow', function() {
+            automaticScroll();
+          })
+        }, 6500 + index * 500)
       })
     }
     animateMessage();
@@ -132,7 +135,7 @@ function everyFunction() {
     }
 
     function automaticScroll() {
-      $("html,body").stop().delay(2000).animate({ scrollTop: $(document).height() }, 'slow');
+      $("html,body").stop().delay(0).animate({ scrollTop: $(document).height() }, 'slow');
     }
 
     function gradientHighlightLetter() {

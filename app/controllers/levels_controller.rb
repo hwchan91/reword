@@ -1,5 +1,5 @@
 class LevelsController < ApplicationController
-  before_action :check_if_hack, only: [:show, :move, :reset, :undo]
+  #before_action :check_if_hack, only: [:show, :move, :reset, :undo]
   before_action :set_level, only: [:show, :move]
   before_action :get_word, only: [:show]
   before_action :get_completed_levels, only: [:index, :chapter_1, :chapter_2]
@@ -48,7 +48,7 @@ class LevelsController < ApplicationController
   end
 
   def index
-    @levels = Level.where(id: ((@chapter-1) * 10 + 1).. ((@chapter-1) * 10 + 10))
+    @levels = Level.where(id: ((@chapter-1) * 10 + 1).. ((@chapter-1) * 10 + 10)).order(:id)
     @chapter_title = Chapter.find(@chapter).name
 
     respond_to do |format|
