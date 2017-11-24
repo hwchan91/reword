@@ -343,13 +343,13 @@ function everyFunction() {
   }
   loopSoundcloud();
 
-  //prevent overscrolling
-  $('body').bind('touchmove', function(e){
-    e.preventDefault();           
-  });
+  // //prevent overscrolling
+  // $('body').bind('touchmove', function(e){
+  //   e.preventDefault();           
+  // });
 
-  $('.content').bind('touchmove', function(e){
-    e.stopPropagation();
-  });
+  // $('.content').bind('touchmove', function(e){
+  //   e.stopPropagation();
+  // });
 
 }
