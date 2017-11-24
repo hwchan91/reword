@@ -353,7 +353,7 @@ function everyFunction() {
 
   // Uses body because jquery on events are called off of the element they are
   // added to, so bubbling would not work if we used document instead.
-  $('body').on('touchstart','.scrollable',function(e) {
+  $('body').on('touchstart','.content',function(e) {
 
       // Only execute the below code once at a time
       if (!scrolling) {
@@ -368,7 +368,7 @@ function everyFunction() {
   });
 
   // Prevents preventDefault from being called on document if it sees a scrollable div
-  $('body').on('touchmove','.scrollable',function(e) {
+  $('body').on('touchmove','.content',function(e) {
     e.stopPropagation();
   });
 
