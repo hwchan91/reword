@@ -17,6 +17,10 @@ html, body{
   overflow: hidden;
 }
 
+body > div { 
+  -webkit-transition: all 1s ease-in-out; 
+}
+
 .content {
   overflow-y: auto;
   height: 100%;
