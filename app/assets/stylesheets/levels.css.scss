@@ -1,6 +1,15 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+.scrollable {
+  overflow: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+.scrollable * {
+  -webkit-transform: translate3d(0,0,0);
+}
+
 :root {
   --main-background-color: #8be0de;
   --main-background-text-color: white;
