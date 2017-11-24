@@ -15,29 +15,3 @@
   </div>
 
 </div>
-
-<script>
-      //Detect: If the application is not run in full screen mode on an apple device,
-      //        notify user how to add app to home screen for full screen mode.
-      if (("standalone" in window.navigator) && !window.navigator.standalone){
-    	  if (!this.popup) {
-              this.popup = new Ext.Panel({
-                  floating: true,
-                  modal: true,
-                  centered: true,
-                  width: 300,
-                  styleHtmlContent: true,
-                  html: '<div>Use the <strong>"Add to Home Screen"</strong> function and place an icon on your home screen to run this ' + 
-                        'application in full screen mode like a native app. Just tap <strong>"+"</strong> and then <strong>"Add to Home Screen."</strong></div>' +
-                        '<br><center><u>Click anywhere outside this window to make it disappear.</u></center>',
-                  dockedItems: [{
-                      dock: 'top',
-                      xtype: 'toolbar',
-                      title: 'Go Full Screen!'
-                  }],
-                  scroll: 'vertical'
-              });
-          }
-          this.popup.show('pop');
-      }
-</script>
