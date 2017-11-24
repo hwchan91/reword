@@ -10,6 +10,18 @@
   -webkit-transform: translate3d(0,0,0);
 }
 
+html, body{
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  overflow: hidden;
+}
+
+.content {
+  overflow-y: auto;
+  height: 100%;
+}
+
 :root {
   --main-background-color: #8be0de;
   --main-background-text-color: white;
