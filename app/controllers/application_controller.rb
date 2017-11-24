@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   private
     def set_cookie
-      unless evercookie_is_set?("uid")
+      unless cookies.signed[:uid]
         new_uid = random_uid
         cookies.permanent.signed[:uid] = { value: new_uid, expires: 1.hour.from_now }
       end
