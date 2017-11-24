@@ -66,12 +66,18 @@ module LevelsHelper
   end
 
   def steps_before_limit_after_optimal
-    @limit - @level.path.length - 1
+    if @history.length <= @level.path.length
+      @limit - @level.path.length - 1 
+    else
+      @limit - @history.length 
+    end
   end
+
 
   def limit_exist_after_optimal
     @limit != @level.path.length
   end
+
 
 
 

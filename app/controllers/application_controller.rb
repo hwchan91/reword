@@ -8,12 +8,13 @@ class ApplicationController < ActionController::Base
     def set_cookie
       unless evercookie_is_set?("uid")
         new_uid = random_uid
-        set_evercookie("uid", new_uid)
+        cookies.permanent.signed[:uid] = { value: new_uid, expires: 1.hour.from_now }
       end
     end
 
     def current_user
-      @current_user ||= User.find_or_create_by(uid: evercookie_get_value("uid"))
+      uid = cookies.signed[:uid]
+      @current_user ||= User.find_or_create_by(uid: uid)
     end
 
     def random_uid
