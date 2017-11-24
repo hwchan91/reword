@@ -20,6 +20,7 @@ html, body{
 .content {
   overflow-y: auto;
   height: 100%;
+  overflow-x: hidden;
 }
 
 :root {

@@ -17,10 +17,6 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     
-    <script>
-      addToHomescreen();
-    </script>
-
 
     <script type="text/javascript">
       (function(document,navigator,standalone) {
@@ -60,5 +56,59 @@
     <div class="content">
       <%= yield %>
     </div>
+
   </body>
 </html>
+
+<script>
+
+	
+
+You can detect if the site visitor is on an iOS device with some JavaScript then either show or hide the instructions based on a cookie:
+
+    Check if device is running iOS:
+
+    if(!(/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream)){ return false; }
+
+    Check if current view is already in webapp:
+
+    if(window.navigator.standalone == true){ return false; }
+
+    Check if you have created a cookie for this user already:
+
+    if(document.cookie.search("alreadAsked") >= 0){ return false; }
+
+    Prompt user by displaying an "Add to Homescreen" element on your page or redirecting to another page:
+
+    document.getElementById("hiddenPrompt").style.display = 'inherit';
+
+    Store a cookie so you will not ask the user after they have added it. You can also store the cookie after the user clicks a "done" button instead so the user will be prompted until they add it to the home screen or click a "do not show this again" button:
+
+    document.cookie = "alreadAsked=true; expires=Thu, 18 Dec 2099 12:00:00 UTC";
+
+All together now, this function will run on page load:
+
+// On page load
+(function() {
+  // Check if iOS
+  if(!(/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream)){ return false; }
+
+  // Check if already in webapp
+  if(window.navigator.standalone == true){ return false; }
+
+  // Check if you already asked them to add to homescreen
+  if(document.cookie.search("alreadAsked") >= 0){ return false; }
+
+  // Ask user to add to homescreen
+  alert("add this app to your homescreen by clicking 'add to homescreen at the top right corner");
+  document.getElementById("hiddenPrompt").style.display = 'inherit';
+});
+
+// After clicking a button to dismiss prompt
+function hidePromptInFuture(){
+  // Do not show prompt again
+  document.cookie = "alreadAsked=true; expires=Thu, 18 Dec 2099 12:00:00 UTC";
+}
+
+
+</script>
