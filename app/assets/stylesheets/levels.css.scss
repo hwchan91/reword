@@ -213,26 +213,44 @@ html, body{
   .last_1 {
     font-size: 4.2vh;
     color: #ccc;
+    // span {
+    //   width: 4.2vh;
+    // }
   }
   .last_2 {
-    font-size: 3.8vh;
+    font-size: 4.0vh;
     color: #ddd;
+    // span {
+    //   width: 4.0vh;
+    // }
   }
   .last_3 {
-    font-size: 3.6vh;
+    font-size: 3.8vh;
     color: #ececec;
+    // span {
+    //   width: 3.8vh;
+    // }
   }
   .last_4 {
-    font-size: 3.4vh;
+    font-size: 3.6vh;
     color: #ededed;
+    // span {
+    //   width: 3.6vh;
+    // }
   } 
   .last_5 {
     font-size: 3.4vh;
     color: #eee;
+    // span {
+    //   width: 3.4vh;
+    // }
   }
   .last_6 {
-    font-size: 3.4vh;
+    font-size: 3.2vh;
     color: #efefef;
+    // span {
+    //   width: 3.2vh;
+    // }
   }
 
 }
@@ -303,7 +321,6 @@ html, body{
 
 .message_container {
   display: none;
-  //min-height: 100vh;
   width: 100%;
   text-align: center;
   background-color: var(--main-background-color);
