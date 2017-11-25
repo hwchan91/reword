@@ -55,7 +55,7 @@ Level.create(start: "birth", target:"death", path:["birth","girth","right","nigh
 
 
 
-Level.create(start: "june", target:"jule", path:["june", "rune", "rube", "ruby", "bury", "jury", "july"], limit: 10)
+Level.create(start: "june", target:"july", path:["june", "rune", "rube", "ruby", "bury", "jury", "july"], limit: 10)
 Level.create(start: "iron", target:"rust", path:["iron", "ikon", "oink", "rink", "risk", "rusk", "rust"], limit: 10)
 Level.create(start: "thrive", target:"wither", path:["thrive", "shrive", "shrine", "shiner", "whiner", "whiter", "wither"], limit: 12)
 Level.create(start: "month", target:"years", path:["month", "mouth", "south", "shout", "short", "shore", "share", "hears", "years"], limit: 13)
