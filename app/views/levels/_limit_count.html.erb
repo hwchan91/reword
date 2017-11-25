@@ -1,17 +1,28 @@
 <div class="limit_count">
-  <% remaining_steps_to_optimal.times do %>
+  <%# remaining_steps_to_optimal.times do %>
+  <% (@level.path.length - 1).times do %>
     <div class="limit_dot glyphicon glyphicon-triangle-bottom"></div>
   <% end %>
 
-  <% if within_optimal? and limit_exist_after_optimal %>
+  <%# if within_optimal? and limit_exist_after_optimal %>
+  <% if limit_exist_after_optimal %>
     <div class="limit_dot glyphicon glyphicon-flag"></div>
+  <% else %>
+    <div class="limit_dot glyphicon glyphicon-triangle-bottom"></div>
   <% end %>
 
-  <% if within_limit? %>
-    <% steps_before_limit_after_optimal.times do %>
+  <%# if within_limit? %>
+  <% (@level.limit - @level.path.length ).times do %>
+    <%# steps_before_limit_after_optimal.times do %>
       <div class="limit_dot glyphicon glyphicon-triangle-bottom"></div>
-    <% end %>
+    <%# end %>
   <% end %>
   
 
 </div>
+
+<style>
+.limit_count .limit_dot:nth-child(<%= @history.length %>) {
+  color: var(--main-background-color);
+}
+</style>
