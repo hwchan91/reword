@@ -104,12 +104,12 @@ function everyFunction() {
 
     function fadeInPlayAgain() {
       if ($(".achievement").length == 0) {
-        $(".next_level_btn_container").delay(500).fadeIn();
-        $(".content").stop().delay(0).animate({ scrollTop: $(document).height() }, 'slow');
+        $(".next_level_btn_container").delay(1500).fadeIn();
+        $(".content").stop().delay(1000).animate({ scrollTop: $(document).height() }, 'slow');
       } else {
         $(".achievement").delay(1500).fadeIn(1500);
         $(".next_level_btn_container").delay(2500).fadeIn();
-        $(".content").stop().delay(3500).animate({ scrollTop: $(document).height() }, 'slow');
+        $(".content").stop().delay(2000).animate({ scrollTop: $(document).height() }, 'slow');
       }
     }
 
