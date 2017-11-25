@@ -1,5 +1,5 @@
 class LevelsController < ApplicationController
-  before_action :check_if_hack, only: [:show, :move, :reset, :undo]
+  #before_action :check_if_hack, only: [:show, :move, :reset, :undo]
   before_action :set_level, only: [:show, :move]
   before_action :get_word, only: [:show]
   before_action :get_completed_levels, only: [:index, :chapter_1, :chapter_2]
@@ -123,7 +123,7 @@ class LevelsController < ApplicationController
       else
         current_user.completed_levels.create(level_id: params[:id], best_path: path, optimal_achieved: optimal_achieved)
       end
-      session.delete(:"level#{params[:id]}_history")
+      #session.delete(:"level#{params[:id]}_history")
     end
 
     def get_completed_levels

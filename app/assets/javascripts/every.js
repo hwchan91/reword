@@ -105,11 +105,11 @@ function everyFunction() {
     function fadeInPlayAgain() {
       if ($(".achievement").length == 0) {
         $(".next_level_btn_container").delay(500).fadeIn();
-        $("html,body").stop().delay(0).animate({ scrollTop: $(document).height() }, 'slow');
+        $(".content").stop().delay(0).animate({ scrollTop: $(document).height() }, 'slow');
       } else {
         $(".achievement").delay(1500).fadeIn(1500);
         $(".next_level_btn_container").delay(2500).fadeIn();
-        $("html,body").stop().delay(3500).animate({ scrollTop: $(document).height() }, 'slow');
+        $(".content").stop().delay(3500).animate({ scrollTop: $(document).height() }, 'slow');
       }
     }
 
@@ -135,7 +135,7 @@ function everyFunction() {
     }
 
     function automaticScroll() {
-      $("html,body").stop().delay(0).animate({ scrollTop: $(document).height() }, 'slow');
+      $(".content").stop().delay(0).animate({ scrollTop: $(document).height() }, 'slow');
     }
 
     function gradientHighlightLetter() {
@@ -282,7 +282,7 @@ function everyFunction() {
     if (incomplete_levels.length > 0 ) {
       var window_height = $(window).height();
       var top_offset = incomplete_levels.first().offset().top + incomplete_levels.first().height() / 2 - window_height / 2
-      $('html, body').delay(500).animate({scrollTop: top_offset}, "slow")
+      $('.content').delay(500).animate({scrollTop: top_offset}, "slow")
     }
   }
   scrollToLatestLevel();
