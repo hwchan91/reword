@@ -109,7 +109,7 @@ class WordTrek
     opposite_side.each do |word_in_oppo|
       if word.word  == word_in_oppo.word
         @result << [word, word_in_oppo]
-        #throw :found_solution
+        throw :found_solution #uncomment to return more solutions
       end
     end
   end
@@ -141,6 +141,7 @@ class WordTrek
   def words_in_stack(stack)
     (stack.empty?) ? [] : stack.map(&:word)
   end
+
 
 
 end

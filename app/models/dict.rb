@@ -25,9 +25,39 @@ class Dict
   def self.generate_common
     dict = {}
     text = File.open('./american-82k.txt').read
+    #text = File.open('./3of6all.txt').read
+    text.gsub!(/\r\n?/, "\n")
+    #i = 0
+    arr = []
+    text.each_line do |line|
+      # if i < 10
+      word = line.scan(/[\w']+/)[0]
+        # line = line.strip.downcase
+        # no_special_char = line.scan(/[\w]+/)[0] == line
+        # not_all_caps = line.upcase != line
+        # right_length = line.length.between?(3,6)
+        # if no_special_char and not_all_caps and right_length
+          arr << word
+        # end
+      #dict[word] = word
+        #i += 1
+      #end
+    end
+
+    text = File.open('./3of6all.txt').read
     text.gsub!(/\r\n?/, "\n")
     text.each_line do |line|
-      word = line.scan(/[\w']+/)[0]
+      line = line.strip.downcase
+      no_special_char = line.scan(/[\w]+/)[0] == line
+      not_all_caps = line.upcase != line
+      right_length = line.length.between?(3,6)
+      if no_special_char and not_all_caps and right_length
+        arr << line
+      end
+    end
+
+    arr = arr.uniq
+    arr.each do |word|
       dict[word] = word
     end
     dict

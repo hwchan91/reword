@@ -148,7 +148,7 @@ class Word
         word_base = preferred_word_base(word_bases)
       end
       word_base = { word: @word, form: nil } if word_base.nil?
-      
+
       definition_url = "https://od-api.oxforddictionaries.com:443/api/v1/entries/en/#{word_base[:word]}"
       response =  HTTParty.get(definition_url,
                               headers: {
@@ -156,7 +156,7 @@ class Word
                                         'app_id': ENV['OXFORD_ID'],
                                         'app_key': ENV["OXFORD_KEY"] 
                                         })
-      
+
       if response['results']
         # occassionally, the lemma will return a form that does not exist in the entries
         begin
@@ -164,16 +164,16 @@ class Word
         rescue
           entries = response['results'][0]['lexicalEntries'][0]['entries']
         end
-        definitions = entries.map{|entry| entry['senses'].map{|s| (s['definitions']) ? s['definitions'][0]: nil }}.compact
+        definitions = entries.map{|entry| entry['senses'].map{|s| (s['definitions']) ? s['definitions'][0]: (s['crossReferenceMarkers'] ? s['crossReferenceMarkers'][0] : nil) }}.compact
         definitions.map!{|entry| entry[0]}.reject!{|entry| entry.blank?}
         #response['results'][0]['lexicalEntries'][0]['entries'][0]['senses'].map{|s| s['definitions']}
         first_definitions = []
         if definitions.length > 1
           definitions.each_with_index do |defin, index| 
-            first_definitions << "#{index + 1}. #{defin.capitalize}"
+            first_definitions << "#{index + 1}. #{defin}"
           end
         else
-          first_definitions << "#{definitions[0].capitalize}"
+          first_definitions << "#{definitions[0]}"
         end
       end
       return first_definitions.join("\t")
@@ -182,12 +182,44 @@ class Word
     end
   end
   
+  def define
+    url = "https://wordsapiv1.p.mashape.com/words/#{word}"
+    response = HTTParty.get(url,
+                  headers: {
+                    "X-Mashape-Key" => ENV['MASHAPE_KEY'],
+                    "Accept" => "application/json"
+              })
+    begin 
+      if response['results']
+        results = response['results']
+        word_bases = results.map{|resp| {form: resp['partOfSpeech']} }
+        pref_base = preferred_word_base(word_bases)
+        entries = results.select{|entry| entry['partOfSpeech'] == pref_base[:form]}.reject{|entry| entry['instanceOf'] }
+        definitions = entries.map{|entry| entry['definition']}
+        
+        first_definitions = []
+        if definitions.length > 1
+          definitions = definitions[0..3]
+          definitions.each_with_index do |defin, index| 
+            first_definitions << "#{index + 1}. #{defin}"
+          end
+        else
+          first_definitions << "#{definitions[0]}"
+        end
+        return first_definitions.join("\t")
+      end
+    rescue
+      return nil
+    end
+
+  end
+
   #get noun form first if noun form is a possible base, otherwise get verb, else get anything that comes first
   def preferred_word_base(word_bases)
-    word_bases.find{|word| word[:form] == "Adjective"} ||
-    word_bases.find{|word| word[:form] == "Adverb"} ||
-    word_bases.find{|word| word[:form] == "Noun"} ||
-    word_bases.find{|word| word[:form] == "Verb"} ||
+    word_bases.find{|word| word[:form] == "adjective"} ||
+    word_bases.find{|word| word[:form] == "adverb"} ||
+    word_bases.find{|word| word[:form] == "noun"} ||
+    word_bases.find{|word| word[:form] == "verb"} ||
     word_bases[0]
   end
 
