@@ -84,7 +84,7 @@ class LevelsController < ApplicationController
     def get_word
       @word = last_word
       @choices = @word.choices(@history.map{|hash| hash["word"]})
-      @definition = Rails.cache.fetch("define_#{@word.word}"){ @word.get_definition }
+      @definition = @word.define
     end
 
     def last_word
@@ -123,7 +123,7 @@ class LevelsController < ApplicationController
       else
         current_user.completed_levels.create(level_id: params[:id], best_path: path, optimal_achieved: optimal_achieved)
       end
-      session.delete(:"level#{params[:id]}_history")
+      # session.delete(:"level#{params[:id]}_history")
     end
 
     def get_completed_levels

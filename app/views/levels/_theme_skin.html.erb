@@ -21,4 +21,21 @@
   }
 <% end %>
 
+<% if level.id == 50 %>
+  .curr_word_letter:not(.complete) {
+    width: 6vh;
+    line-height: 6vh;
+    font-size: 4.5vh;
+  }
+  .curr_word_letter_container {
+    width: 6vh;
+    height: 6vh;
+  }
+  .curr_word .complete {
+    font-size: 7vh;
+    width: 7vh;
+    height: 7vh;
+  }
+<% end %>
+
 </style>

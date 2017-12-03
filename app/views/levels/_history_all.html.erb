@@ -8,7 +8,7 @@
       </span>
 
       <div class="path_word_definition">
-        <%= simple_format(Rails.cache.fetch("define_#{used_word(record)}") {Word.new(used_word(record),"common").get_definition}) %>
+        <%= simple_format(Word.new(used_word(record),"common").define) %>
       </div>
     </div>
   <% end %>

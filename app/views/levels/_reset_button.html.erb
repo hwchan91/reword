@@ -18,7 +18,7 @@
             Music 
             <%= render 'music_btn' %>
           </div>
-          <div><%=link_to "Select Level", levels_path, remote: true, class:  "select_level_btn" %></div>
+          <div><%=link_to "Select Level", levels_path(chapter: (@level.id / 10) + 1), remote: true, class:  "select_level_btn" %></div>
         </div>
 
       </div>

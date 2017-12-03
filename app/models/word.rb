@@ -130,88 +130,78 @@ class Word
     transition_words.select{|word, index| !history.include?(word)}
   end
 
-  def get_definition
+  def oxford_definition
+    cached_definition = Rails.cache.read("define_#{@word}")
+    return cached_definition if cached_definition
+
+    inflection_url = "https://od-api.oxforddictionaries.com:443/api/v1/inflections/en/#{word}"
+    inflection_response = HTTParty.get(inflection_url,
+                                        headers: {
+                                                  "Accept": "application/json",          
+                                                  'app_id': ENV['OXFORD_ID'],
+                                                  'app_key': ENV["OXFORD_KEY"] 
+                                                  })
+  
+    lexical_entries = inflection_response['results'][0]["lexicalEntries"]
+    word_bases = lexical_entries.map{|entry| {
+                                              word: entry["inflectionOf"][0]["text"], 
+                                              form: entry["lexicalCategory"]} 
+                                            }
+    word_base = preferred_word_base(word_bases) || { word: @word, form: nil }
+    definition_url = "https://od-api.oxforddictionaries.com:443/api/v1/entries/en/#{word_base[:word]}"
+    response =  HTTParty.get(definition_url,
+                            headers: {
+                                      "Accept": "application/json",          
+                                      'app_id': ENV['OXFORD_ID'],
+                                      'app_key': ENV["OXFORD_KEY"] 
+                                      })
+
+    lex_entries = response['results'][0]['lexicalEntries']
+    # occassionally, the lemma will return a form that does not exist in the entries
     begin
-      inflection_url = "https://od-api.oxforddictionaries.com:443/api/v1/inflections/en/#{word}"
-      inflection_response = HTTParty.get(inflection_url,
-                                          headers: {
-                                                    "Accept": "application/json",          
-                                                    'app_id': ENV['OXFORD_ID'],
-                                                    'app_key': ENV["OXFORD_KEY"] 
-                                                    })
-      if inflection_response['results']
-        lexical_entries = inflection_response['results'][0]["lexicalEntries"]
-        word_bases = lexical_entries.map{|entry| {
-                                                  word: entry["inflectionOf"][0]["text"], 
-                                                  form: entry["lexicalCategory"]} 
-                                                }
-        word_base = preferred_word_base(word_bases)
-      end
-      word_base = { word: @word, form: nil } if word_base.nil?
-
-      definition_url = "https://od-api.oxforddictionaries.com:443/api/v1/entries/en/#{word_base[:word]}"
-      response =  HTTParty.get(definition_url,
-                              headers: {
-                                        "Accept": "application/json",          
-                                        'app_id': ENV['OXFORD_ID'],
-                                        'app_key': ENV["OXFORD_KEY"] 
-                                        })
-
-      if response['results']
-        # occassionally, the lemma will return a form that does not exist in the entries
-        begin
-          entries = response['results'][0]['lexicalEntries'].find{|entry| entry['lexicalCategory'] == word_base[:form]}['entries']
-        rescue
-          entries = response['results'][0]['lexicalEntries'][0]['entries']
-        end
-        definitions = entries.map{|entry| entry['senses'].map{|s| (s['definitions']) ? s['definitions'][0]: (s['crossReferenceMarkers'] ? s['crossReferenceMarkers'][0] : nil) }}.compact
-        definitions.map!{|entry| entry[0]}.reject!{|entry| entry.blank?}
-        #response['results'][0]['lexicalEntries'][0]['entries'][0]['senses'].map{|s| s['definitions']}
-        first_definitions = []
-        if definitions.length > 1
-          definitions.each_with_index do |defin, index| 
-            first_definitions << "#{index + 1}. #{defin}"
-          end
-        else
-          first_definitions << "#{definitions[0]}"
-        end
-      end
-      return first_definitions.join("\t")
+      entries = lex_entries.find{|entry| entry['lexicalCategory'] == word_base[:form]}['entries']
     rescue
-      return nil
+      entries = lex_entries[0]['entries']
     end
+    definitions = entries.map{|entry| entry['senses'].map{|s| (s['definitions']) ? s['definitions'][0]: (s['crossReferenceMarkers'] ? s['crossReferenceMarkers'][0] : nil) }}.compact
+    definitions.map!{|entry| entry[0]}.reject!{|entry| entry.blank?}
+
+    if definitions.length > 1
+      definitions = definitions[0..3].each_with_index.map do |defin, index| 
+        "#{index + 1}. #{defin}"
+      end
+    end
+    definitions_in_string = definitions.join("\t")
+    Rails.cache.write("define_#{@word}", definitions_in_string, expires_in: 1.hour)
+    return definitions_in_string
+  rescue
+    return nil
   end
   
   def define
+    cached_definition = Rails.cache.read("define_#{@word}")
+    return cached_definition if cached_definition
     url = "https://wordsapiv1.p.mashape.com/words/#{word}"
     response = HTTParty.get(url,
                   headers: {
                     "X-Mashape-Key" => ENV['MASHAPE_KEY'],
                     "Accept" => "application/json"
               })
-    begin 
-      if response['results']
-        results = response['results']
-        word_bases = results.map{|resp| {form: resp['partOfSpeech']} }
-        pref_base = preferred_word_base(word_bases)
-        entries = results.select{|entry| entry['partOfSpeech'] == pref_base[:form]}.reject{|entry| entry['instanceOf'] }
-        definitions = entries.map{|entry| entry['definition']}
-        
-        first_definitions = []
-        if definitions.length > 1
-          definitions = definitions[0..3]
-          definitions.each_with_index do |defin, index| 
-            first_definitions << "#{index + 1}. #{defin}"
-          end
-        else
-          first_definitions << "#{definitions[0]}"
-        end
-        return first_definitions.join("\t")
+    results = response['results']
+    word_bases = results.map{|resp| {form: resp['partOfSpeech']} }
+    pref_base = preferred_word_base(word_bases)
+    entries = results.select{|entry| entry['partOfSpeech'] == pref_base[:form]}.reject{|entry| entry['instanceOf'] }
+    definitions = entries.map{|entry| entry['definition']}
+    if definitions.length > 1
+      definitions = definitions[0..3].each_with_index.map do |defin, index| 
+        "#{index + 1}. #{defin}"
       end
-    rescue
-      return nil
     end
-
+    definitions_in_string = definitions.join("\t")
+    Rails.cache.write("define_#{@word}", definitions_in_string, expires_in: 1.day)
+    return definitions_in_string
+  rescue
+    oxford_definition
   end
 
   #get noun form first if noun form is a possible base, otherwise get verb, else get anything that comes first

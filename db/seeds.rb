@@ -71,16 +71,19 @@ Level.create(start: "depart", target:"alight", path:["depart", "parted", "pasted
 
 Level.create(start: "spades", target:"hearts", path:["spades","spaces","spacer","capers","caters","haters","hearts"], limit: 11)
 Level.create(start: "dealer", target:"player", path:["dealer", "sealer", "staler", "stayer", "slayer", "player"], limit: 11)
-Level.create(start: "loser", target:"champ", path:["loser", "loses", "sloes", "slues", "slums", "slump", "clump", "clamp", "champ"], limit: 13)
+Level.create(start: "losses", target:"reward", path:["losses", "posses", "passes", "parses", "parsed", "parred", "warred", "reward"], limit: 12)
+#Level.create(start: "great", target:"power", path:[["great", "treat", "tread", "dater", "doter", "dower", "power"], limit: 12)
+#Level.create(start: "loser", target:"champ", path:["loser", "loses", "sloes", "slues", "slums", "slump", "clump", "clamp", "champ"], limit: 13)
 #Level.create(start: "riches", target:"ruined", path:["riches", "niches", "chines", "shines", "seines", "seined", "reined", "ruined"], limit: 12) #rather simple
 Level.create(start: "angel", target:"devil", path:["angel", "glean", "clean", "lance", "dance", "caned", "caved", "laved", "lived", "devil"], limit: 15)
 Level.create(start: "right", target:"wrong", path:["right", "night", "thing", "thine", "shine", "shone", "phone", "prone", "prong", "wrong"], limit: 15)
 Level.create(start: "guile", target:"cheat", path:["guile", "guide", "glide", "elide", "elite", "elate", "plate", "pleat", "cleat", "cheat"], limit: 15)
-Level.create(start: "truth", target:"fancy", path:["truth", "troth", "tooth", "toots", "coots", "coons", "corns", "corny", "carny", "canny", "fanny", "fancy"], limit: 17) #a bit weird
+#Level.create(start: "truth", target:"fancy", path:["truth", "troth", "tooth", "toots", "coots", "coons", "corns", "corny", "carny", "canny", "fanny", "fancy"], limit: 17) #a bit weird
 Level.create(start: "royal", target:"flush", path:["royal", "riyal", "lairy", "hairy", "hairs", "heirs", "hears", "shear", "sheaf", "shelf", "flesh", "flush"], limit: 18)
 Level.create(start: "horses", target:"racing", path: ["horses", "hordes", "shored", "snored", "snared", "sander", "pander", "panier", "rapine", "raping", "racing"], limit: 17)
 Level.create(start: "invest", target:"return", path:["invest", "ingest", "tinges", "binges", "binged", "bunged", "bugged", "bugger", "burger", "burner", "turner", "return"], limit: 18)
 #Level.create(start: "chance", target:"design", path:["chance", "chancy", "chanty", "chants", "stanch", "stance", "secant", "decant", "canted", "ranted", "ranged", "ringed", "singed", "design"], limit: 20) #simple
+Level.create(start: "winning", target:"lottery", path:["winning", "binning", "binding", "bending", "beading", "bearing", "searing", "gainers", "garners", "garters", "barters", "batters", "patters", "potters", "pottery", "lottery"], limit: 20)
 
 
 # ["pawn", "dawn", "wand", "wind", "wing", "king"]
@@ -92,7 +95,7 @@ Chapter.create!(name: "beginnings")
 Chapter.create!(name: "onwards")
 Chapter.create!(name: "life")
 Chapter.create!(name: "time")
-Chapter.create!(name: "fate")
+Chapter.create!(name: "fortune")
 
 # short_dict = Dict.new("common").dict.keys.reject{|word| word.length.between?(3,6)}
 # short_dict.each |word| do
