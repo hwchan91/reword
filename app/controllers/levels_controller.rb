@@ -2,7 +2,7 @@ class LevelsController < ApplicationController
   #before_action :check_if_hack, only: [:show, :move, :reset, :undo]
   before_action :set_level, only: [:show, :move]
   before_action :get_word, only: [:show]
-  before_action :get_completed_levels, only: [:index, :chapter_1, :chapter_2]
+  before_action :get_completed_levels, only: [:index]
   before_action :get_chapter, only: [:index]
 
   def show
@@ -60,16 +60,6 @@ class LevelsController < ApplicationController
   def home
   end
 
-  def chapter_1
-    @levels = Level.first(10)
-  end
-
-  def chapter_2
-    @levels = Level.where(id: 11..20)
-  end
-
-  
-
   private
     def set_level
       @level = Level.find(params[:id])
@@ -85,6 +75,7 @@ class LevelsController < ApplicationController
       @word = last_word
       @choices = @word.choices(@history.map{|hash| hash["word"]})
       @definition = @word.define
+      @matches = @word.compare(@level.target)
     end
 
     def last_word
@@ -123,7 +114,7 @@ class LevelsController < ApplicationController
       else
         current_user.completed_levels.create(level_id: params[:id], best_path: path, optimal_achieved: optimal_achieved)
       end
-      # session.delete(:"level#{params[:id]}_history")
+      session.delete(:"level#{params[:id]}_history")
     end
 
     def get_completed_levels
@@ -146,8 +137,5 @@ class LevelsController < ApplicationController
       end
       @chapter = 5 if @chapter > 5
     end
-
-
-
 
 end

@@ -69,14 +69,6 @@ html, body{
   bottom: 0;
 }
 
-#start, #target {
-  span {
-    width: 7vh;
-    display: inline-block;
-    letter-spacing: 0;
-  }
-}
-
 .curr_word_container {
   opacity: 0;
 }
@@ -730,5 +722,50 @@ html, body {
     object-fit: contain;
     margin-left: 20px;
     margin-right: 15px;
+  }
+}
+
+.blink {
+  animation: blinker 2s linear infinite;
+}
+
+@keyframes blinker {  
+  50% { opacity: 0.2; }
+}
+
+.hint {
+  animation: flash 2s linear infinite;
+}
+
+@keyframes flash {  
+  50% { 
+    color: white;
+    background: var(--main-background-color);
+  }
+}
+
+.start_word, .target_word {
+  text-transform: uppercase;
+  .letter {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    letter-spacing: 0;
+    width: 5vh;
+  }
+}
+
+.target_word {
+  .full_match {
+    color: white;
+    text-shadow: 0px 0px 10px white;
+  }
+  .partial_match {
+    color: #fff;
+    opacity: 0.7;
+  }
+  .not_match {
+    color: #eee;
+    opacity: 0.5;
   }
 }

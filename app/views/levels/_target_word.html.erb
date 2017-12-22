@@ -1,3 +1,7 @@
 <div class="target_word text-center">
-  <span id="target"><%= @level.target.upcase %></span>
+  <span id="target">
+    <% @level.target.split("").each_with_index do |letter, index| %>
+      <div class="letter <%= match_status(index) %>"><%= letter %></div>
+    <% end %>
+  </span>
 </div>

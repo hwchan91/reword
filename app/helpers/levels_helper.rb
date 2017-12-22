@@ -73,12 +73,19 @@ module LevelsHelper
     end
   end
 
-
   def limit_exist_after_optimal
     @limit != @level.path.length
   end
 
-
+  def match_status(index)
+    if @matches.full_match_indexes.include?(index)
+      "full_match"
+    elsif @matches.partial_match_indexes.include?(index)
+      "partial_match"
+    else
+      "not_match"
+    end
+  end
 
 
 end

@@ -1,3 +1,7 @@
 <div class="start_word text-center"> 
-  <span id="start"><%= @level.start.upcase %></span>
+  <span id="start">
+    <% @level.start.split("").each do |letter| %>
+      <div class="letter"><%= letter %></div>
+    <% end %>
+  </span>
 </div>

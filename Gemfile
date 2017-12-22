@@ -39,7 +39,8 @@ gem 'figaro'
 gem "httparty"
 gem 'jquery-ui-rails'
 gem 'dalli'
-# gem 'evercookie', :git => "https://github.com/hwchan91/evercookie.git"
+gem 'autoprefixer-rails'
+gem 'pg'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -50,7 +51,6 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.6'
   gem 'pry'
   #gem 'sqlite3'
-  gem 'pg'
 end
 
 group :development do
@@ -63,7 +63,6 @@ group :development do
 end
 
 group :production do
-  gem 'pg'
   gem 'rails_12factor'
 end
 

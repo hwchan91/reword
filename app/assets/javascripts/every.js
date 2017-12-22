@@ -313,8 +313,8 @@ function everyFunction() {
     })  
   }, 1000);
 
-  $('#start').lettering();
-  $('#target').lettering();
+  // $('#start').lettering();
+  // $('#target').lettering();
 
   $('.select_level_btn').click(function() {
     $('.content>div').fadeOut('fast');
@@ -343,5 +343,61 @@ function everyFunction() {
   }
   loopSoundcloud();
 
+  function blinkPreviousWhenNoChoices() {
+    if($('.no_moves_left').length > 0) {
+      $('.history').addClass('blink')
+    }
+  }
+  blinkPreviousWhenNoChoices();
+
+
+  function disableWordBtnsWhenNoChoicesOrComplete() {
+    if($('.no_moves_left').length > 0 || $('#level_complete').length > 0) {
+      $('.curr_word_letter').css('pointer-events', 'none');
+    }
+  }
+  disableWordBtnsWhenNoChoicesOrComplete();
+
+
+  // tutorial
+  var level_no = $('.level_no').data('level_no');
+  if ($('.prev_moves').length == 0) {
+    switch(level_no) {
+      case 1:
+        flash(2)
+        break;
+      case 2:
+        flash(0);
+        break; 
+      case 3:
+        flash(0);
+        flash(2);
+        break; 
+      case 6:
+        blinkReorderBtn();
+        break;
+      case 7:
+        flash(0);
+        blinkReorderBtn();
+        break;
+    }
+  }
+
+  if ([1,2,3,4,5].includes(level_no)) {
+    hideReorderBtn();
+  }
+
+
+  function flash(index) {
+    $($('.curr_word_letter')[index]).addClass('hint');
+  }
+
+  function blinkReorderBtn() {
+    $('.reorder_btn').addClass('blink');
+  }
+
+  function hideReorderBtn() {
+    $('.reorder_btn').hide();
+  }
 
 }
