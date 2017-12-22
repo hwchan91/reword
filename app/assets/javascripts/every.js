@@ -343,5 +343,12 @@ function everyFunction() {
   }
   loopSoundcloud();
 
+  function blinkPreviousWhenNoChoices() {
+    if($('.no_moves_left').length > 0) {
+      $('.history').addClass('blink')
+    }
+  }
+  blinkPreviousWhenNoChoices();
+
 
 }

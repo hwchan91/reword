@@ -1,15 +1,20 @@
-Level.create(start: "tip", target:"tap", path: ["tip", "tap"], limit: 2)
-Level.create(start: "listen", target: "silent", path: ["listen", "silent"], limit: 2)
+Level.create(start: "click", target:"clack", path: ["click", "clack"], limit: 2)
+Level.create(start: "date", target:"fate", path: ["date", "fate"], limit: 2)
 Level.create(start: "mad", target:"hat", path: ["mad", "had", "hat"], limit: 3)
 Level.create(start: "this", target:"that", path: ["this", "thin", "than", "that"], limit:4)
 Level.create(start: "lead", target:"gold", path: ["lead", "load", "goad", "gold"], limit: 6)
+
+Level.create(start: "eat", target: "ate", path: ["eat", "ate"], limit: 2)
+Level.create(start: "bear", target: "hare", path: ["bear", "bare", "hare"], limit: 2)
+
+
 #Level.create(start: "hood", target:"wink", path: ["hood", "hook", "honk", "wonk", "wink"], limit: 7)
-Level.create(start: "word", target:"link", path: ["word", "work", "wonk", "wink", "link"], limit: 7)
-Level.create(start: "hide", target:"seek", path: ["hide", "hied", "heed", "seed", "seek"], limit: 7)
-Level.create(start: "rock", target:"roll", path: ["rock", "rick", "rice", "rile", "rill", "roll"], limit: 9)
+#Level.create(start: "word", target:"link", path: ["word", "work", "wonk", "wink", "link"], limit: 7)
+#Level.create(start: "hide", target:"seek", path: ["hide", "hied", "heed", "seed", "seek"], limit: 7)
+#Level.create(start: "rock", target:"roll", path: ["rock", "rick", "rice", "rile", "rill", "roll"], limit: 9)
 Level.create(start: "play", target:"work", path: ["play", "pray", "prey", "pyre", "pore", "pork", "work"], limit: 10)
 Level.create(start: "apple", target:"zebra", path: ["apple", "ample", "amble", "blame", "blaze", "braze", "zebra"],  limit: 10)
-#Level.create(start: "first", target:"tenth", path: ["first", "rifts", "rafts", "rants", "rents", "tents", "tenth"], limit: 10)
+Level.create(start: "first", target:"tenth", path: ["first", "rifts", "rafts", "rants", "rents", "tents", "tenth"], limit: 10)
 
 # Level.create(start: "take", target:"this", path:["take", "hake", "hate", "hats", "hits", "this"])
 
@@ -41,20 +46,26 @@ Level.create(start: "light", target:"speed", path:["light", "night", "thing", "t
 Level.create(start: "tooth", target:"teeth", path:["tooth", "booth", "boots", "boats", "beats", "bents", "tents", "tenth", "teeth"], limit: 13)
 
 
-Level.create(start: "fool", target:"wise", path:["fool", "pool", "poll", "pole", "pile", "wile", "wise"], limit: 10) 
+Level.create(start: "fool", target:"wise", path:["fool", "pool", "poll", "pole", "pile", "wile", "wise"], limit: 10)
 Level.create(start: "slave", target:"ruler", path:["slave", "vales", "males", "mules", "rules", "ruler"], limit: 10)
+Level.create(start: "alone", target:"bonds", path:["alone", "atone", "stone", "tones", "bones", "bonds"], limit: 10)
 Level.create(start: "love", target:"sigh", path:["love", "live", "line", "ling", "sing", "sign", "sigh"], limit: 10)
-Level.create(start: "learn", target:"teach", path:["learn", "yearn", "years", "hears", "heals", "leash", "leach", "teach"], limit: 10) #simple
-Level.create(start: "friend", target:"lovers", path:["friend", "finder", "fonder", "folder", "solder", "solver", "lovers"], limit: 10) #simple
+# Level.create(start: "learn", target:"teach", path:["learn", "yearn", "years", "hears", "heals", "leash", "leach", "teach"], limit: 10) #simple
+# Level.create(start: "friend", target:"lovers", path:["friend", "finder", "fonder", "folder", "solder", "solver", "lovers"], limit: 10) #simple
 Level.create(start: "birth", target:"death", path:["birth","girth","right","night","thing","thine","thane","neath","death"], limit: 12) #quite simple?
-Level.create(start: "gloom", target:"bliss", path:["gloom", "bloom", "blood", "blond", "blend", "blent", "blest", "bless", "bliss"], limit: 12) #quite simple
+Level.create(start: "study", target:"teach", path:["study", "studs", "stuns", "stunt", "stent", "tents", "tenth", "tench", "teach"], limit: 13) #realtively simple, but ok
+# Level.create(start: "gloom", target:"bliss", path:["gloom", "bloom", "blood", "blond", "blend", "blent", "blest", "bless", "bliss"], limit: 12) #quite simple
 Level.create(start: "power", target:"greed", path:["power", "cower", "coder", "ceder", "creed", "greed"], limit: 10) #hard
+Level.create(start: "dread", target:"peace", path:["dread", "tread", "treed", "trees", "terse", "tease", "pease", "peace"], limit: 12)
 Level.create(start: "sinned", target:"repent", path:["sinned", "tinned", "tinted", "tented", "tensed", "tenser", "resent", "repent"], limit: 12) #good difficulty
 Level.create(start: "grief", target:"peace", path:["grief", "brief", "bries", "tries", "trees", "terse", "tease", "pease", "peace"], limit: 12) #good
 
 
-#Level.create(start: "june", target:"july", path:["june", "rune", "rube", "ruby", "bury", "jury", "july"], limit: 10) #!!! Dict does not have june and July
-Level.create(start: "iron", target:"rust", path:["iron", "ikon", "oink", "rink", "risk", "rusk", "rust"], limit: 10)
+#Level.create(start: "alive", target:"ashes", path:["alive", "aline", "alone", "clone", "close", "chose", "chase", "aches", "ashes"], limit: 13) #retlatively simple
+
+
+Level.create(start: "june", target:"july", path:["june", "rune", "rube", "ruby", "bury", "jury", "july"], limit: 10)
+#Level.create(start: "iron", target:"rust", path:["iron", "ikon", "oink", "rink", "risk", "rusk", "rust"], limit: 10)
 Level.create(start: "thrive", target:"wither", path:["thrive", "shrive", "shrine", "shiner", "whiner", "whiter", "wither"], limit: 12)
 Level.create(start: "month", target:"years", path:["month", "mouth", "south", "shout", "short", "shore", "share", "hears", "years"], limit: 13)
 Level.create(start: "child", target:"elder", path:["child","chile","chine","shine","shire","hires","hides","hider","eider","elder"], limit: 15)

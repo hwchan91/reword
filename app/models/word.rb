@@ -1,10 +1,10 @@
 class Word
   require_relative "dict"
-  attr_accessor :word, :dict, :path, :index_changed
+  attr_accessor :word, :dict, :path, :index_changed, :full_match_indexes, :partial_match_indexes
 
   def initialize(word, dict = nil, no_reorder = false, path = [], index_changed = nil)
     @word = word
-    @dict = (dict.nil?) ? Dict.new : dict #cannot set default dict = Dict.new, because WordTrek passess nil as dict instead of nothing
+    @dict = (dict.nil?) ? Dict.new('common') : dict #cannot set default dict = Dict.new, because WordTrek passess nil as dict instead of nothing
     @path = path
     @index_changed = index_changed
     @no_reorder = no_reorder
@@ -141,7 +141,7 @@ class Word
                                                   'app_id': ENV['OXFORD_ID'],
                                                   'app_key': ENV["OXFORD_KEY"] 
                                                   })
-  
+
     lexical_entries = inflection_response['results'][0]["lexicalEntries"]
     word_bases = lexical_entries.map{|entry| {
                                               word: entry["inflectionOf"][0]["text"], 
@@ -206,11 +206,27 @@ class Word
 
   #get noun form first if noun form is a possible base, otherwise get verb, else get anything that comes first
   def preferred_word_base(word_bases)
-    word_bases.find{|word| word[:form] == "adjective"} ||
-    word_bases.find{|word| word[:form] == "adverb"} ||
-    word_bases.find{|word| word[:form] == "noun"} ||
-    word_bases.find{|word| word[:form] == "verb"} ||
-    word_bases[0]
+    ["adjective", "adverb", "noun", "verb"].each do |form|
+      base = word_bases.find{|word| word[:form].downcase == form }
+      return base if base
+    end
+    word_base[0]
+  end
+
+  def full_match_indexes(target_word)
+    @full_match_indexes ||= word.split('').map.each_with_index{ |letter, index| letter == target_word[index] ? index : nil }.compact
+  end
+
+  def partial_match_indexes(target_word)
+    partial_or_full_match_indexes = word.split('').map.each_with_index{ |letter, index| target_word.include?(letter) ? index : nil }.compact
+    @partial_match_count ||= partial_or_full_match_indexes - full_match_indexes(target_word)
+  end
+  
+  def access_match(target_word)
+    OpenStruct.new({
+      full_match_indexes: full_match_indexes(target_word),
+      partial_match_indexes: partial_match_indexes(target_word)
+    })
   end
 
 end
