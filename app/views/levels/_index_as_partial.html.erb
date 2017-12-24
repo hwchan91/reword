@@ -13,7 +13,7 @@
 
     <div class="chapter_title"><%= @chapter_title %></div>
 
-    <% if @chapter != 5 and (up_to + 1)/10 + 1> @chapter %>
+    <% if @chapter != 5 and (up_to/10 + 1) > @chapter %>
       <div class="next_chap">
         <%= link_to levels_path(chapter: @chapter + 1), remote: true do %>
           <span class="glyphicon glyphicon-chevron-right"></span>

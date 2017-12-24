@@ -37,10 +37,11 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 gem 'figaro'
 gem "httparty"
-gem 'jquery-ui-rails'
+# gem 'jquery-ui-rails'
 gem 'dalli'
 gem 'autoprefixer-rails'
 gem 'pg'
+gem 'wordnik'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

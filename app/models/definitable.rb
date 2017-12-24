@@ -5,14 +5,20 @@ module Definitable
     cached_definition = Rails.cache.read("define_#{@word}")
     return cached_definition if cached_definition
 
-    result = words_api_definition
-    raise if result.blank?
+    result = wordnik_definition
+    # result = words_api_definition if result.nil?
+    # result = oxford_definition if result.nil?
     result
-  rescue 
-    oxford_definition
   end
   
   private
+  def wordnik_definition
+    response = Wordnik.word.get_definitions(word)
+    definitions = response.map{|definition| definition['text']}
+    definitions_in_string = definitions_to_string(definitions.reject{|definition| definition.length > 50})
+    cache_and_return(word, definitions_in_string, 1.day)
+  end
+
   def words_api_definition
     results = get_words_api_definition
 
@@ -22,6 +28,8 @@ module Definitable
     definitions = extract_words_api_definitions(results, pref_base)
     definitions_in_string = definitions_to_string(definitions)
     cache_and_return(word, definitions_in_string, 1.day)
+  rescue
+    return nil
   end
 
   def oxford_definition
