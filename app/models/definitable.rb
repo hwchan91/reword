@@ -15,8 +15,16 @@ module Definitable
   def wordnik_definition
     response = Wordnik.word.get_definitions(word)
     definitions = response.map{|definition| definition['text']}
-    definitions_in_string = definitions_to_string(definitions.reject{|definition| definition.length > 50})
+    unless definitions.all?{|definition| definition.length > 50 }
+      chosen_definitions = definitions.reject{|definition| definition.length > 50}
+    else
+      chosen_definitions = definitions[0..2]
+    end
+
+    definitions_in_string = definitions_to_string(chosen_definitions)
     cache_and_return(word, definitions_in_string, 1.day)
+  rescue
+    nil
   end
 
   def words_api_definition
@@ -112,8 +120,12 @@ module Definitable
   end
 
   def definitions_to_string(definitions)
-    if definitions.length > 1
-      definitions = definitions[0..3].each_with_index.map do |defin, index| 
+    if definitions.length >= 4
+      definitions = (definitions[0..2] + [definitions[-1]]).each_with_index.map do |defin, index| 
+        "#{index + 1}. #{defin}"
+      end
+    elsif definitions.length > 1 and definitions.length < 4
+      definitions = definitions.each_with_index.map do |defin, index| 
         "#{index + 1}. #{defin}"
       end
     end

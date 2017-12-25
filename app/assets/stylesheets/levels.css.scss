@@ -30,21 +30,7 @@ html, body{
   --word-choice-hover-color: var(--complete-highlight-color);
   --definition-color: #aaa;
   --complete-highlight-color: rgb(50, 163, 202);
-
-  // --main-background-color: black;
-  // --main-background-text-color: orange;
-  // --main-border-color: orange;
-  // --main-text-color: white;
-  // --unchoosable-color: #f4f4f4;
-  // --choices-background-color: white;
-  // --highlight-color: black;
-  // --choosable-hover-color: white;
-  // --modal-backdrop-color: #5c5c5c;
-  // --box-shadow-color: rgb(255, 235, 200);
-  // --word-choice-color: orange;
-  // --word-choice-hover-color: rgb(177, 136, 90);
-  // --definition-color: #aaa;
-  // --complete-highlight-color: rgb(165, 78, 7);
+  --main-font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
 
 .start_word, .target_word {
@@ -479,7 +465,7 @@ html, body {
     text-align: right;
     margin-top: 70px;
     padding-right: 20px;
-    font-family: "Trebuchet MS", Helvetica, sans-serif; 
+    font-family: var(--main-font-family); 
   }
   .game_title {
     position: absolute;
@@ -568,7 +554,7 @@ html, body {
     background-color: white;
     color: #eee;
     box-shadow: 0px 0px 30px var(--box-shadow-color);
-    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-family: var(--main-font-family);
     margin: 0 30px;
     position: relative;
     .level_id {
@@ -615,7 +601,7 @@ html, body {
     text-transform: uppercase;
     color: #eee;
     font-size: 7vh;
-    font-family:  "Trebuchet MS", Helvetica, sans-serif;
+    font-family:  var(--main-font-family);
     text-align: center;
     margin: 0 auto;
     position: relative;
