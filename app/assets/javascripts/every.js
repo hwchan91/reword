@@ -398,13 +398,12 @@ function everyFunction() {
   }
 
   $('.prev_moves').on('click', function(e) {
-    // e.stopImmediatePropagation();
-    // e.preventDefault();
     var step_no = $(this).attr('class').match(/\d/)[0];
     while (step_no > 0) {
       $('.last_' + step_no).slideDown(500).fadeOut(500);
       step_no = step_no -1;
     }
+    $(".curr_word_container").animate({opacity: "0"}, 500);
   })
 
 
