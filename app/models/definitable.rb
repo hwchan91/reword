@@ -14,9 +14,20 @@ module Definitable
   private
   def wordnik_definition
     response = Wordnik.word.get_definitions(word)
+    if response.empty? and word[-1] == 's'
+      response = Wordnik.word.get_definitions(word[0..-2])
+    end
+
     definitions = response.map{|definition| definition['text']}
+    if definitions.first.downcase.include?('plural')
+      response = Wordnik.word.get_definitions(word[0..-2])
+      definitions = response.map{|definition| definition['text']}
+    end
+
+    return nil if response.empty?
+
     unless definitions.all?{|definition| definition.length > 50 }
-      chosen_definitions = definitions.reject{|definition| definition.length > 50}
+      chosen_definitions = [definitions.shift] + definitions.reject{|definition| definition.length > 50}
     else
       chosen_definitions = definitions[0..2]
     end
