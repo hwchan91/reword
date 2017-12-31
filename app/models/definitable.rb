@@ -4,8 +4,8 @@ module Definitable
   OTHER_FORMS = ['adjective', 'adverb', 'pronoun', 'conjunction', 'preposition', 'interjection', 'article']
 
   def define
-    # cached_definition = Rails.cache.read("define_#{@word}")
-    # return cached_definition if cached_definition
+    cached_definition = Rails.cache.read("define_#{@word}")
+    return cached_definition if cached_definition
 
     result = wordnik_definition
     # result = words_api_definition if result.nil?
