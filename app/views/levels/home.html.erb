@@ -1,7 +1,7 @@
 <div class="starting_page">
-  <div class="game_title">
-    WORD<br> 
-    LINK
+  <div class="game_title_cont">
+    <div class="game_title">REWORD</div>
+    <span class="overlay_letter">A</span>
   </div>
 
   <div class="play_btn">
@@ -38,6 +38,8 @@ function hidePromptInFuture(){
   // Do not show prompt again
   document.cookie = "alreadAsked=true; expires=Thu, 18 Dec 2099 12:00:00 UTC";
 }
+</script>
 
-
+<script>
+  $('.game_title').lettering();
 </script>

@@ -467,13 +467,31 @@ html, body {
     padding-right: 20px;
     font-family: var(--main-font-family); 
   }
-  .game_title {
+  .game_title_cont {
     position: absolute;
-    top: 10px;
-    left: 10px;
-    font-size: 7vh;
+    top: 0;
+    left: 0;
     color: white;
     opacity: 0.3;
+    font-size: 6vh;
+  }
+  .game_title_cont span {
+    height: 8vh;
+    width: 8vh;
+    text-align: center;
+    display: inline-block;
+  }
+  .game_title_cont {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .overlay_letter {
+    position: absolute;
+    left: calc(8vh * 3);
+    top: 0;
+    color: #bbb;
+    z-index: -1;
   }
   #play_link {
     text-decoration: none;
