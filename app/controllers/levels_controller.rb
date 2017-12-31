@@ -79,7 +79,7 @@ class LevelsController < ApplicationController
     end
 
     def last_word
-      (@history and @history.any?) ? Word.new(@history[-1]["word"], Dict.new('common')) : Word.new(@level.start, Dict.new('common'))
+      (@history and @history.any?) ? Word.new(@history[-1]["word"]) : Word.new(@level.start)
     end
 
     def complete
@@ -106,19 +106,27 @@ class LevelsController < ApplicationController
       level_id = params[:id]
       path = session[:"level#{level_id}_history"]
       optimal_achieved = path.length == @level.path.length
+      completed_levels = current_user.completed_levels.map(&:to_i)
+      optimal_levels = current_user.optimal_levels.map(&:to_i)
 
-      if prev_record = current_user.completed_levels.find_by(level_id: level_id)
-        if prev_record.best_path.length >= path.length
-          prev_record.update_attributes(best_path: path, optimal_achieved: optimal_achieved)
-        end
-      else
-        current_user.completed_levels.create(level_id: params[:id], best_path: path, optimal_achieved: optimal_achieved)
+      unless completed_levels.any?{|id| id == @level.id }
+        current_user.completed_levels << @level.id
       end
+
+      if optimal_achieved
+        unless optimal_levels.any?{|id| id == @level.id }
+          current_user.optimal_levels << @level.id
+        end
+      end
+
+      current_user.save!
+
       session.delete(:"level#{params[:id]}_history")
     end
 
     def get_completed_levels
-      @completed_levels = current_user.completed_levels.order("level_id")
+      @completed_levels = current_user.completed_levels.map(&:to_i)
+      @optimal_levels = current_user.optimal_levels.map(&:to_i)
     end
 
     def check_if_hack
@@ -129,10 +137,10 @@ class LevelsController < ApplicationController
     end
 
     def get_chapter
-      @curr_chapter = @completed_levels.empty? ?  1 : (@completed_levels.last.level_id / 10 ) + 1
+      @curr_chapter = @completed_levels.empty? ?  1 : (@completed_levels.max / 10 ) + 1
       @chapter = params[:chapter].nil? ? @curr_chapter : params[:chapter].to_i
       # no cheating
-      if params[:chapter] and (@completed_levels.empty? or (@completed_levels.last.level_id / 10) + 1 < @chapter)
+      if params[:chapter] and (@completed_levels.empty? or (@completed_levels.max / 10) + 1 < @chapter)
         @chapter = @curr_chapter
       end
       @chapter = 5 if @chapter > 5

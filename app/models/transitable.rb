@@ -6,11 +6,14 @@ module Transitable
   end
 
   def transition_words
-    output = transition_words_through_substitution
-    unless no_reorder
-      output += transition_words_through_reordering
-    end
-    output
+    # output = transition_words_through_substitution
+    # unless no_reorder
+    #   output += transition_words_through_reordering
+    # end
+    # output
+
+    transition_words = Rails.cache.fetch("transition_words") { JSON.parse(File.read('transition_words.json')) }
+    transition_words[word]
   end
 
   private
@@ -18,7 +21,7 @@ module Transitable
     output = []
     word.length.times do |position|
       ('a'..'z').to_a.each do |substitute|
-        test_word = word.clone
+        test_word = word.dup
         test_word[position] = substitute
         output << [test_word, position] if dict.valid?(test_word)
       end

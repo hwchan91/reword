@@ -361,7 +361,7 @@ function everyFunction() {
   if ($('.prev_moves').length == 0) {
     switch(level_no) {
       case 1:
-        flash(2)
+        flash(3)
         break;
       case 2:
         flash(0);

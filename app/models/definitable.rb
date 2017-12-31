@@ -1,41 +1,75 @@
 module Definitable
   extend ActiveSupport::Concern
 
+  OTHER_FORMS = ['adjective', 'adverb', 'pronoun', 'conjunction', 'preposition', 'interjection', 'article']
+
   def define
-    cached_definition = Rails.cache.read("define_#{@word}")
-    return cached_definition if cached_definition
+    # cached_definition = Rails.cache.read("define_#{@word}")
+    # return cached_definition if cached_definition
 
     result = wordnik_definition
     # result = words_api_definition if result.nil?
     # result = oxford_definition if result.nil?
+
     result
+    # translate(result)
+  end
+
+  def translate(result)
+    response = HTTParty.post("https://translation.googleapis.com/language/translate/v2?key=#{ENV['GOOGLE_TRANSLATE_KEY']}",
+    body: {
+      q: result,
+      target: 'zh'
+    })
+
+    translation = response['data']['translations'].first['translatedText']
   end
   
   private
   def wordnik_definition
+    search_word = word
     response = Wordnik.word.get_definitions(word)
-    if response.empty? and word[-1] == 's'
-      response = Wordnik.word.get_definitions(word[0..-2])
+    if (response.empty? and word[-1] == 's') or response.first['text'].downcase.include?('plural form') 
+      search_word = word[0..-2]
+      response = Wordnik.word.get_definitions(search_word)
     end
-
-    definitions = response.map{|definition| definition['text']}
-    if definitions.first.downcase.include?('plural')
-      response = Wordnik.word.get_definitions(word[0..-2])
-      definitions = response.map{|definition| definition['text']}
-    end
-
     return nil if response.empty?
 
-    unless definitions.all?{|definition| definition.length > 50 }
-      chosen_definitions = [definitions.shift] + definitions.reject{|definition| definition.length > 50}
-    else
-      chosen_definitions = definitions[0..2]
-    end
-
+    chosen_definitions = chosen_def(response, search_word)
     definitions_in_string = definitions_to_string(chosen_definitions)
     cache_and_return(word, definitions_in_string, 1.day)
   rescue
     nil
+  end
+
+  def chosen_def(response, search_word)
+    verb_response = response.select{|definition| definition['partOfSpeech'].include? 'verb' and !definition['partOfSpeech'].include? 'adverb' }
+    noun_response = response.select{|definition| definition['partOfSpeech'].include? 'noun'  and !definition['partOfSpeech'].include? 'pronoun' }
+    other_form_responses = OTHER_FORMS.map{|form| response.select{|definition| definition['partOfSpeech'].include? form } }
+    all_forms = [verb_response] + [noun_response] + other_form_responses
+
+    #chooses the 2 forms that have the most responses
+    top_forms = all_forms.reject{|resp| resp.empty? }.sort_by{|resp| resp.length}.reverse[0..1]
+    definitions_per_form = top_forms.map{ |form| form.map{|defin| defin['text']}.reject{|defin| defin.include?("  ") and !defin.include?(":  ") } }
+    
+    if definitions_per_form.length > 1
+      chosen_definitions = filter_def(definitions_per_form.first, search_word, 3) + filter_def(definitions_per_form.last, search_word, 1)
+    else
+      chosen_definitions =  filter_def(definitions_per_form.first, search_word, 4)
+    end
+  end
+
+  def filter_def(definitions, search_word, limit)
+    output = []
+    @used_words ||= []
+    definitions.each do |defin|
+      words = defin.downcase.scan(/\w+/).reject{|word| word.length < 4}
+      next if words.select{|word| @used_words.include?(word)}.length >= 3
+      @used_words += words.select{|word| word != search_word and !@used_words.include?(word) }
+      output << defin
+      break if output.length == limit
+    end
+    output
   end
 
   def words_api_definition
@@ -131,6 +165,7 @@ module Definitable
   end
 
   def definitions_to_string(definitions)
+    definitions.each{|defin| defin.slice!(/\d/)} #remove subscripts
     if definitions.length >= 4
       definitions = (definitions[0..2] + [definitions[-1]]).each_with_index.map do |defin, index| 
         "#{index + 1}. #{defin}"

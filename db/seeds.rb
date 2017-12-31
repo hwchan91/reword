@@ -1,4 +1,4 @@
-Level.create(start: "click", target:"clack", path: ["click", "clack"], limit: 2)
+Level.create(start: "reword", target:"reward", path: ["reword", "reward"], limit: 2)
 Level.create(start: "date", target:"fate", path: ["date", "fate"], limit: 2)
 Level.create(start: "mad", target:"hat", path: ["mad", "had", "hat"], limit: 3)
 Level.create(start: "this", target:"that", path: ["this", "thin", "than", "that"], limit:4)

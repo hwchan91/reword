@@ -10,22 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171122164213) do
+ActiveRecord::Schema.define(version: 20171231102345) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "chapters", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "completed_levels", force: :cascade do |t|
-    t.integer "level_id"
-    t.text "best_path", default: [], array: true
-    t.boolean "optimal_achieved", default: false
-    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -41,6 +32,10 @@ ActiveRecord::Schema.define(version: 20171122164213) do
     t.string "uid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "completed_levels", default: [], array: true
+    t.text "optimal_levels", default: [], array: true
+    t.string "name"
+    t.string "password_digest"
   end
 
 end
