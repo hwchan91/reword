@@ -296,6 +296,7 @@ function everyFunction() {
       $(".options_overlay").css("display", "none");
     } else {
       $('.credits_content').hide();
+      $('.profile_content').hide();
       $('.default_content').show();
     }
   });
@@ -327,6 +328,11 @@ function everyFunction() {
 
   $('.credits_btn').click(function() {
     $('.credits_content').show();
+    $('.default_content').hide();
+  })
+
+  $('.profile_btn').click(function() {
+    $('.profile_content').show();
     $('.default_content').hide();
   })
 

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'users/update'
+
   root to: 'levels#home'
   resources :levels, only: [:show, :index] do
     member do
@@ -7,4 +9,5 @@ Rails.application.routes.draw do
       get "undo"
     end
   end
+  resources :users, only: [:update]
 end
