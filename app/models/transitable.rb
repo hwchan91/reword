@@ -1,6 +1,8 @@
 module Transitable
   extend ActiveSupport::Concern
 
+  @@transitable = Rails.cache.fetch("transition_words") { JSON.parse(File.read('transition_words.json')) }
+
   def transition_word_objects
     @transition_word_objects ||= generate_transition_word_objects
   end
@@ -12,8 +14,9 @@ module Transitable
     # end
     # output
 
-    transition_words = Rails.cache.fetch("transition_words") { JSON.parse(File.read('transition_words.json')) }
-    transition_words[word]
+    # transition_words = Rails.cache.fetch("transition_words") { JSON.parse(File.read('transition_words.json')) }
+    # transition_words[word]
+    @@transitable[word]
   end
 
   private

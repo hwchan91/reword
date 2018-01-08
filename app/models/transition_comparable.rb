@@ -1,4 +1,4 @@
-module TransitionComparable 
+module TransitionComparable
   extend ActiveSupport::Concern
 
   def getting_closer?(words_to_compare)
@@ -9,11 +9,11 @@ module TransitionComparable
     return @sorted_output if @sorted_output
     original_best = best_match_count(words_to_compare)
     output = transition_word_objects.select { |transition_word| transition_word.best_match_count(words_to_compare) > original_best - 1 }
-    @sorted_output = output.sort_by{|word, best_count| best_count}.reverse.map{|word, best_count| word}
+    @sorted_output = output.sort_by{|word| word.best_match_count(words_to_compare)}.reverse #sort seems to make it slightly faster, but very small difference
   end
-    
+
   def best_match_count(words_to_compare)
-    words_to_compare.map { |comparison| match_count(comparison) }.max
+    @best_match_count ||= words_to_compare.map{ |comparison| match_count(comparison) }.max
   end
 
   private

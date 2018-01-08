@@ -5,14 +5,15 @@ class WordTrek
   include SideManager
 
   def initialize(starting_word, target_word, dict = nil, no_reorder = false)
+    @target_word = target_word
     top_front = [Word.new(starting_word, dict, no_reorder)]
     bottom_front = [Word.new(target_word, dict, no_reorder)]
     @fronts = [top_front, bottom_front]
-  
+
     top_stack = bottom_stack = []
     @stacks = [top_stack, bottom_stack]
     @curr_side_index = 0
-    
+
     @result = (starting_word.length != target_word.length) ? ["no solution"] : []
   end
 
@@ -26,7 +27,7 @@ class WordTrek
 
   private
       def find_solution
-        catch :found_solution do 
+        catch :found_solution do
           propagate_front
           check_if_no_solution
           move_front
@@ -36,6 +37,7 @@ class WordTrek
 
           def propagate_front(front = curr_front, stack = curr_stack, to_be_added = @to_be_added = [])
             wordbase = front.clone #unlink from the front so that the front would remain the same
+            #wordbase.sort!{|word| word.match_count(opposite_side.first) }.reverse -> pointless, recursive call is doing the same thing already
             wordbase.each do |word|
               word.transition_word_objects.each do |transition_word|
                 check_if_reached_target(transition_word)
@@ -43,7 +45,7 @@ class WordTrek
               end
               clear_to_be_added_cache
 
-              recursive_call_on_words_getting_closer(word, front, stack, to_be_added) if word.getting_closer?(opposite_side) #recursive call should be after add_if_new for optimal path 
+              recursive_call_on_words_getting_closer(word, front, stack, to_be_added) if word.getting_closer?(opposite_side) #recursive call should be after add_if_new for optimal path
             end
             to_be_added
           end
@@ -62,29 +64,30 @@ class WordTrek
               end
 
               def recursive_call_on_words_getting_closer(word, front, stack, to_be_added)
-                words_closer = word.transition_words_closer_to_target(self.opposite_side)
+                words_closer = word.transition_words_closer_to_target(self.opposite_side.first) #since the result of compare is cached, there's no point in comparing other words
+                #words_closer = word.transition_words_closer_to_target(self.opposite_side)
                 words_closer_not_already_included = words_closer.select{|word| new_word?(word, front, stack)}
                 propagate_front(words_closer_not_already_included, stack, to_be_added)
               end
-            
+
                   def new_word?(word, curr_front, curr_stack)
                     @words_in_curr_stack ||= words_in_stack(curr_stack)
                     @words_in_curr_front ||= words_in_stack(curr_front)
                     @words_in_to_be_added ||= words_in_stack(@to_be_added)
-            
+
                     not_in_stack = !@words_in_curr_stack.include?(word.word)
                     not_in_front = !@words_in_curr_front.include?(word.word)
                     not_in_to_be_added = !@words_in_to_be_added.include?(word.word)
                     not_in_stack and not_in_front and not_in_to_be_added
                   end
-            
+
                       def words_in_stack(stack)
                         (stack.empty?) ? [] : stack.map(&:word)
-                      end            
+                      end
 
           def check_if_no_solution
             if @to_be_added.empty?
-              @result << "no solution" 
+              @result << "no solution"
               throw :found_solution
             end
           end
@@ -96,7 +99,7 @@ class WordTrek
           end
 
               def clear_curr_cache
-                remove_instance_variable(:@words_in_curr_front) if @words_in_curr_front 
+                remove_instance_variable(:@words_in_curr_front) if @words_in_curr_front
                 remove_instance_variable(:@words_in_curr_stack) if @words_in_curr_stack
               end
 
@@ -107,9 +110,9 @@ class WordTrek
       def return_solution
         return 'no solution' if @result[0] == 'no solution'
         results = @result.map do |result|
-          first_half = result[0].path 
-          second_half = result[1].path 
-          solution = first_half + [result[0].word] + second_half.reverse 
+          first_half = result[0].path
+          second_half = result[1].path
+          solution = first_half + [result[0].word] + second_half.reverse
           solution.reverse! if @curr_side_index == 0
           solution
         end

@@ -3,11 +3,10 @@ class Dict
 
   def initialize(custom_words = nil)
     @dict = case custom_words
-            when nil then Rails.cache.fetch("full_dict"){ Dict.generate } #@@full_dict
-            when 'common' then Rails.cache.fetch("common_dict"){ Dict.generate_common } #@@common_dict
+            when nil then @@full_dict
+            when 'common' then @@common_dict
             else Dict.generate_custom_words(custom_words)
             end
-    #@dict = (custom_words.nil?) ? @@full_dict : Dict.generate_custom_words(custom_words)
   end
 
   def self.generate
@@ -20,7 +19,6 @@ class Dict
     end
     dict
   end
-  #@@full_dict ||= Dict.generate
 
   def self.generate_common
     dict = {}
@@ -54,7 +52,6 @@ class Dict
     end
     dict
   end
-  #@@common_dict ||= Dict.generate_common
 
   def self.generate_custom_words(words)
     dict = {}
@@ -65,6 +62,9 @@ class Dict
   def valid?(word)
     @dict[word]
   end
-end
 
-#binding.pry
+
+  @@full_dict = Rails.cache.fetch("full_dict"){ Dict.generate }
+  @@common_dict = Rails.cache.fetch("common_dict"){ Dict.generate_common }
+
+end

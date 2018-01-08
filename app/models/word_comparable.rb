@@ -2,7 +2,8 @@ module WordComparable
   extend ActiveSupport::Concern
 
   def compare(target_word)
-    OpenStruct.new({
+    return @compare if @compare #if cached, then the result is always comparing against the target/origin word -> that means, best_match_count is only comparing against the target word
+    @compare = OpenStruct.new({
       full_match_indexes: full_match_indexes(target_word),
       partial_match_indexes: partial_match_indexes(target_word)
     })

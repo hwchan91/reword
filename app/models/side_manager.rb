@@ -26,6 +26,6 @@ module SideManager
   end
 
   def opposite_side
-    opposite_stack + opposite_front #try sorting so that the words with the highest match are at the front of the array so that they get returned first
+    opposite_stack + opposite_front
   end
 end
