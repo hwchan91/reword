@@ -5,7 +5,7 @@
   def choices(history)
     hash = {}
     transition_words_not_used(history).each do |word, index|
-      if hash[index] 
+      if hash[index]
         hash[index] << word
       else
         hash[index] = [word]

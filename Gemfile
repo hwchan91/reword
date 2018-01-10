@@ -39,6 +39,8 @@ gem 'wordnik'
 # gem "google-cloud-storage"
 gem "google-cloud-translate"
 gem 'httparty'
+# gem 'sidekiq-scheduler'
+gem "simple_scheduler"
 
 
 group :development, :test do

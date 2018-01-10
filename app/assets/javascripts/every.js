@@ -1,5 +1,5 @@
 function everyFunction() {
-  
+
   function centerModal() {
     $(this).css('display', 'block');
     var $dialog  = $(this).find(".modal-dialog"),
@@ -7,7 +7,7 @@ function everyFunction() {
     bottomMargin = parseInt($dialog.css('marginBottom'), 10);
 
     // Make sure you don't hide the top part of the modal w/ a negative margin if it's longer than the screen height, and keep the margin equal to the bottom margin of the modal
-    if (offset < bottomMargin) { 
+    if (offset < bottomMargin) {
       offset = bottomMargin;
     }
     $dialog.css("margin-top", offset);
@@ -19,7 +19,7 @@ function everyFunction() {
       $('.modal:visible').each(centerModal);
     }
   });
-      
+
   function openReorderModal() {
     $('.reorder_btn').on('click', showReorderModal)
   }
@@ -40,7 +40,7 @@ function everyFunction() {
     });
   }
   clickAndDisable();
-  
+
 
   function closeModalWhenClickedOutside() {
     $('.next_word_container').click(function() {
@@ -71,7 +71,7 @@ function everyFunction() {
     }
     closeLevelAnimation();
 
-    function animateMessage() { 
+    function animateMessage() {
       $("#completed_in").delay(5500).fadeIn('fast');
       $("#path_length").delay(6000).fadeIn('slow');
       $(".path_word_container").each(function(index) {
@@ -97,7 +97,7 @@ function everyFunction() {
       setTimeout(function() {
         toggleDefinition($(".path_word_definition"));
         fadeInPlayAgain();
-        
+
       }, 8500 + $(".path_word_container").length * 500 )
     }
     hideDefinitionThenShowButton();
@@ -125,13 +125,13 @@ function everyFunction() {
     function displayDefinitionWhenHover(that) {
       var word = $(that)
       var definition = word.next(".path_word_definition")
-      word.click(function() { 
+      word.click(function() {
         toggleDefinition(definition)
       });
     }
 
     function toggleDefinition(elem) {
-      elem.animate({ height: 'toggle', opacity: 'toggle' }, 'slow') 
+      elem.animate({ height: 'toggle', opacity: 'toggle' }, 'slow')
     }
 
     function automaticScroll() {
@@ -144,16 +144,16 @@ function everyFunction() {
         highlight_color = getRGB(highlight_color);
 
         var red = Number(highlight_color.red) + index * 2
-        if (red > 255) { 
-          red = 255 
+        if (red > 255) {
+          red = 255
         }
         var green = Number(highlight_color.green) - index * 2
-        if (green < 0) { 
-          green = 0 
+        if (green < 0) {
+          green = 0
         }
         var blue = Number(highlight_color.blue) - index * 10
-        if (blue < 0) { 
-          blue = 0 
+        if (blue < 0) {
+          blue = 0
         }
 
         $(this).css("color", "rgb(" + red + ", " + green  +", " + blue + ")")
@@ -171,7 +171,7 @@ function everyFunction() {
     } : {};
   }
 
-  if ($("#level_complete").length > 0) { 
+  if ($("#level_complete").length > 0) {
     disableBackLinks();
     setTimeout(function() {
       endingAnimation();
@@ -200,7 +200,7 @@ function everyFunction() {
       }, 200)
 
       $(".last_5").delay(200).slideUp(500).fadeOut(500);
-    } 
+    }
 
     setTimeout(function() {
       $(".curr_word_container").animate({opacity: "1"}, 500);
@@ -242,8 +242,8 @@ function everyFunction() {
   if ( $('.starting_page').length == 0 ) {
     checkIfMusicPlaying();
   }
-  
-  
+
+
   //level selection page functions
   function addSpanAroundLetters() {
     $(".level_start_word").lettering();
@@ -272,7 +272,7 @@ function everyFunction() {
         }
       }
 
-     
+
     })
   }
   goToLevel();
@@ -309,9 +309,9 @@ function everyFunction() {
         var soundcloud_player = SC.Widget(soundcloud_elem);
         soundcloud_player.play();
         checkIfMusicPlaying();
-        $('body').addClass("music_started") 
+        $('body').addClass("music_started")
       }
-    })  
+    })
   }, 1000);
 
   $('.select_level_btn').click(function() {
@@ -367,15 +367,15 @@ function everyFunction() {
   if ($('.prev_moves').length == 0) {
     switch(level_no) {
       case 1:
-        flash(3)
+        flash(3);
         break;
       case 2:
         flash(0);
-        break; 
+        break;
       case 3:
         flash(0);
         flash(2);
-        break; 
+        break;
       case 6:
         blinkReorderBtn();
         break;

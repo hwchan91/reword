@@ -24,12 +24,13 @@ module Definitable
 
     translation = response['data']['translations'].first['translatedText']
   end
-  
+
   private
   def wordnik_definition
     search_word = word
-    response = Wordnik.word.get_definitions(word)
-    if (response.empty? and word[-1] == 's') or response.first['text'].downcase.include?('plural form') 
+    response = Wordnik.word.get_definitions(word, use_canonical: true)
+    # with use_canonical, maybe not necessarily to try to convert plural/present tense anymore
+    if (response.empty? and word[-1] == 's') or response.first['text'].downcase.include?('plural form')
       search_word = word[0..-2]
       response = Wordnik.word.get_definitions(search_word)
     end
@@ -51,7 +52,7 @@ module Definitable
     #chooses the 2 forms that have the most responses
     top_forms = all_forms.reject{|resp| resp.empty? }.sort_by{|resp| resp.length}.reverse[0..1]
     definitions_per_form = top_forms.map{ |form| form.map{|defin| defin['text']}.reject{|defin| defin.include?("  ") and !defin.include?(":  ") } }
-    
+
     if definitions_per_form.length > 1
       chosen_definitions = filter_def(definitions_per_form.first, search_word, 3) + filter_def(definitions_per_form.last, search_word, 1)
     else
@@ -88,8 +89,8 @@ module Definitable
   def oxford_definition
     lexical_entries = get_oxford_lexical_entries
     word_bases = lexical_entries.map{ |entry| {
-      word: entry["inflectionOf"][0]["text"], 
-      form: entry["lexicalCategory"]} 
+      word: entry["inflectionOf"][0]["text"],
+      form: entry["lexicalCategory"]}
     }
     pref_base = preferred_word_base(word_bases)
 
@@ -111,14 +112,14 @@ module Definitable
                                     })
     response['results']
   end
-  
+
   def get_oxford_lexical_entries
     inflection_url = "https://od-api.oxforddictionaries.com:443/api/v1/inflections/en/#{word}"
     inflection_response = HTTParty.get(inflection_url,
                                         headers: {
-                                                  "Accept": "application/json",          
+                                                  "Accept": "application/json",
                                                   'app_id': ENV['OXFORD_ID'],
-                                                  'app_key': ENV["OXFORD_KEY"] 
+                                                  'app_key': ENV["OXFORD_KEY"]
                                                   })
 
     inflection_response['results'][0]["lexicalEntries"]
@@ -128,9 +129,9 @@ module Definitable
     definition_url = "https://od-api.oxforddictionaries.com:443/api/v1/entries/en/#{word_base[:word]}"
     response =  HTTParty.get(definition_url,
                             headers: {
-                                      "Accept": "application/json",          
+                                      "Accept": "application/json",
                                       'app_id': ENV['OXFORD_ID'],
-                                      'app_key': ENV["OXFORD_KEY"] 
+                                      'app_key': ENV["OXFORD_KEY"]
                                       })
 
     response['results'][0]['lexicalEntries']
@@ -167,11 +168,11 @@ module Definitable
   def definitions_to_string(definitions)
     definitions.each{|defin| defin.slice!(/\d/)} #remove subscripts
     if definitions.length >= 4
-      definitions = (definitions[0..2] + [definitions[-1]]).each_with_index.map do |defin, index| 
+      definitions = (definitions[0..2] + [definitions[-1]]).each_with_index.map do |defin, index|
         "#{index + 1}. #{defin}"
       end
     elsif definitions.length > 1 and definitions.length < 4
-      definitions = definitions.each_with_index.map do |defin, index| 
+      definitions = definitions.each_with_index.map do |defin, index|
         "#{index + 1}. #{defin}"
       end
     end

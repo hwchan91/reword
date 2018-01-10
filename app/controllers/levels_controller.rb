@@ -1,5 +1,5 @@
 class LevelsController < ApplicationController
-  #before_action :check_if_hack, only: [:show, :move, :reset, :undo]
+  before_action :check_if_hack, only: [:show, :move, :reset, :undo]
   before_action :set_level, only: [:show, :move]
   before_action :get_word, only: [:show]
   before_action :get_completed_levels, only: [:index]
@@ -7,7 +7,7 @@ class LevelsController < ApplicationController
 
   def show
     respond_to do |format|
-      format.html do 
+      format.html do
         if complete
           @complete = true
           update_records
@@ -25,7 +25,7 @@ class LevelsController < ApplicationController
     history = session[:"level#{params[:id]}_history"] ||= [] #empty array is necc for valid_transition method
     if last_word.valid_transition?(new_word, history)
       if session[:"level#{params[:id]}_history"]
-        session[:"level#{params[:id]}_history"] << word_hash 
+        session[:"level#{params[:id]}_history"] << word_hash
       else
         session[:"level#{params[:id]}_history"] = [word_hash]
       end
@@ -48,7 +48,7 @@ class LevelsController < ApplicationController
   end
 
   def index
-    @levels = Level.where(id: ((@chapter-1) * 10 + 1).. ((@chapter-1) * 10 + 10)).order(:id)
+    @levels = Level.default.where(id: ((@chapter-1) * 10 + 1).. ((@chapter-1) * 10 + 10)).order(:id)
     @chapter_title = Chapter.find(@chapter).name
 
     respond_to do |format|
@@ -63,8 +63,22 @@ class LevelsController < ApplicationController
 
   private
     def set_level
-      @level = Level.find(params[:id])
-      @limit = @level.limit ||= @level.path.length + 2
+      unless params[:id] == 'zen'
+        @level = Level.default.find(params[:id])
+        @limit = @level.limit ||= @level.path.length + 2
+      else
+        set_zen_level
+      end
+      set_history
+    end
+
+    def set_zen_level
+      cookies.permanent.encrypted[:zen] = Level.zen.first.as_json.to_json if cookies.permanent.encrypted[:zen].nil? # Rails.cache.fetch("first_zen_today") { Level.zen.first.as_json } if cookies.permanent.encrypted[:zen].nil?
+      @level = OpenStruct.new(JSON.parse(cookies.permanent.encrypted[:zen]))
+      @limit = @level.limit
+    end
+
+    def set_history
       if session[:"level#{params[:id]}_history"].is_a? Array
         @history = session[:"level#{params[:id]}_history"]
       else
@@ -92,7 +106,11 @@ class LevelsController < ApplicationController
       get_word
       if complete
         @complete = true
-        update_records
+        unless params[:id] == 'zen'
+          update_records
+        else
+          update_zen_records
+        end
         render 'complete.js'
       else
         render 'reload_show.js'
@@ -125,14 +143,29 @@ class LevelsController < ApplicationController
       session.delete(:"level#{params[:id]}_history")
     end
 
+    def update_zen_records
+      current_user.total_completed_zen_levels += 1
+      current_user.continuous_zen_levels += 1
+      current_user.save!
+
+      session.delete(:"level#{params[:id]}_history")
+
+      if @level.created_at < 24.hours.ago
+        cookies.permanent.encrypted[:zen] = Rails.cach.fetch("first_zen_today") { Level.zen.first.as_json }
+      else
+        level = Level.find(@level.id + 1) rescue nil
+        cookies.permanent.encrypted[:zen] = level.as_json
+      end
+    end
+
     def get_completed_levels
       @completed_levels = current_user.completed_levels.map(&:to_i)
       @optimal_levels = current_user.optimal_levels.map(&:to_i)
     end
 
     def check_if_hack
-      latest_level = current_user.completed_levels.order("level_id").last
-      if (latest_level and params[:id].to_i > latest_level.level_id + 1 ) or (latest_level.nil? and params[:id].to_i > 1 )
+      latest_level = current_user.completed_levels.max
+      if (latest_level and params[:id].to_i > latest_level.to_i + 1 ) or (latest_level.nil? and params[:id].to_i > 1 )
         redirect_to levels_path, format: :js
       end
     end

@@ -116,6 +116,6 @@ class WordTrek
           solution.reverse! if @curr_side_index == 0
           solution
         end
-        results
+        results.first #results returns an array
       end
 end
