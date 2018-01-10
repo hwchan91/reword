@@ -1,11 +1,22 @@
 <div class="reset">
-  <%= link_to reset_level_path(@level.id), remote: true do %>
+  <%= link_to reset_level_path(level_id_or_zen), remote: true do %>
     <span class="glyphicon glyphicon-refresh"></span>
   <% end %>
+
+  <%# move to bottom right corner, maybe %>
+  <div>
+    <% if @level.id == 9999 %>
+      <%= link_to skip_zen_level_level_path('zen'), remote: true do %>
+        <span class="glyphicon glyphicon-remove"></span>
+      <% end %>
+    <% end %>
+  </div>
+
   <div class="options_btn" data-toggle='modal' data-target="#options_overlay">
     <span class="glyphicon glyphicon-th-large"></span>
   </div>
 </div>
+
 
 <div id="options_overlay" class="modal fade" role="dialog">
   <div class="modal-dialog">
@@ -15,7 +26,7 @@
         <div class="options_container">
           <span data-dismiss="modal" class="glyphicon glyphicon-remove close_options"></span>
           <div class="music_row">
-            Music 
+            Music
             <%= render 'music_btn' %>
           </div>
           <div><%=link_to "Select Level", levels_path(chapter: (@level.id / 10) + 1), remote: true, class:  "select_level_btn" %></div>
@@ -25,34 +36,3 @@
     </div>
   </div>
 </div>
-
-
-
-<% if false %>
-<div id="instructions" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-body">
-
-      Your goal is to change the word at the top, i.e. <span><%= @level.start.upcase %></span>,<br>
-      to the word at the bottom, i.e. <span><%= @level.target.upcase %></span>.<br><br>
-
-      To do so, you must change the word,<br>
-      <span>ONE LETTER AT A TIME</span>,<br>
-      or <span>REORDER THE LETTERS</span> of the current word.<br><br>
-
-      Try clicking on any letter in the middle of the screen,<br>
-      or click on the reorder button (if available).<br><br>
-
-      Each level has a limited number of moves,<br>
-      displayed at the top left corner.<br>
-      Click on the greyed out words near the top to backtrack.<br><br>
-
-      Aim for the optimal solution <span class="glyphicon glyphicon-flag"></span><br>
-      if you are tough enough to take on the challenge!
-
-      </div>
-    </div>
-  </div>
-</div>
-<% end %>

@@ -2,7 +2,7 @@ module LevelsHelper
   def choosable?(index)
     @choices[index] ? 'choosable' : 'unchoosable'
   end
-  
+
   def number_of_prev_steps_exceed(num)
     @history.length > num
   end
@@ -13,11 +13,11 @@ module LevelsHelper
 
   def history_at(number_of_prev_steps)
     @history[number_of_prev_steps]
-  end 
+  end
 
-  def distance_from_curr(number_of_prev_steps) 
+  def distance_from_curr(number_of_prev_steps)
     if @undo
-       -(number_of_prev_steps) - 1 
+       -(number_of_prev_steps) - 1
     else
       -(number_of_prev_steps) - 2
     end
@@ -47,7 +47,7 @@ module LevelsHelper
   def changed_index(record)
     changed_index = record["changed_index"]
     case changed_index
-    when nil then "none" 
+    when nil then "none"
     when "" then nil
     else changed_index.to_i
     end
@@ -58,7 +58,7 @@ module LevelsHelper
   end
 
   def within_optimal?
-    @history.length <= @level.path.length 
+    @history.length <= @level.path.length
   end
 
   def within_limit?
@@ -67,9 +67,9 @@ module LevelsHelper
 
   def steps_before_limit_after_optimal
     if @history.length <= @level.path.length
-      @limit - @level.path.length - 1 
+      @limit - @level.path.length - 1
     else
-      @limit - @history.length 
+      @limit - @history.length
     end
   end
 
@@ -87,5 +87,7 @@ module LevelsHelper
     end
   end
 
-
+  def level_id_or_zen
+    @level.id <= ENV['DEFAULT_LEVELS'].to_i ? @level.id : 'zen'
+  end
 end

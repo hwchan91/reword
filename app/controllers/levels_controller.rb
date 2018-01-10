@@ -61,6 +61,16 @@ class LevelsController < ApplicationController
     @user = current_user
   end
 
+  def skip_zen_level
+    unless params[:id] == 'zen'
+      redirect_to levels_path, format: :js
+    end
+
+    cookies.permanent.encrypted[:zen] = nil
+    session[:"levelzen_history"] = nil
+    reload_show
+  end
+
   private
     def set_level
       unless params[:id] == 'zen'
@@ -73,7 +83,8 @@ class LevelsController < ApplicationController
     end
 
     def set_zen_level
-      cookies.permanent.encrypted[:zen] = Level.zen.first.as_json.to_json if cookies.permanent.encrypted[:zen].nil? # Rails.cache.fetch("first_zen_today") { Level.zen.first.as_json } if cookies.permanent.encrypted[:zen].nil?
+      cookies.permanent.encrypted[:zen] = Level.generate.as_json.to_json if cookies.permanent.encrypted[:zen].nil?
+      # cookies.permanent.encrypted[:zen] = Level.zen.first.as_json.to_json if cookies.permanent.encrypted[:zen].nil?
       @level = OpenStruct.new(JSON.parse(cookies.permanent.encrypted[:zen]))
       @limit = @level.limit
     end
@@ -149,13 +160,14 @@ class LevelsController < ApplicationController
       current_user.save!
 
       session.delete(:"level#{params[:id]}_history")
+      cookies.permanent.encrypted[:zen] = Level.generate.as_json
 
-      if @level.created_at < 24.hours.ago
-        cookies.permanent.encrypted[:zen] = Rails.cach.fetch("first_zen_today") { Level.zen.first.as_json }
-      else
-        level = Level.find(@level.id + 1) rescue nil
-        cookies.permanent.encrypted[:zen] = level.as_json
-      end
+      # if @level.created_at < 24.hours.ago
+      #   cookies.permanent.encrypted[:zen] = Rails.cach.fetch("first_zen_today") { Level.zen.first.as_json }
+      # else
+      #   level = Level.find(@level.id + 1) rescue nil
+      #   cookies.permanent.encrypted[:zen] = level.as_json
+      # end
     end
 
     def get_completed_levels
@@ -164,6 +176,7 @@ class LevelsController < ApplicationController
     end
 
     def check_if_hack
+      return if params[:id] == 'zen'
       latest_level = current_user.completed_levels.max
       if (latest_level and params[:id].to_i > latest_level.to_i + 1 ) or (latest_level.nil? and params[:id].to_i > 1 )
         redirect_to levels_path, format: :js
@@ -177,7 +190,8 @@ class LevelsController < ApplicationController
       if params[:chapter] and (@completed_levels.empty? or (@completed_levels.max / 10) + 1 < @chapter)
         @chapter = @curr_chapter
       end
-      @chapter = 5 if @chapter > 5
+      max_chapter = ENV['DEFAULT_CHAPTERS'].to_i
+      @chapter = max_chapter if @chapter > max_chapter
     end
 
 end

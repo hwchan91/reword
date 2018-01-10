@@ -1,32 +1,11 @@
 <div class="options_container">
   <div class="default_content">
-    <div class="profile_btn">Edit Profile</div>
     <div class="music_row">
-      Music 
+      Music
       <%= render 'music_btn' %>
     </div>
     <div class="credits_btn">Credits</div>
     <div class="send_email">Support</div>
-  </div>
-
-  <div class="profile_content">
-    <h5>Edit Profile</h5>
-    
-    <%= form_for(@user, remote: true) do |f| %>
-      <%= f.label :name %><br>
-      <%= f.text_field :name %><br>
-      
-      <% if @current_user.name.nil? %>
-        <br>
-        <%= f.label :password %><br>
-        <%= f.password_field :password %><br>
-      <% else %>
-        Change Password
-      <% end %>
-
-      <%= f.submit 'Save' %>
-
-    <% end %>
   </div>
 
   <div class="credits_content">

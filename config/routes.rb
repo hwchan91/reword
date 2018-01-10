@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       get "move"
       get "reset"
       get "undo"
+      get "skip_zen_level"
     end
   end
   resources :users, only: [:update]

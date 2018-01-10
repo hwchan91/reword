@@ -29,7 +29,8 @@ class Level < ApplicationRecord
       valid = true unless path == "no solution" or path.length <= 6 or duplicated_level(start, target)
     end
 
-    Level.create({start: start, target: target, path: path, limit: path.length, auto: true})
+    {id: 9999, start: start, target: target, path: path, limit: path.length}
+    #Level.create({start: start, target: target, path: path, limit: path.length, auto: true})
   end
 
   def self.random_word(words)
