@@ -6,7 +6,7 @@
   <% range_of_prev_steps(6).each do |number_of_prev_steps| %>
     <% if history_at(number_of_prev_steps) %>
       <% if !@complete %>
-        <%= link_to undo_level_path(@level.id, steps: backstep(number_of_prev_steps)), remote: true, class: "undo_link" do %>
+        <%= link_to undo_level_path(level_id_or_zen, steps: backstep(number_of_prev_steps)), remote: true, class: "undo_link" do %>
           <span class="last_<%= distance_from_curr(number_of_prev_steps) %> prev_moves"><%= history_at(number_of_prev_steps)['word'].upcase %></span>
         <% end %>
       <% else %>
