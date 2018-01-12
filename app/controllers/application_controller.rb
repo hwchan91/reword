@@ -4,20 +4,19 @@ class ApplicationController < ActionController::Base
 
   private
     def set_cookie
-      unless cookies.signed[:uid]
-        uid_created = false
-        until uid_created and User.find_by(uid: new_uid).nil?
-          uid_created = true
+      unless cookies.encrypted[:uid]
+        new_uid = nil
+        loop do
           new_uid = random_uid
+          break if User.find_by(uid: new_uid).nil?
         end
-
-        cookies.permanent.signed[:uid] = { value: new_uid, expires: 1.hour.from_now }
+        cookies.permanent.encrypted[:uid] = new_uid
       end
     end
 
     def current_user
-      uid = cookies.signed[:uid]
-      @current_user ||= User.find_by(uid: uid) || User.create(uid: uid, password: ENV['DEFAULT_PW'])
+      uid = cookies.encrypted[:uid]
+      @current_user ||= User.find_or_create_by(uid: uid)
     end
 
     def random_uid
