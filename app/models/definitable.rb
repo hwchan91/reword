@@ -51,7 +51,7 @@ module Definitable
 
     #chooses the 2 forms that have the most responses
     top_forms = all_forms.reject{|resp| resp.empty? }.sort_by{|resp| resp.length}.reverse[0..1]
-    definitions_per_form = top_forms.map{ |form| form.map{|defin| defin['text']}.reject{|defin| defin.include?("  ") and !defin.include?(":  ") } }
+    definitions_per_form = top_forms.map{ |form| form.map{|defin| defin['text']} }#.reject{|defin| defin.include?("  ") and !defin.include?(":  ") } }
 
     if definitions_per_form.length > 1
       chosen_definitions = filter_def(definitions_per_form.first, search_word, 3) + filter_def(definitions_per_form.last, search_word, 1)
