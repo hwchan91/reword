@@ -5,6 +5,7 @@ class Dict
     @dict = case custom_words
             when nil then @@full_dict
             when 'common' then @@common_dict
+            when 'popular' then @@popular_dict
             else Dict.generate_custom_words(custom_words)
             end
   end
@@ -52,6 +53,22 @@ class Dict
     dict
   end
 
+  def self.generate_popular
+    dict = {}
+    arr = []
+
+    text = File.open('./popular.txt').read
+
+    text.each_line do |word| 
+      word = word.strip
+      arr << word if word.length.between?(4,6) and !word[-1].in?(['o','u','x','a','z','i','s']) and !word[-2..-1].in?(['ed','ah','ic','if','er','wn','ue','ff','ee']) and !word[-3..-1].in?(['ing','ism','ual','och','uan']) and !word.split('').none?{|l| l.in? ['a','e','i','o','u'] } and !word.split('').any?{|l| l.in? ['z', 'x']}
+    end
+    common_dict = Dict.new('common').dict
+    arr.reject!{|word| common_dict[word].nil? }
+    arr.each { |word| dict[word] = word }
+    dict
+  end
+
   def self.generate_custom_words(words)
     dict = {}
     words.each{|w| dict[w] = w}
@@ -65,5 +82,6 @@ class Dict
 
   @@full_dict = Rails.cache.fetch("full_dict"){ Dict.generate }
   @@common_dict = Rails.cache.fetch("common_dict"){ Dict.generate_common }
+  @@popular_dict = Rails.cache.fetch("popular_dict"){ Dict.generate_popular }
 
 end

@@ -4,19 +4,15 @@ class Level < ApplicationRecord
   scope :automated, -> {where("auto IS TRUE")}
   scope :zen, -> {automated.where("created_at >= ?", 24.hours.ago)}
 
-  @@words = Dict.new('common').dict.keys
+  @@words = Dict.new('popular').dict.keys
   @@words_4 = @@words.select{|word| word.length == 4}
   @@words_5 = @@words.select{|word| word.length == 5}
   @@words_6 = @@words.select{|word| word.length == 6}
 
   def check
-    optimal = WordTrek.new(start, target, Dict.new("common")).continue_until_solution_found.first
+    optimal = WordTrek.new(start, target).solve
     same_optimal = path.length == optimal.length
     [id, same_optimal, optimal]
-  end
-
-  def self.generate_daily_zen
-    150.times { Level.generate }
   end
 
   def self.generate
