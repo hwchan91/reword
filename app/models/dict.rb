@@ -61,7 +61,7 @@ class Dict
 
     text.each_line do |word| 
       word = word.strip
-      arr << word if word.length.between?(4,6) and !word[-1].in?(['o','u','x','a','z','i','s']) and !word[-2..-1].in?(['ed','ah','ic','if','er','wn','ue','ff','ee']) and !word[-3..-1].in?(['ing','ism','ual','och','uan']) and !word.split('').none?{|l| l.in? ['a','e','i','o','u'] } and !word.split('').any?{|l| l.in? ['z', 'x']}
+      arr << word if word.length.between?(4,6) and !word[-1].in?(['o','u','x','a','z','i','s','c','g']) and !word[-2..-1].in?(['ed','ah','ic','if','er','wn','ue','ff','ee']) and !word[-3..-1].in?(['ing','ism','ual','och','uan']) and !word.split('').none?{|l| l.in? ['a','e','i','o','u'] } and !word.split('').any?{|l| l.in? ['z', 'x']}
     end
     common_dict = Dict.new('common').dict
     arr.reject!{|word| common_dict[word].nil? }
