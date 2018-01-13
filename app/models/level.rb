@@ -26,7 +26,7 @@ class Level < ApplicationRecord
       start = random_word(words)
       target = random_word(words)
       path = WordTrek.new(start, target).solve
-      valid = true unless path == "no solution" or path.length <= 6 or duplicated_level(start, target)
+      valid = true unless path == "no solution" or path.length <= 6
     end
 
     {id: 9999, start: start, target: target, path: path, limit: path.length}
@@ -37,7 +37,7 @@ class Level < ApplicationRecord
     words[rand(words.count)]
   end
 
-  def self.duplicated_level(start, target)
-    Level.find_by(start: start, target: target) or Level.find_by(start: target, target: start)
-  end
+  # def self.duplicated_level(start, target)
+  #   Level.find_by(start: start, target: target) or Level.find_by(start: target, target: start)
+  # end
 end

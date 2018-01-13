@@ -66,7 +66,7 @@ class LevelsController < ApplicationController
       redirect_to levels_path, format: :js
     end
 
-    cookies.permanent.encrypted[:zen] = nil
+    cookies.permanent.encrypted[:zen2] = nil
     session[:"levelzen_history"] = nil
     reload_show
   end
@@ -83,9 +83,11 @@ class LevelsController < ApplicationController
     end
 
     def set_zen_level
-      cookies.permanent.encrypted[:zen] = Level.generate.as_json.to_json if cookies.permanent.encrypted[:zen].nil?
-      # cookies.permanent.encrypted[:zen] = Level.zen.first.as_json.to_json if cookies.permanent.encrypted[:zen].nil?
-      @level = OpenStruct.new(JSON.parse(cookies.permanent.encrypted[:zen]))
+      #binding.pry
+      #cookies.permanent.encrypted[:zen2] = Level.first.as_json.to_json if cookies.encrypted[:zen2].nil?
+      cookies.permanent.encrypted[:zen2] = Level.generate.as_json.to_json if cookies.encrypted[:zen2].nil?
+      level_in_json = cookies.encrypted[:zen2].clone
+      @level = OpenStruct.new(JSON.parse(level_in_json))
       @limit = @level.limit
     end
 
@@ -155,19 +157,12 @@ class LevelsController < ApplicationController
     end
 
     def update_zen_records
-      current_user.total_completed_zen_levels += 1
-      current_user.continuous_zen_levels += 1
+      current_user.total_completed_zen_levels = current_user.total_completed_zen_levels.to_i + 1
+      current_user.continuous_zen_levels = current_user.continuous_zen_levels.to_i + 1 #more logic to be done here
       current_user.save!
 
       session.delete(:"level#{params[:id]}_history")
-      cookies.permanent.encrypted[:zen] = Level.generate.as_json
-
-      # if @level.created_at < 24.hours.ago
-      #   cookies.permanent.encrypted[:zen] = Rails.cach.fetch("first_zen_today") { Level.zen.first.as_json }
-      # else
-      #   level = Level.find(@level.id + 1) rescue nil
-      #   cookies.permanent.encrypted[:zen] = level.as_json
-      # end
+      cookies.permanent.encrypted[:zen2] = Level.generate.as_json.to_json
     end
 
     def get_completed_levels

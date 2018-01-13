@@ -5,19 +5,21 @@
     <%= render 'history_all' %>
     <%= render 'achievement' if within_optimal?  %>
     <div class="next_level_btn_container">
-      <% if @level.id % 10 != 0 %>
+      <% if @level.id == 9999 %> <%# zen %>
+        <%= link_to "New Level", level_path('zen') , class:"btn btn_custom next_level", remote: true %>
+      <% elsif @level.id % 10 != 0 %>
         <%= link_to "Next Level", level_path(@level.id + 1) , class:"btn btn_custom next_level", remote: true %>
-         <%= link_to "Play Again?", reset_level_path(@level) , class:"play_again_link", remote: true %>
+        <%= link_to "Play Again?", reset_level_path(@level) , class:"play_again_link", remote: true %>
       <% elsif @level.id != 50 %>
         <div class="chapter_complete">Chapter Complete</div>
         <%= link_to "Next Chapter", levels_path , class:"btn btn_custom next_level", remote: true %>
          <%= link_to "Play Again?", reset_level_path(@level) , class:"play_again_link", remote: true %>
       <% else %>
-        <div class="congrats">Congratulations!<div> 
+        <div class="congrats">Congratulations!<div>
         <div class="congrats_message">You have completed all levels!</div>
          <%= link_to "Replay?", levels_path , class:"btn btn_custom next_level", remote: true %>
       <% end %>
-     
+
     </div>
   </div>
 </div>

@@ -5,7 +5,7 @@
 
   <%# move to bottom right corner, maybe %>
   <div>
-    <% if @level.id == 9999 %>
+    <% if true or @level.id == 9999 %>
       <%= link_to skip_zen_level_level_path('zen'), remote: true do %>
         <span class="glyphicon glyphicon-remove"></span>
       <% end %>
