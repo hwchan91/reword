@@ -36,7 +36,7 @@ class Dict
     # text.each_line do |line|
     #   line = line.strip
     #   no_special_char = line.scan(/[\w]+/)[0] == line
-    #   not_all_caps = line.upcase != line
+    #   not_all_caps = line[1..-1].downcase == line[1..-1]
     #   right_length = line.length.between?(3,7)
     #   if no_special_char and not_all_caps and right_length
     #     arr << line.downcase
@@ -46,7 +46,6 @@ class Dict
     text = File.open('./custom_word_list.txt').read
     text.each_line { |word| arr << word.strip }
 
-    # arr = arr.uniq
     arr.each do |word|
       dict[word] = word
     end

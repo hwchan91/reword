@@ -14,8 +14,6 @@ module Transitable
     # end
     # output
 
-    # transition_words = Rails.cache.fetch("transition_words") { JSON.parse(File.read('transition_words.json')) }
-    # transition_words[word]
     @@transitable[word]
   end
 
