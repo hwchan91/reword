@@ -6,8 +6,10 @@
 
   <div class="play_btn">
     <%= link_to "PLAY", levels_path, remote: true, id: "play_link" %><br>
+    <%= link_to "Zen mode", level_path('zen'), remote: true, id: "play_link" %><br>
     <span class="options">options</span>
   </div>
+  
 
   <div class="options_overlay">
     <%= render 'options_container' %>
