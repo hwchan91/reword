@@ -199,7 +199,8 @@ function everyFunction() {
         $(".last_0").addClass("last_1").fadeIn(200).removeClass("last_0");
       }, 200)
 
-      $(".last_5").delay(200).slideUp(500).fadeOut(500);
+      //$(".last_4").delay(1000).hide();
+      // $(".prev_moves").first().hide(2000);
     }
 
     setTimeout(function() {

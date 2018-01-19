@@ -120,11 +120,11 @@ html, body{
   @media (min-width: 768px) {
     .modal-dialog{
       position: relative;
-      display: table; /* This is important */ 
-      overflow-y: auto;    
+      display: table; /* This is important */
+      overflow-y: auto;
       overflow-x: auto;
       width: auto;
-      min-width: 10px;   
+      min-width: 10px;
     }
   }
   .modal-content, .modal-body {
@@ -165,7 +165,7 @@ html, body{
     .next_word:hover {
       color: var(--word-choice-hover-color);
     }
-  }	
+  }
 }
 
 .history {
@@ -215,7 +215,7 @@ html, body{
     // span {
     //   width: 3.6vh;
     // }
-  } 
+  }
   .last_5 {
     font-size: 3.4vh;
     color: #eee;
@@ -229,6 +229,9 @@ html, body{
     // span {
     //   width: 3.2vh;
     // }
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 0.5s, opacity 0.5s linear;
   }
 
 }
@@ -272,7 +275,7 @@ html, body{
 }
 
 .below_curr_word {
-  position: fixed; 
+  position: fixed;
   width: 100%;
 }
 
@@ -313,7 +316,7 @@ html, body{
     font-size: 3vh;
     span {
       margin: 0 5px;
-    } 
+    }
   }
   #path_length {
     margin: 0 10px;
@@ -454,7 +457,7 @@ html, body {
   width: 100vw;
   height: 100vh;
   display: flex;
-  align-items: center; 
+  align-items: center;
   .options {
     cursor: pointer;
   }
@@ -465,7 +468,7 @@ html, body {
     text-align: right;
     margin-top: 70px;
     padding-right: 20px;
-    font-family: var(--main-font-family); 
+    font-family: var(--main-font-family);
   }
   .game_title_cont {
     position: absolute;
@@ -516,7 +519,7 @@ html, body {
     background: -moz-linear-gradient(right, var(--complete-highlight-color), var(--main-background-color)); /*Fx 3.6-15*/
     background: linear-gradient(to right, var(--complete-highlight-color), var(--main-background-color)); /*Standard*/
     color: white;
-    align-items: center; 
+    align-items: center;
     justify-content: center;
     font-size: 5vh;
     .back_btn {
@@ -554,14 +557,14 @@ html, body {
   width: 100vw;
   .level {
     display: flex;
-    align-items: center; 
+    align-items: center;
     justify-content: center;
     margin-top: 20px;
     margin-bottom: 20px;
   }
   .level:last-child {
     margin-bottom: 0px;
-  } 
+  }
   .level_btn {
     width: 15vh;
     height: 15vh;
@@ -606,7 +609,7 @@ html, body {
     .level_btn {
     opacity: 0.3;
     }
-  } 
+  }
   .level_start_word span, .level_target_word span {
     width: 2.5vh;
     display: inline-block;
@@ -655,11 +658,11 @@ html, body {
   @media (min-width: 768px) {
     .modal-dialog{
       position: relative;
-      display: table; /* This is important */ 
-      overflow-y: auto;    
+      display: table; /* This is important */
+      overflow-y: auto;
       overflow-x: auto;
       width: auto;
-      min-width: 10px;   
+      min-width: 10px;
     }
   }
   .modal-content, .modal-body {
@@ -712,7 +715,7 @@ html, body {
   }
   .soundcloud_links {
     display: flex;
-    align-items: center; 
+    align-items: center;
     justify-content: center;
     a, a:link, a:hover {
       color: white;
@@ -733,7 +736,7 @@ html, body {
   animation: blinker 2s linear infinite;
 }
 
-@keyframes blinker {  
+@keyframes blinker {
   50% { opacity: 0.2; }
 }
 
@@ -741,8 +744,8 @@ html, body {
   animation: flash 2s linear infinite;
 }
 
-@keyframes flash {  
-  50% { 
+@keyframes flash {
+  50% {
     color: white;
     background: var(--main-background-color);
   }

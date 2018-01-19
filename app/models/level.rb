@@ -28,7 +28,7 @@ class Level < ApplicationRecord
         target = word
         path = WordTrek.new(start, target).solve
 
-        if path.is_a? Array and path.length > 4
+        if path.is_a? Array and path.length > 4 and path.length <=10
           valid = true
           break
         end
