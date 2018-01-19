@@ -10,9 +10,9 @@ class Dict
             end
   end
 
-  def self.generate
+  def self.generate(file_name = './wordlist.txt')
     dict = {}
-    text = File.open('./wordlist.txt').read
+    text = File.open(file_name).read
     text.gsub!(/\r\n?/, "\n")
     text.each_line do |line|
         word = line.strip()
@@ -22,8 +22,8 @@ class Dict
   end
 
   def self.generate_common
-    dict = {}
-    arr = []
+    # dict = {}
+    # arr = []
 
     # text = File.open('./american-82k.txt').read
     # text.gsub!(/\r\n?/, "\n")
@@ -44,29 +44,40 @@ class Dict
     #   end
     # end
 
-    text = File.open('./custom_word_list.txt').read
-    text.each_line { |word| arr << word.strip }
+    # text = File.open('./custom_word_list.txt').read
+    # text.each_line { |word| arr << word.strip }
 
-    arr.each do |word|
-      dict[word] = word
-    end
-    dict
+    # arr.each do |word|
+    #   dict[word] = word
+    # end
+    # dict
+
+    Dict.generate('./custom_word_list.txt')
   end
 
   def self.generate_popular
-    dict = {}
-    arr = []
+    # return @@popular_dict if @@popular_dict
 
-    text = File.open('./popular.txt').read
+    # dict = {}
+    # arr = []
 
-    text.each_line do |word| 
-      word = word.strip
-      arr << word if word.length.between?(4,6) and !word[-1].in?(['o','u','x','a','z','i','s','c','g']) and !word[-2..-1].in?(['ed','ah','ic','if','er','wn','ue','ff','ee']) and !word[-3..-1].in?(['ing','ism','ual','och','uan']) and !word.split('').none?{|l| l.in? ['a','e','i','o','u'] } and !word.split('').any?{|l| l.in? ['z', 'x']}
-    end
-    common_dict = Dict.new('common').dict
-    arr.reject!{|word| common_dict[word].nil? }
-    arr.each { |word| dict[word] = word }
-    dict
+    # text = File.open('./popular.txt').read
+
+    # text.each_line do |word|
+    #   word = word.strip
+    #   arr << word if word.length.between?(4,6) and Word.common?(word)
+    # end
+    # # common_dict = Dict.new('common').dict
+    # arr.reject!{|word| @@common_dict[word].nil? }
+    # arr.reject!{|word| Word.new(word).transition_words.empty? }
+
+    # text = File.open('./custom_popular.txt').read
+    # text.each_line { |word| arr << word.strip }
+    # arr.each { |word| dict[word] = word }
+
+    # @@popular_dict = dict
+
+    Dict.generate('./custom_popular.txt')
   end
 
   def self.generate_custom_words(words)
@@ -82,6 +93,6 @@ class Dict
 
   @@full_dict = Rails.cache.fetch("full_dict"){ Dict.generate }
   @@common_dict = Rails.cache.fetch("common_dict"){ Dict.generate_common }
-  @@popular_dict = Rails.cache.fetch("popular_dict"){ Dict.generate_popular }
+  @@popular_dict = Rails.cache.fetch("common_dict"){ Dict.generate_popular }
 
 end

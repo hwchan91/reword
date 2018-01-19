@@ -16,24 +16,30 @@ class Level < ApplicationRecord
   end
 
   def self.generate
-    words = class_variable_get("@@words_#{(4 + rand(3)).to_s}".to_sym)
     valid = false
+    start, target, path = nil, nil, nil
     until valid
-      start = random_word(words)
-      target = random_word(words)
-      path = WordTrek.new(start, target).solve
-      valid = true unless path == "no solution" or path.length <= 6
+      start = random_word
+      associated_words = Word.new(start).associated_words
+
+      next if associated_words.empty?
+
+      associated_words.each do |word|
+        target = word
+        path = WordTrek.new(start, target).solve
+
+        if path.is_a? Array and path.length > 4
+          valid = true
+          break
+        end
+      end
     end
 
     {id: 9999, start: start, target: target, path: path, limit: path.length}
-    #Level.create({start: start, target: target, path: path, limit: path.length, auto: true})
   end
 
-  def self.random_word(words)
+  def self.random_word
+    words = class_variable_get("@@words_#{(4 + rand(3)).to_s}".to_sym)
     words[rand(words.count)]
   end
-
-  # def self.duplicated_level(start, target)
-  #   Level.find_by(start: start, target: target) or Level.find_by(start: target, target: start)
-  # end
 end
