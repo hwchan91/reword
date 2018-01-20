@@ -43,7 +43,7 @@ module Definitable
     cache_and_return("asso_#{word}", result)
   end
 
-  private
+  # private
   def third_person_tense?
     if @response.empty? and word[-1] == 's'
       @search_word = word[0..-2] 
