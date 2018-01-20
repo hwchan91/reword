@@ -24,7 +24,7 @@ module Definitable
     @search_word, @response = word, Wordnik.word.get_definitions(word)
 
     if recursive
-      retry_response if third_person_tense? or plural_tense?
+      retry_response if third_person_tense? or plural_tense? or past_tense?
     end
 
     result = {search_word: @search_word, response: @response}
@@ -45,17 +45,35 @@ module Definitable
 
   private
   def third_person_tense?
-    @search_word = word[0..-2] if @response.empty? and word[-1] == 's'
-  end
-
-  def plural_tense?
-    if !@response.empty? and @response.first['text'].downcase.include?('plural form')
-      @search_word = @response.first['text'].split(/\W+/).last.downcase
+    if @response.empty? and word[-1] == 's'
+      @search_word = word[0..-2] 
+    elsif @response.any? and first_definition.include?('third-person')
+      @search_word = first_definition_words.last
     end
   end
 
+  def plural_tense?
+    if @response.any? and (['plural', 'of'] - first_definition_words).empty?
+      @search_word = first_definition_words.last
+    end
+  end
+
+  def past_tense?
+    if @response.any? and (['past', 'tense'] - first_definition_words).empty?
+      @search_word = first_definition_words.last
+    end
+  end
+
+  def first_definition
+    @first_definition ||= @response.first['text'].downcase
+  end
+
+  def first_definition_words
+    @first_definition_words ||= first_definition.split(/[^a-zA-Z]+/)
+  end
+
   def retry_response
-    @response = Word.new(@search_word).wordnik_response(recursive: false)[:response]
+    @response = Word.new(@search_word).wordnik_response(false)[:response]
   end
 
   def wordnik_definition
@@ -95,7 +113,7 @@ module Definitable
     output = []
     @used_words ||= []
     definitions.each do |defin|
-      defin.gsub!(/\d+/, '') #remove superscripts
+      defin = remove_superscripts(defin)
       words = defin.downcase.scan(/\w+/).reject{|word| word.length < 4}
       next if words.select{|word| @used_words.include?(word)}.length >= 3
       @used_words += words.select{|word| word != search_word and !@used_words.include?(word) }
@@ -103,6 +121,10 @@ module Definitable
       break if output.length == limit
     end
     output.uniq #it happens that, it is possible to have duplicate definitions in wordnik
+  end
+
+  def remove_superscripts(defin)
+    defin.split(/\W+/).map{|word| word.match?(/\w+\d+$/) ? word.gsub(/\d+/, '') : word }.join(' ')
   end
 
   # def words_api_definition

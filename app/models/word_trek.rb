@@ -4,7 +4,8 @@ class WordTrek
   attr_accessor  :to_be_added, :new_transition_words, :words_in_curr_stack, :words_in_to_be_added, :result
   include SideManager
 
-  def initialize(starting_word, target_word, dict = nil, no_reorder = false)
+  def initialize(starting_word, target_word, limit = nil, dict = nil, no_reorder = false)
+    @limit = limit
     @target_word = target_word
     top_front = [Word.new(starting_word, dict, no_reorder)]
     bottom_front = [Word.new(target_word, dict, no_reorder)]
@@ -18,9 +19,12 @@ class WordTrek
   end
 
   def solve
+    turn = 1
     until @result[0] == 'no solution' or @result.length > 0
+      return_no_solution if @result.empty? and @limit and turn > @limit
       find_solution
       switch_sides
+      turn += 1
     end
     return_solution
   end
@@ -87,9 +91,13 @@ class WordTrek
 
           def check_if_no_solution
             if @to_be_added.empty?
-              @result << "no solution"
+              return_no_solution
               throw :found_solution
             end
+          end
+
+          def return_no_solution
+            @result << "no solution"
           end
 
           def move_front
