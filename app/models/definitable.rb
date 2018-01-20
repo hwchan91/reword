@@ -54,10 +54,10 @@ module Definitable
 
   def plural_tense?
     if @response.any? and (['plural', 'of'] - first_definition_words).empty?
-      unless word = 'asses'
-        @search_word = first_definition_words.last
-      else
+      if word == 'asses'
         @search_word = 'ass' 
+      else
+        @search_word = first_definition_words.last
       end
     end
   end
