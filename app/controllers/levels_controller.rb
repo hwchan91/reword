@@ -1,8 +1,8 @@
 class LevelsController < ApplicationController
+  before_action :get_completed_levels
   before_action :check_if_hack, only: [:show, :move, :reset, :undo]
   before_action :set_level, only: [:show, :move]
   before_action :get_word, only: [:show]
-  before_action :get_completed_levels, only: [:index]
   before_action :get_chapter, only: [:index]
 
   def show
@@ -151,7 +151,7 @@ class LevelsController < ApplicationController
 
       current_user.save!
 
-      session.delete(:"level#{params[:id]}_history")
+      # session.delete(:"level#{params[:id]}_history")
     end
 
     def update_zen_records
@@ -170,7 +170,7 @@ class LevelsController < ApplicationController
 
     def check_if_hack
       return if params[:id] == 'zen'
-      latest_level = current_user.completed_levels.max
+      latest_level = @completed_levels.max
       if (latest_level and params[:id].to_i > latest_level.to_i + 1 ) or (latest_level.nil? and params[:id].to_i > 1 )
         redirect_to levels_path, format: :js
       end

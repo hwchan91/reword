@@ -99,16 +99,16 @@ function everyFunction() {
         toggleDefinition($(".path_word_definition"));
         fadeInPlayAgain();
 
-      }, (time_to_close + 3000) + $(".path_word_container").length * 200 )
+      }, (time_to_close + 2000) + $(".path_word_container").length * 200 )
     }
     hideDefinitionThenShowButton();
 
     function fadeInPlayAgain() {
       if ($(".achievement").length == 0) {
-        $(".next_level_btn_container").delay(1500).fadeIn();
+        $(".next_level_btn_container").delay(1000).fadeIn();
         $(".content").stop().delay(1000).animate({ scrollTop: $('.message_container').height() + 500 }, 'slow');
       } else {
-        $(".achievement").delay(1500).fadeIn(500);
+        $(".achievement").delay(1000).fadeIn(500);
         $(".next_level_btn_container").delay(2000).fadeIn();
         $(".content").stop().delay(1500).animate({ scrollTop: $('.message_container').height() + 500 }, 'slow');
       }
