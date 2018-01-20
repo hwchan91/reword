@@ -17,7 +17,7 @@ class Level < ApplicationRecord
     start, target, path = nil, nil, nil
     until valid
       start = random_word
-      associated_words = Word.new(start).associated_words
+      associated_words = Word.new(start).associated_words.shuffle
 
       next if associated_words.empty?
 
