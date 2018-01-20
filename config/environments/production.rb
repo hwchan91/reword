@@ -63,8 +63,8 @@ Rails.application.configure do
                         :socket_timeout => 1.5,
                         :socket_failure_delay => 0.2,
                         :down_retry_delay => 60,
-                        :expires_in => 1.day,
-                        :compress => true
+                        :compress => true,
+                        :pool_size => ENV['RAILS_MAX_THREADS'].to_i
                         }
                         
   # Use a real queuing backend for Active Job (and separate queues per environment)

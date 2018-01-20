@@ -281,6 +281,7 @@ DEPENDENCIES
   byebug
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
+  connection_pool
   dalli
   figaro
   google-cloud-translate

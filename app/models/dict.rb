@@ -3,7 +3,7 @@ class Dict
 
   def initialize(custom_words = nil)
     @dict = case custom_words
-            when nil then @@full_dict
+            when nil then Dict.generate
             when 'common' then @@common_dict
             when 'popular' then @@popular_dict
             else Dict.generate_custom_words(custom_words)
@@ -90,9 +90,8 @@ class Dict
     @dict[word]
   end
 
-
-  @@full_dict = Rails.cache.fetch("full_dict"){ Dict.generate }
-  @@common_dict = Rails.cache.fetch("common_dict"){ Dict.generate_common }
-  @@popular_dict = Rails.cache.fetch("common_dict"){ Dict.generate_popular }
+  # @@full_dict = Dict.generate 
+  @@common_dict = Dict.generate_common
+  @@popular_dict = Dict.generate_popular
 
 end

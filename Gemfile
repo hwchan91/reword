@@ -33,6 +33,7 @@ gem 'figaro'
 gem "httparty"
 # gem 'jquery-ui-rails'
 gem 'dalli'
+gem 'connection_pool'
 gem 'autoprefixer-rails'
 gem 'pg'
 gem 'wordnik'

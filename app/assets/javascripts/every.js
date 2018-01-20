@@ -64,8 +64,8 @@ function everyFunction() {
       })
       setTimeout(hideEverything, 4500)
       setTimeout(function() {
-        var background_color = $('.start_word').css("backgroundColor")
-        $("body").css("background", background_color )
+        //var background_color = $('.start_word').css("backgroundColor")
+        //$("body").css("background", background_color )
         $(".message_container").show();
       },4500)
     }

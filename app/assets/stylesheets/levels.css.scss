@@ -302,8 +302,13 @@ html, body{
 }
 
 .message_container {
+  position: absolute;
+  top: 0;
+  left: 0;
   display: none;
   width: 100%;
+  min-height: 100vh;
+  height: 100%;
   text-align: center;
   background-color: var(--main-background-color);
   color: var(--main-background-text-color);
