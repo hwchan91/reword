@@ -51,36 +51,37 @@ function everyFunction() {
 
 
   function endingAnimation() {
+    var time_to_close = 1500
     function closeLevelAnimation() {
       var to_fade = ["#start", "#target", ".history", ".definition", ".limit_count"];
       to_fade.forEach(function(elem_to_fade) {
-        $(elem_to_fade).fadeOut(3000);
+        $(elem_to_fade).fadeOut(time_to_close);
       });
-      $(".curr_word_letter").addClass("complete", 3000);
+      $(".curr_word_letter").addClass("complete", time_to_close);
 
       var panes = [".start_word", ".target_word"];
       panes.forEach(function(pane) {
-        $(pane).delay(2500).animate({height: "50%"},2000);
+        $(pane).delay(1000).animate({height: "50%"},500);
       })
-      setTimeout(hideEverything, 4500)
+      setTimeout(hideEverything, time_to_close)
       setTimeout(function() {
         //var background_color = $('.start_word').css("backgroundColor")
         //$("body").css("background", background_color )
         $(".message_container").show();
-      },4500)
+      },time_to_close)
     }
     closeLevelAnimation();
 
     function animateMessage() {
-      $("#completed_in").delay(5500).fadeIn('fast');
-      $("#path_length").delay(6000).fadeIn('slow');
+      $("#completed_in").delay(time_to_close + 500).fadeIn('fast');
+      $("#path_length").delay(time_to_close + 1000).fadeIn('slow');
       $(".path_word_container").each(function(index) {
         var self = $(this);
         setTimeout(function() {
           self.fadeIn('slow', function() {
             automaticScroll();
           })
-        }, 6500 + index * 500)
+        }, (time_to_close + 1000) + index * 200)
       })
     }
     animateMessage();
@@ -98,7 +99,7 @@ function everyFunction() {
         toggleDefinition($(".path_word_definition"));
         fadeInPlayAgain();
 
-      }, 8500 + $(".path_word_container").length * 500 )
+      }, (time_to_close + 3000) + $(".path_word_container").length * 200 )
     }
     hideDefinitionThenShowButton();
 
@@ -107,9 +108,9 @@ function everyFunction() {
         $(".next_level_btn_container").delay(1500).fadeIn();
         $(".content").stop().delay(1000).animate({ scrollTop: $('.message_container').height() + 500 }, 'slow');
       } else {
-        $(".achievement").delay(1500).fadeIn(1500);
-        $(".next_level_btn_container").delay(2500).fadeIn();
-        $(".content").stop().delay(2000).animate({ scrollTop: $('.message_container').height() + 500 }, 'slow');
+        $(".achievement").delay(1500).fadeIn(500);
+        $(".next_level_btn_container").delay(2000).fadeIn();
+        $(".content").stop().delay(1500).animate({ scrollTop: $('.message_container').height() + 500 }, 'slow');
       }
     }
 
@@ -118,7 +119,7 @@ function everyFunction() {
         $(".path_word").each(function() {
           displayDefinitionWhenHover(this)
         })
-      }, 9000 + $(".path_word_container").length * 500 )
+      }, (time_to_close + 4000)+ $(".path_word_container").length * 200 )
     }
     enableDisplayDefinitionWhenHover();
 

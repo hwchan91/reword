@@ -35,7 +35,7 @@ module Definitable
     cache = Rails.cache.read("asso_#{word}")
     return cache if cache
 
-    definitions = wordnik_response[:response].map{|definition| definition['text']}.join(" ")
+    definitions = wordnik_response[:response].map{|definition| definition['text'].split(".").first }.join(" ")
     words_in_def = definitions.split(/\W+/)
     filtered_words = words_in_def.select{|w| w.length == word.length }.map(&:downcase).uniq.reject{|w| w == word or Word.to_reject?(w) }
     result = filtered_words.select{|w| dict.dict[w] and !Word.new(w).transition_words.empty? } #within common dict
@@ -124,6 +124,7 @@ module Definitable
   end
 
   def remove_superscripts(defin)
+    defin = defin.split(".").first #remove additional info (e.g. synonyms)
     defin.split(/\W+/).map{|word| word =~ /\w+\d+(\.)?$/ ? word.gsub(/\d+/, '') : word }.join(' ')
   end
 
