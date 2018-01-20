@@ -35,7 +35,7 @@ module Definitable
     cache = Rails.cache.read("asso_#{word}")
     return cache if cache
 
-    definitions = wordnik_response[:response].map{|definition| definition['text'].split(".").first }.join(" ")
+    definitions = wordnik_response[:response].map{|definition| remove_additional_info(definition['text']) }.join(" ")
     words_in_def = definitions.split(/\W+/)
     filtered_words = words_in_def.select{|w| w.length == word.length }.map(&:downcase).uniq.reject{|w| w == word or Word.to_reject?(w) }
     result = filtered_words.select{|w| dict.dict[w] and !Word.new(w).transition_words.empty? } #within common dict
@@ -54,7 +54,11 @@ module Definitable
 
   def plural_tense?
     if @response.any? and (['plural', 'of'] - first_definition_words).empty?
-      @search_word = first_definition_words.last
+      unless word = 'asses'
+        @search_word = first_definition_words.last
+      else
+        @search_word = 'ass' 
+      end
     end
   end
 
@@ -99,7 +103,7 @@ module Definitable
 
     #chooses the 2 forms that have the most responses
     top_forms = all_forms.reject{|resp| resp.empty? }.sort_by{|resp| resp.length}.reverse[0..1]
-    definitions_per_form = top_forms.map{ |form| form.map{|defin| defin['text']} }#.reject{|defin| defin.include?("  ") and !defin.include?(":  ") } }
+    definitions_per_form = top_forms.map{ |form| form.map{|defin| defin['text']} }
 
     if definitions_per_form.length > 1
       chosen_definitions = filter_def(definitions_per_form.first, search_word, 3) + filter_def(definitions_per_form.last, search_word, 1)
@@ -113,7 +117,7 @@ module Definitable
     output = []
     @used_words ||= []
     definitions.each do |defin|
-      defin = remove_superscripts(defin)
+      defin = remove_additional_info(defin)
       words = defin.downcase.scan(/\w+/).reject{|word| word.length < 4}
       next if words.select{|word| @used_words.include?(word)}.length >= 3
       @used_words += words.select{|word| word != search_word and !@used_words.include?(word) }
@@ -123,9 +127,10 @@ module Definitable
     output.uniq #it happens that, it is possible to have duplicate definitions in wordnik
   end
 
-  def remove_superscripts(defin)
-    defin = defin.split(".").first #remove additional info (e.g. synonyms)
-    defin.split(/\W+/).map{|word| word =~ /\w+\d+(\.)?$/ ? word.gsub(/\d+/, '') : word }.join(' ')
+  def remove_additional_info(defin)
+    defin = defin.split(".").first #remove second line - additional info (e.g. synonyms)
+    defin = defin.split(":").first #remove example, comes after colon
+    defin.split(/\W+/).map{|word| word =~ /\w+\d+(\.)?$/ ? word.gsub(/\d+/, '') : word }.join(' ') #remove trailing numbers (superscripts)
   end
 
   # def words_api_definition
