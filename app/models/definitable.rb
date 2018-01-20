@@ -124,7 +124,7 @@ module Definitable
   end
 
   def remove_superscripts(defin)
-    defin.split(/\W+/).map{|word| word.match?(/\w+\d+$/) ? word.gsub(/\d+/, '') : word }.join(' ')
+    defin.split(/\W+/).map{|word| word =~ /\w+\d+(\.)?$/ ? word.gsub(/\d+/, '') : word }.join(' ')
   end
 
   # def words_api_definition
