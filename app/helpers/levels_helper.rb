@@ -90,4 +90,10 @@ module LevelsHelper
   def level_id_or_zen
     @level.id <= ENV['DEFAULT_LEVELS'].to_i ? @level.id : 'zen'
   end
+
+  def get_hint
+    hint = @level.try(:hint)
+    return if hint.nil?
+    hint.any? ? hint : nil
+  end
 end

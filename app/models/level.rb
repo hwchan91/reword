@@ -23,7 +23,7 @@ class Level < ApplicationRecord
 
       associated_words.each do |word|
         target = word
-        path = WordTrek.new(start, target, 8).solve #limit solution to 8 turns
+        path = WordTrek.new(start, target, 7).solve #limit solution to 7 turns
 
         if path.is_a? Array and path.length > 4 and path.length <=10
           valid = true

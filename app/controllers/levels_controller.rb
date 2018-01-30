@@ -75,7 +75,7 @@ class LevelsController < ApplicationController
     def set_level
       unless params[:id] == 'zen'
         @level = Level.default.find(params[:id])
-        @limit = @level.limit ||= @level.path.length + 2
+        @limit = @level.path
       else
         set_zen_level
       end
@@ -86,7 +86,7 @@ class LevelsController < ApplicationController
       cookies.permanent.encrypted[:zen] = Level.generate.as_json.to_json if cookies.encrypted[:zen].nil?
       level_in_json = cookies.encrypted[:zen].clone
       @level = OpenStruct.new(JSON.parse(level_in_json))
-      @limit = @level.limit
+      @limit = @level.path
     end
 
     def set_history

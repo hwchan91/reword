@@ -365,30 +365,20 @@ function everyFunction() {
 
 
   // tutorial
-  var level_no = $('.level_no').data('level_no');
-  if ($('.prev_moves').length == 0) {
-    switch(level_no) {
-      case 1:
-        flash(3);
-        break;
-      case 2:
-        flash(0);
-        break;
-      case 3:
-        flash(0);
-        flash(2);
-        break;
-      case 6:
-        blinkReorderBtn();
-        break;
-      case 7:
-        flash(0);
-        blinkReorderBtn();
-        break;
-    }
+  var level_no = $('.hidden').data('level_no');
+  var hint = $('.hidden').data('hint');
+  console.log(hint)
+  if($('.prev_moves').length == 0 && hint) {
+   hint.forEach(function(i) {
+      if(i == -1) {
+        linkReorderBtn() ;
+      } else {
+        flash(i)
+      }
+   })
   }
 
-  if ([1,2,3,4,5].includes(level_no)) {
+  if (level_no <= 5) {
     hideReorderBtn();
   }
 

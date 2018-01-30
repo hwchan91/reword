@@ -46,7 +46,7 @@ module Definitable
   # private
   def third_person_tense?
     if @response.empty? and word[-1] == 's'
-      @search_word = word[0..-2] 
+      @search_word = word[0..-2]
     elsif @response.any? and first_definition.include?('third-person')
       @search_word = first_definition_words.last
     end
@@ -55,7 +55,7 @@ module Definitable
   def plural_tense?
     if @response.any? and (['plural', 'of'] - first_definition_words).empty?
       if word == 'asses'
-        @search_word = 'ass' 
+        @search_word = 'ass'
       else
         @search_word = first_definition_words.last
       end
@@ -130,7 +130,9 @@ module Definitable
   def remove_additional_info(defin)
     defin = defin.split(".").first #remove second line - additional info (e.g. synonyms)
     defin = defin.split(":").first #remove example, comes after colon
-    defin.split(/\W+/).map{|word| word =~ /\w+\d+(\.)?$/ ? word.gsub(/\d+/, '') : word }.join(' ') #remove trailing numbers (superscripts)
+    defin.split(/\W+/).select{|w| w =~/\w+\d+/}.each{|w| defin.sub!(w, w.gsub(/\d+/, ''))}
+    return defin
+    #defin.split(/\W+/).map{|word| word =~ /\w+\d+(\.)?$/ ? word.gsub(/\d+/, '') : word }.join(' ') #remove trailing numbers (superscripts)
   end
 
   # def words_api_definition

@@ -2,7 +2,7 @@ module TransitionComparable
   extend ActiveSupport::Concern
 
   def getting_closer?(words_to_compare)
-    transition_words_closer_to_target(words_to_compare).length > 0
+    @getting_closer ||= transition_words_closer_to_target(words_to_compare).length > 0
   end
 
   def transition_words_closer_to_target(words_to_compare)

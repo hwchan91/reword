@@ -41,15 +41,19 @@ class WordTrek
 
           def propagate_front(front = curr_front, stack = curr_stack, to_be_added = @to_be_added = [])
             wordbase = front.clone #unlink from the front so that the front would remain the same
-            #wordbase.sort!{|word| word.match_count(opposite_side.first) }.reverse -> pointless, recursive call is doing the same thing already
             wordbase.each do |word|
+              if word.getting_closer?([opposite_side.first])
+                words_closer = word.transition_words_closer_to_target([opposite_side.first]) #start or target
+                words_closer_not_already_included = words_closer.select{|word| new_word?(word, front, stack)} #the words needs to be determined before anything new gets added into to_be_added
+              end
+
               word.transition_word_objects.each do |transition_word|
                 check_if_reached_target(transition_word)
                 to_be_added << transition_word if new_word?(transition_word, front, stack)
               end
               clear_to_be_added_cache
 
-              recursive_call_on_words_getting_closer(word, front, stack, to_be_added) if word.getting_closer?(opposite_side) #recursive call should be after add_if_new for optimal path
+              recursive_call_on_words_getting_closer(words_closer_not_already_included, stack, to_be_added) if word.getting_closer?([opposite_side.first]) #recursive call should be after add_if_new for optimal path
             end
             to_be_added
           end
@@ -67,10 +71,7 @@ class WordTrek
                 remove_instance_variable(:@words_in_to_be_added)if @words_in_to_be_added
               end
 
-              def recursive_call_on_words_getting_closer(word, front, stack, to_be_added)
-                words_closer = word.transition_words_closer_to_target(self.opposite_side.first) #since the result of compare is cached, there's no point in comparing other words
-                #words_closer = word.transition_words_closer_to_target(self.opposite_side)
-                words_closer_not_already_included = words_closer.select{|word| new_word?(word, front, stack)}
+              def recursive_call_on_words_getting_closer(words_closer_not_already_included, stack, to_be_added)
                 propagate_front(words_closer_not_already_included, stack, to_be_added)
               end
 
