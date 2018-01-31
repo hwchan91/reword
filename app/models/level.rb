@@ -1,4 +1,7 @@
 class Level < ApplicationRecord
+  require 'fileutils'
+  require 'tempfile'
+
   serialize :path, Array
   scope :default, -> {where("id <= 50")}
   scope :automated, -> {where("auto IS TRUE")}
@@ -19,7 +22,10 @@ class Level < ApplicationRecord
       start = random_word
       associated_words = Word.new(start).associated_words.shuffle
 
-      next if associated_words.empty?
+      if associated_words.empty?
+        remove_word_from_wordlist(start)
+        next
+      end
 
       associated_words.each do |word|
         target = word
@@ -30,6 +36,7 @@ class Level < ApplicationRecord
           break
         end
       end
+      remove_word_from_wordlist(start) if !valid
     end
 
     {id: 9999, start: start, target: target, path: path, limit: path.length}
@@ -37,5 +44,12 @@ class Level < ApplicationRecord
 
   def self.random_word
     @@words[rand(@@words.count)]
+  end
+
+  def self.remove_word_from_wordlist(word)
+    tmp = Tempfile.new("custom_popular_temp")
+    open('custom_popular_copy.txt', 'r').each { |l| tmp << l unless l.chomp == word }
+    tmp.close
+    FileUtils.mv(tmp.path, 'custom_popular_copy.txt')
   end
 end

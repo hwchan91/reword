@@ -35,7 +35,8 @@ module Definitable
     cache = Rails.cache.read("asso_#{word}")
     return cache if cache
 
-    definitions = wordnik_response[:response].map{|definition| remove_additional_info(definition['text']) }.join(" ")
+    non_idiom_definitions = wordnik_response[:response].select{|definition| definition['partOfSpeech'] != 'idiom' }
+    definitions = non_idiom_definitions.map{|definition| remove_additional_info(definition['text']) }.join(" ")
     words_in_def = definitions.split(/\W+/)
     filtered_words = words_in_def.select{|w| w.length == word.length }.map(&:downcase).uniq.reject{|w| w == word or Word.to_reject?(w) }
     result = filtered_words.select{|w| dict.dict[w] and !Word.new(w).transition_words.empty? } #within common dict

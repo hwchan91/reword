@@ -151,7 +151,7 @@ class LevelsController < ApplicationController
 
       current_user.save!
 
-      # session.delete(:"level#{params[:id]}_history")
+      session.delete(:"level#{params[:id]}_history")
     end
 
     def update_zen_records

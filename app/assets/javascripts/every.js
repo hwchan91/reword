@@ -371,14 +371,14 @@ function everyFunction() {
   if($('.prev_moves').length == 0 && hint) {
    hint.forEach(function(i) {
       if(i == -1) {
-        linkReorderBtn() ;
+        blinkReorderBtn() ;
       } else {
         flash(i)
       }
    })
   }
 
-  if (level_no <= 5) {
+  if (level_no <= 10) {
     hideReorderBtn();
   }
 
