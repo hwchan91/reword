@@ -4,7 +4,7 @@ Level.create(start: "mad", target:"hat", path: ["mad", "had", "hat"], limit: 3, 
 Level.create(start: "this", target:"that", path: ["this", "thin", "than", "that"], limit:4, hint: [3])
 Level.create(start: "lead", target:"gold", path: ["lead", "load", "goad", "gold"], limit: 6, hint: [1])
 Level.create(start: "body", target:"mind", path: ["body", "bony", "bond", "bind", "mind"], limit: 6)
-Level.create(start: "deep", target:"wide", path:["deep", "deed", "heed", "hied", "hide", "wide"], limit: 10)
+Level.create(start: "hand", target:"feet", path: ["hand", "band", "bend", "fend", "feed", "feet"], limit: 6)
 Level.create(start: "fret", target:"calm", path:["fret", "feet", "felt", "fell", "fall", "call", "calm"],  limit: 10)
 Level.create(start: "black", target:"white", path:["black","clack","click","chick","chink","chine","whine","white"],  limit: 12)
 Level.create(start: "tooth", target:"teeth", path:["tooth", "booth", "boots", "boats", "beats", "bents", "tents", "tenth", "teeth"], limit: 13)
@@ -15,7 +15,7 @@ Level.create(start: "tooth", target:"teeth", path:["tooth", "booth", "boots", "b
 # ["hand", "band", "bend", "fend", "feed", "feet"]
 #Level.create(start: "hide", target:"seek", path: ["hide", "hied", "heed", "seed", "seek"], limit: 7)
 #Level.create(start: "rock", target:"roll", path: ["rock", "rick", "rice", "rile", "rill", "roll"], limit: 9)
-
+# Level.create(start: "deep", target:"wide", path:["deep", "deed", "heed", "hied", "hide", "wide"], limit: 10)
 
 Level.create(start: "eat", target: "ate", path: ["eat", "ate"], limit: 2, hint: [-1])
 Level.create(start: "bear", target: "hare", path: ["bear", "bare", "hare"], limit: 3, hint: [0,-1])

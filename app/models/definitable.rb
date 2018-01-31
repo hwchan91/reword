@@ -129,10 +129,11 @@ module Definitable
   end
 
   def remove_additional_info(defin)
-    defin = defin.split(".").first #remove second line - additional info (e.g. synonyms)
-    defin = defin.split(":").first #remove example, comes after colon
+    defin.gsub!('U.S.', 'US')
+    defin = defin.split(". ").first #remove second line - additional info (e.g. synonyms)
+    defin = defin.split(": ").first #remove example, comes after colon
     defin.split(/\W+/).select{|w| w =~/\w+\d+/}.each{|w| defin.sub!(w, w.gsub(/\d+/, ''))}
-    return defin
+    return defin[-1] == '.' ? defin[0..-2] : defin
     #defin.split(/\W+/).map{|word| word =~ /\w+\d+(\.)?$/ ? word.gsub(/\d+/, '') : word }.join(' ') #remove trailing numbers (superscripts)
   end
 

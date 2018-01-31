@@ -77,7 +77,7 @@ class Dict
 
     # @@popular_dict = dict
 
-    Dict.generate('./custom_popular.txt')
+    Dict.generate('./custom_popular_copy.txt')
   end
 
   def self.generate_custom_words(words)
@@ -90,7 +90,7 @@ class Dict
     @dict[word]
   end
 
-  # @@full_dict = Dict.generate 
+  # @@full_dict = Dict.generate
   @@common_dict = Dict.generate_common
   @@popular_dict = Dict.generate_popular
 
