@@ -1,20 +1,20 @@
 module Transitable
   extend ActiveSupport::Concern
 
-  @@transitable = Rails.cache.fetch("transition_words") { JSON.parse(File.read('transition_words.json')) }
+  @@transitable = JSON.parse(File.read('transition_words.json'))
 
   def transition_word_objects
     @transition_word_objects ||= generate_transition_word_objects
   end
 
   def transition_words
-    # output = transition_words_through_substitution
-    # unless no_reorder
-    #   output += transition_words_through_reordering
-    # end
-    # output
+    output = transition_words_through_substitution
+    unless no_reorder
+      output += transition_words_through_reordering
+    end
+    output
 
-    @@transitable[word]
+    # @@transitable[word]
   end
 
   private

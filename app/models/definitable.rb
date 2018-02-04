@@ -119,7 +119,7 @@ module Definitable
     @used_words ||= []
     definitions.each do |defin|
       defin = remove_additional_info(defin)
-      words = defin.downcase.scan(/\w+/).reject{|word| word.length < 4}
+      words = defin.downcase.scan(/\w+\s/).map(&:strip).reject{|word| word.length < 4}
       next if words.select{|word| @used_words.include?(word)}.length >= 3
       @used_words += words.select{|word| word != search_word and !@used_words.include?(word) }
       output << defin

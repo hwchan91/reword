@@ -317,7 +317,6 @@ been
 beep
 beeps
 beers
-beery
 bees
 beets
 befall
@@ -557,7 +556,6 @@ brick
 bricks
 bridal
 bride
-brides
 bridge
 brie
 brief
@@ -1029,7 +1027,6 @@ cove
 coven
 covers
 covert
-covet
 coward
 cowboy
 cows
@@ -1205,7 +1202,6 @@ dean
 dear
 dears
 death
-deaths
 debate
 debit
 debris
@@ -2325,7 +2321,6 @@ hexes
 hick
 hickey
 hicks
-hidden
 hide
 hides
 high
@@ -2645,7 +2640,6 @@ kites
 kitten
 kitty
 knack
-kneel
 knees
 knelt
 knew
@@ -2703,7 +2697,6 @@ lard
 large
 lark
 larvae
-larval
 lasers
 lash
 lashes
@@ -4478,7 +4471,6 @@ shreds
 shrew
 shrewd
 shriek
-shrimp
 shrine
 shrink
 shrub
