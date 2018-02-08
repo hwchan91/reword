@@ -28,4 +28,8 @@ module SideManager
   def opposite_side
     opposite_stack + opposite_front
   end
+
+  def stack_target
+    @curr_side_index == 0 ? @target_word : @starting_word
+  end
 end

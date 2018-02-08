@@ -5,10 +5,12 @@ Level.create(start: "mad", target:"hat", path: ["mad", "had", "hat"], limit: 3, 
 # Level.create(start: "lead", target:"gold", path: ["lead", "load", "goad", "gold"], limit: 6, hint: [1])
 Level.create(start: "body", target:"mind", path: ["body", "bony", "bond", "bind", "mind"], limit: 6, hint: [2])
 Level.create(start: "hand", target:"feet", path: ["hand", "band", "bend", "fend", "feed", "feet"], limit: 6, hint: [0])
-Level.create(start: "fret", target:"calm", path:["fret", "feet", "felt", "fell", "fall", "call", "calm"],  limit: 10, hint: [1])
 Level.create(start: "rock", target:"roll", path: ["rock", "rick", "rice", "rile", "rill", "roll"], limit: 9, hint: [1])
-
-
+Level.create(start: "warm", target:"cool", path: ["warm", "worm", "word", "wood", "wool", "cool"])
+Level.create(start: "jack", target:"rose", path: ["jack", "rack", "rick", "risk", "rise", "rose"])
+Level.create(start: "fret", target:"calm", path:["fret", "feet", "felt", "fell", "fall", "call", "calm"])
+Level.create(start: "road", target:"rome", path: ["road", "load", "lord", "lore", "core", "come", "rome"])
+Level.create(start: "weak", target:"form", path: ["weak", "beak", "beam", "ream", "roam", "foam", "form", "firm"])
 # Level.create(start: "black", target:"white", path:["black","clack","click","chick","chink","chine","whine","white"],  limit: 12)
 
 
@@ -17,6 +19,7 @@ Level.create(start: "rock", target:"roll", path: ["rock", "rick", "rice", "rile"
 
 Level.create(start: "eat", target: "ate", path: ["eat", "ate"], limit: 2, hint: [-1])
 Level.create(start: "bear", target: "hare", path: ["bear", "bare", "hare"], limit: 3, hint: [0,-1])
+Level.create(start: "earth", target: "space", path: ["earth", "heart", "hears", "share", "spare", "space"], hint: [-1])
 Level.create(start: "real", target: "fake", path: ["real", "rear", "rare", "fare", "fake"], limit: 5)
 Level.create(start: "song", target:"poem", path: ["song", "sons", "sops", "mops", "mope", "poem"], limit: 10)
 Level.create(start: "play", target:"work", path: ["play", "pray", "prey", "pyre", "pore", "pork", "work"], limit: 10)
@@ -24,7 +27,7 @@ Level.create(start: "poor", target:"rich", path:["poor", "door", "doer", "rode",
 Level.create(start: "four", target:"five", path:["four", "sour", "ours", "furs", "firs", "fire", "five"],  limit: 10)
 Level.create(start: "north", target:"south", path:["north", "thorn", "shorn", "short", "shout", "south"],  limit: 10)
 # Level.create(start: "duck", target:"swan", path:["duck","puck","punk","puns","spun","span","swan"],  limit: 10)
-Level.create(start: "fable", target:"story", path:["fable", "sable", "bales", "tales", "stale", "stole", "store", "story"],  limit: 10)
+# Level.create(start: "fable", target:"story", path:["fable", "sable", "bales", "tales", "stale", "stole", "store", "story"],  limit: 10)
 #Level.create(start: "noisy", target:"quiet", path:["noisy", "noise", "poise", "prise", "spire", "spite", "suite", "quite", "quiet"], limit: 13)
 # Level.create(start: "light", target:"speed", path:["light", "night", "thing", "thins", "shins", "shies", "shied", "spied", "speed"], limit: 13)
 Level.create(start: "tooth", target:"teeth", path:["tooth", "booth", "boots", "boats", "beats", "bents", "tents", "tenth", "teeth"], limit: 13)

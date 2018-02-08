@@ -37,7 +37,7 @@ module Definitable
 
     non_idiom_definitions = wordnik_response[:response].select{|definition| definition['partOfSpeech'] != 'idiom' }
     definitions = non_idiom_definitions.map{|definition| remove_additional_info(definition['text']) }.join(" ")
-    words_in_def = definitions.split(/\W+/)
+    words_in_def = definitions.split(/[^-a-zA-Z0-9]+/).reject{|w| w =~ /\d+/}
     filtered_words = words_in_def.select{|w| w.length == word.length }.map(&:downcase).uniq.reject{|w| w == word or Word.to_reject?(w) }
     result = filtered_words.select{|w| dict.dict[w] and !Word.new(w).transition_words.empty? } #within common dict
 
@@ -119,7 +119,7 @@ module Definitable
     @used_words ||= []
     definitions.each do |defin|
       defin = remove_additional_info(defin)
-      words = defin.downcase.scan(/\w+\s/).map(&:strip).reject{|word| word.length < 4}
+      words = defin.downcase.split(/[^-a-zA-Z0-9]+/).reject{|word| word.length < 4}
       next if words.select{|word| @used_words.include?(word)}.length >= 3
       @used_words += words.select{|word| word != search_word and !@used_words.include?(word) }
       output << defin

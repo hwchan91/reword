@@ -6,9 +6,10 @@ class WordTrek
 
   def initialize(starting_word, target_word, limit = nil, dict = nil, no_reorder = false)
     @limit = limit
-    @target_word = target_word
-    top_front = [Word.new(starting_word, dict, no_reorder)]
-    bottom_front = [Word.new(target_word, dict, no_reorder)]
+    @starting_word = Word.new(starting_word, dict, no_reorder)
+    @target_word = Word.new(target_word, dict, no_reorder)
+    top_front = [@starting_word]
+    bottom_front = [@target_word]
     @fronts = [top_front, bottom_front]
 
     top_stack = bottom_stack = []
@@ -20,11 +21,15 @@ class WordTrek
 
   def solve
     turn = 1
-    until @result[0] == 'no solution' or @result.length > 0
-      return_no_solution if @result.empty? and @limit and turn > @limit
-      find_solution
-      switch_sides
-      turn += 1
+    if @starting_word.dict.valid?(@starting_word.word).nil? || @target_word.dict.valid?(@target_word.word).nil?
+      @result << 'no solution'
+    else
+      until @result[0] == 'no solution' or @result.length > 0
+        return_no_solution if @result.empty? and @limit and turn > @limit
+        find_solution
+        switch_sides
+        turn += 1
+      end
     end
     return_solution
   end
@@ -42,18 +47,26 @@ class WordTrek
           def propagate_front(front = curr_front, stack = curr_stack, to_be_added = @to_be_added = [])
             wordbase = front.clone #unlink from the front so that the front would remain the same
             wordbase.each do |word|
-              if word.getting_closer?([opposite_side.first])
-                words_closer = word.transition_words_closer_to_target([opposite_side.first]) #start or target
+              if word.getting_closer?(stack_target)
+                words_closer = word.transition_words_closer_to_target(stack_target) #start or target
                 words_closer_not_already_included = words_closer.select{|word| new_word?(word, front, stack)} #the words needs to be determined before anything new gets added into to_be_added
               end
+              # puts 'current word', word.word
 
               word.transition_word_objects.each do |transition_word|
                 check_if_reached_target(transition_word)
                 to_be_added << transition_word if new_word?(transition_word, front, stack)
               end
+              # puts 'transition_words'
+              # puts word.transition_word_objects.map(&:word)
               clear_to_be_added_cache
 
-              recursive_call_on_words_getting_closer(words_closer_not_already_included, stack, to_be_added) if word.getting_closer?([opposite_side.first]) #recursive call should be after add_if_new for optimal path
+              # puts 'word.getting_closer?'
+              # puts word.getting_closer?([opposite_side.first])
+
+              # puts 'words_closer_not_already_included' if word.getting_closer?([opposite_side.first])
+              # puts words_closer_not_already_included.map(&:word) if word.getting_closer?([opposite_side.first])
+              recursive_call_on_words_getting_closer(words_closer_not_already_included, stack, to_be_added) if word.getting_closer?(stack_target) #recursive call should be after add_if_new for optimal path
             end
             to_be_added
           end

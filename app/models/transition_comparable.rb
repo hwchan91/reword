@@ -1,23 +1,24 @@
 module TransitionComparable
   extend ActiveSupport::Concern
 
-  def getting_closer?(words_to_compare)
-    @getting_closer ||= transition_words_closer_to_target(words_to_compare).length > 0
+  def getting_closer?(word_to_compare)
+    @getting_closer ||= transition_words_closer_to_target(word_to_compare).length > 0
   end
 
-  def transition_words_closer_to_target(words_to_compare)
+  def transition_words_closer_to_target(word_to_compare)
     return @sorted_output if @sorted_output
-    original_best = best_match_count(words_to_compare)
-    output = transition_word_objects.select { |transition_word| transition_word.best_match_count(words_to_compare) > original_best - 1 }
-    @sorted_output = output.sort_by{|word| word.best_match_count(words_to_compare)}.reverse #sort seems to make it slightly faster, but very small difference
+    original_best = match_count(word_to_compare)
+    output = transition_word_objects.select { |transition_word| transition_word.match_count(word_to_compare) > original_best }
+    @sorted_output = output.sort_by{|word| word.match_count(word_to_compare)}.reverse #sort seems to make it slightly faster, but very small difference
   end
 
-  def best_match_count(words_to_compare)
-    @best_match_count ||= words_to_compare.map{ |comparison| match_count(comparison) }.max
-  end
+  # def best_match_count(words_to_compare)
+  #   @best_match_count ||= words_to_compare.map{ |comparison| match_count(comparison) }.max
+  # end
 
-  private
+  # private
   def match_count(word_to_compare)
+    return @count if @count
     matches = compare(word_to_compare.word)
 
     unless no_reorder
@@ -27,6 +28,7 @@ module TransitionComparable
     else
       count = full_match_count(matches) - word_to_compare.path.length - path.length
     end
+    @count = count
   end
 
   def partial_or_full_match_count(matches)
