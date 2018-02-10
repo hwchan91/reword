@@ -10,7 +10,7 @@ Level.create(start: "warm", target:"cool", path: ["warm", "worm", "word", "wood"
 Level.create(start: "jack", target:"rose", path: ["jack", "rack", "rick", "risk", "rise", "rose"])
 Level.create(start: "fret", target:"calm", path:["fret", "feet", "felt", "fell", "fall", "call", "calm"])
 Level.create(start: "road", target:"rome", path: ["road", "load", "lord", "lore", "core", "come", "rome"])
-Level.create(start: "weak", target:"form", path: ["weak", "beak", "beam", "ream", "roam", "foam", "form", "firm"])
+Level.create(start: "weak", target:"firm", path: ["weak", "beak", "beam", "ream", "roam", "foam", "form", "firm"])
 # Level.create(start: "black", target:"white", path:["black","clack","click","chick","chink","chine","whine","white"],  limit: 12)
 
 
