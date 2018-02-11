@@ -8,8 +8,8 @@ Level.create(start: "hand", target:"feet", path: ["hand", "band", "bend", "fend"
 Level.create(start: "rock", target:"roll", path: ["rock", "rick", "rice", "rile", "rill", "roll"], limit: 9, hint: [1])
 Level.create(start: "warm", target:"cool", path: ["warm", "worm", "word", "wood", "wool", "cool"])
 Level.create(start: "jack", target:"rose", path: ["jack", "rack", "rick", "risk", "rise", "rose"])
+Level.create(start: "seed", target:"tree", path: ["seed", "feed", "fled", "flee", "free", "tree"])
 Level.create(start: "fret", target:"calm", path:["fret", "feet", "felt", "fell", "fall", "call", "calm"])
-Level.create(start: "road", target:"rome", path: ["road", "load", "lord", "lore", "core", "come", "rome"])
 Level.create(start: "weak", target:"firm", path: ["weak", "beak", "beam", "ream", "roam", "foam", "form", "firm"])
 # Level.create(start: "black", target:"white", path:["black","clack","click","chick","chink","chine","whine","white"],  limit: 12)
 
@@ -19,9 +19,9 @@ Level.create(start: "weak", target:"firm", path: ["weak", "beak", "beam", "ream"
 
 Level.create(start: "eat", target: "ate", path: ["eat", "ate"], limit: 2, hint: [-1])
 Level.create(start: "bear", target: "hare", path: ["bear", "bare", "hare"], limit: 3, hint: [0,-1])
+Level.create(start: "poem", target:"song", path: ["poem", "mope", "dope", "done", "dong", "song"], hint: [-1])
 Level.create(start: "earth", target: "space", path: ["earth", "heart", "hears", "share", "spare", "space"], hint: [-1])
-Level.create(start: "real", target: "fake", path: ["real", "rear", "rare", "fare", "fake"], limit: 5)
-Level.create(start: "song", target:"poem", path: ["song", "sons", "sops", "mops", "mope", "poem"], limit: 10)
+Level.create(start: "real", target: "fake", path: ["real", "rear", "rare", "fare", "fake"], hint: [3])
 Level.create(start: "play", target:"work", path: ["play", "pray", "prey", "pyre", "pore", "pork", "work"], limit: 10)
 Level.create(start: "poor", target:"rich", path:["poor", "door", "doer", "rode", "ride", "rice", "rich"], limit: 10)
 Level.create(start: "four", target:"five", path:["four", "sour", "ours", "furs", "firs", "fire", "five"],  limit: 10)

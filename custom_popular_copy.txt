@@ -34,7 +34,6 @@ adds
 adept
 adhere
 admit
-admits
 adobe
 adopt
 adore
@@ -160,7 +159,6 @@ ashore
 aside
 askew
 asks
-asleep
 aspen
 aspire
 asses
@@ -2016,7 +2014,6 @@ gizmos
 glad
 glade
 glades
-glamor
 gland
 glands
 glare
@@ -2344,7 +2341,6 @@ hits
 hive
 hives
 hoarse
-hoaxes
 hobble
 hobby
 hobo
@@ -2624,7 +2620,6 @@ kids
 kill
 kills
 kiln
-kilo
 kilos
 kilt
 kind
@@ -2840,7 +2835,6 @@ loads
 loaf
 loan
 loans
-loath
 lobby
 lobe
 lobes
@@ -3592,7 +3586,6 @@ piglet
 pigs
 pike
 pile
-piles
 pill
 pillow
 pills
@@ -3982,7 +3975,6 @@ refill
 reform
 refuge
 refuse
-regain
 regal
 regard
 regent
@@ -4002,7 +3994,6 @@ relief
 relies
 relive
 reload
-remain
 remake
 remark
 remind
@@ -4017,7 +4008,6 @@ rents
 reopen
 repaid
 repair
-repay
 repeal
 repeat
 repent
@@ -5480,7 +5470,6 @@ unload
 unpack
 unpaid
 unreal
-unrest
 unsaid
 unseal
 unseat

@@ -8,13 +8,13 @@ module Transitable
   end
 
   def transition_words
-    # output = transition_words_through_substitution
-    # unless no_reorder
-    #   output += transition_words_through_reordering
-    # end
-    # output
+    output = transition_words_through_substitution
+    unless no_reorder
+      output += transition_words_through_reordering
+    end
+    output
 
-    @@transitable[word]
+    # @@transitable[word]
   end
 
   private

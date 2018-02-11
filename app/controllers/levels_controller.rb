@@ -68,7 +68,8 @@ class LevelsController < ApplicationController
 
     cookies.permanent.encrypted[:zen] = nil
     session[:"levelzen_history"] = nil
-    reload_show
+    # reload_show
+    render 'loading.js'
   end
 
   private
@@ -115,6 +116,7 @@ class LevelsController < ApplicationController
     def reload_show
       set_level
       get_word
+
       if complete
         @complete = true
         unless params[:id] == 'zen'
