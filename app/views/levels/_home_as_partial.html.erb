@@ -1,0 +1,23 @@
+<div class="starting_page">
+  <div class="game_title_cont">
+    <div class="game_title">REWORD</div>
+  </div>
+
+  <div class="play_btn">
+    <%= link_to "PLAY", levels_path, remote: true, id: "play_link" %><br>
+    <%= link_to "Zen mode", level_path('zen'), remote: true, id: "play_link" %><br>
+    <span class="options">options</span>
+  </div>
+  
+
+  <div class="options_overlay">
+    <%= render 'options_container' %>
+    <span class="back_btn">back</span>
+  </div>
+</div>
+
+<% if false %>
+<script>
+  $('.game_title').lettering();
+</script>
+<% end %>

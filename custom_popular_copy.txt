@@ -44,7 +44,6 @@ advice
 advise
 aerial
 afar
-affair
 affect
 agent
 ages
@@ -673,7 +672,6 @@ calm
 calms
 calves
 came
-camel
 camels
 camp
 camps
@@ -685,7 +683,6 @@ canary
 cancel
 candle
 candor
-candy
 cane
 canine
 cannon
@@ -790,7 +787,6 @@ cheep
 cheers
 cheery
 cheese
-cheesy
 chef
 chefs
 cherry
@@ -954,7 +950,6 @@ colds
 collar
 collie
 colon
-colony
 color
 colors
 comas
@@ -1237,7 +1232,6 @@ delays
 dell
 deltas
 delude
-deluge
 deluxe
 delve
 demand
@@ -1270,7 +1264,6 @@ desire
 desist
 desk
 desks
-detail
 detain
 detect
 detest
@@ -1607,7 +1600,6 @@ expert
 export
 extend
 extent
-extort
 extras
 eyes
 fable
@@ -2094,7 +2086,6 @@ grams
 gran
 grand
 grange
-granny
 grant
 grants
 grape
@@ -2109,7 +2100,6 @@ gravel
 graves
 gravy
 gray
-grease
 greasy
 great
 greedy
@@ -2227,7 +2217,6 @@ harm
 harms
 harp
 harps
-harpy
 harry
 harsh
 hart
@@ -2734,7 +2723,6 @@ lean
 leans
 leap
 leaps
-leapt
 learn
 learns
 learnt
@@ -2972,7 +2960,6 @@ marine
 mark
 market
 marks
-marlin
 marrow
 marry
 mars
@@ -4374,7 +4361,6 @@ shady
 shaft
 shag
 shake
-shaken
 shakes
 shaky
 shale
@@ -4467,7 +4453,6 @@ shrub
 shrubs
 shrug
 shrugs
-shrunk
 shtick
 shuck
 shucks
@@ -4658,7 +4643,6 @@ snit
 snitch
 snob
 snobby
-snoopy
 snooty
 snooze
 snore
@@ -4830,7 +4814,6 @@ squash
 squat
 squaw
 squawk
-squeak
 squeal
 squid
 squire
@@ -5530,7 +5513,6 @@ verbs
 verge
 verify
 verse
-versus
 very
 vessel
 vest
@@ -5791,7 +5773,6 @@ wrap
 wraps
 wrath
 wreak
-wreaks
 wreck
 wrecks
 wrench

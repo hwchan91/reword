@@ -30,7 +30,7 @@ html, body{
   --word-choice-hover-color: var(--complete-highlight-color);
   --definition-color: #aaa;
   --complete-highlight-color: rgb(50, 163, 202);
-  --main-font-family: "Trebuchet MS", Helvetica, sans-serif;
+  --main-font-family:  Helvetica, sans-serif;
 }
 
 .start_word, .target_word {
@@ -449,6 +449,13 @@ html, body {
   background: -moz-linear-gradient(right, var(--complete-highlight-color), var(--main-background-color)); /*Fx 3.6-15*/
   background: linear-gradient(to right, var(--complete-highlight-color), var(--main-background-color)); /*Standard*/
   padding: 20px 0px;
+  .back_btn {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    color: white;
+    text-decoration: none;
+  }
 }
 
 .starting_page {
@@ -564,6 +571,7 @@ html, body {
     margin-bottom: 0px;
   }
   .level_btn {
+    cursor: default;
     width: 15vh;
     height: 15vh;
     line-height: 15vh;
@@ -595,16 +603,22 @@ html, body {
   }
   .completed_level .level_btn {
     color: var(--main-background-color);
+    cursor: pointer;
   }
   .completed_level:not(.all_complete) .level_start_word, .completed_level:not(.all_complete) .level_target_word {
     display: none;
   }
+  .completed_level ~ .level:not(.completed_level) .level_btn {
+    cursor: pointer;
+  }
+
   .level:not(.completed_level) ~ .level:not(.completed_level) {
     .level_start_word, .level_target_word {
       display: none;
     }
     .level_btn {
-    opacity: 0.3;
+      opacity: 0.3;
+      cursor: default;
     }
   }
   .level_start_word span, .level_target_word span {
@@ -649,7 +663,7 @@ html, body {
   }
 }
 
-#options_overlay {
+#options_overlay, #skip_overlay {
   color: #aaa;
   font-size: 5vh;
   @media (min-width: 768px) {
@@ -669,31 +683,43 @@ html, body {
     border-width: 0px;
     padding: 0;
   }
-  .options_container {
-    position: relative;
-    max-width: 300px;
-    padding: 30px;
-    background: white;
-    color: var(--main-background-color);
-    margin: 0 auto;
-    font-size: 28px;
-    .close_options {
-      position: absolute;
-      top: 5px;
-      right: 5px;
-      font-size: 20px;
+}
+
+.options_container {
+  position: relative;
+  max-width: 300px;
+  padding: 30px;
+  background: white;
+  color: var(--main-background-color);
+  margin: 0 auto;
+  font-size: 28px;
+  .close_options {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 20px;
+    color: #ccc;
+  }
+  .select_level_btn {
+    text-decoration: none;
+    color: #aaa;
+  }
+  .skip_level_btn {
+    text-decoration: none;
+    color: red;
+  }
+  .glyphicon-remove {
+    -webkit-text-stroke: 4px white;
+  }
+  .music_btn {
+    left: 80px;
+    top: 3px;
+  }
+  .skip_btn {
+    text-align: center;
+    a:link {
       color: #ccc;
-    }
-    .select_level_btn {
       text-decoration: none;
-      color: #aaa;
-    }
-    .glyphicon-remove {
-      -webkit-text-stroke: 4px white;
-    }
-    .music_btn {
-      left: 80px;
-      top: 3px;
     }
   }
 }
@@ -772,4 +798,8 @@ html, body {
     color: #eee;
     opacity: 0.5;
   }
+}
+
+.loading {
+  color: #aaa;
 }

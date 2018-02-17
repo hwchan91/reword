@@ -2,6 +2,10 @@
 <% up_to = @completed_levels.any? ? @completed_levels.max : 0 %>
 
 <div class="level_selection_page">
+  <%= link_to root_path, class: "back_btn", remote: true do %>
+    back
+  <% end %>
+
   <div class="chapter">
     <% if @chapter != 1 %>
       <div class="prev_chap">

@@ -5,19 +5,24 @@
     --complete-highlight-color: rgb(112, 159, 204);
   }
 <% elsif level.id.between?(21,30) %>
-    :root {
+  :root {
     --main-background-color: #6e845c;
     --complete-highlight-color: rgb(204, 206, 97);
   }
 <% elsif level.id.between?(31,40) %>
-    :root {
+  :root {
     --main-background-color: #580b59;
     --complete-highlight-color: rgb(119, 126, 168);
   }
 <% elsif level.id.between?(41,50) %>
-    :root {
+  :root {
     --main-background-color: black;
     --complete-highlight-color: rgb(104, 53, 53);
+  }
+<% elsif level.id = 9999 %>
+  :root {
+    --main-background-color: #d1bfba;
+    --complete-highlight-color: rgb(63, 56, 54);
   }
 <% end %>
 

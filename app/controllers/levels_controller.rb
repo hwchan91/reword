@@ -59,6 +59,10 @@ class LevelsController < ApplicationController
 
   def home
     @user = current_user
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def skip_zen_level
