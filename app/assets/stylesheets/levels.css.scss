@@ -456,7 +456,7 @@ html, body {
     color: white;
     text-decoration: none;
     opacity: 0.8;
-    font-size: 4vh;
+    font-size: 2.5vh;
   }
 }
 
@@ -470,7 +470,7 @@ html, body {
   }
   .play_btn {
     width: 100vw;
-    font-size: 10vh;
+    font-size: 6vh;
     color: white;
     text-align: right;
     margin-top: 70px;
@@ -482,8 +482,12 @@ html, body {
     top: 0;
     left: 0;
     color: white;
-    opacity: 0.3;
-    font-size: 6vh;
+    opacity: 0.5;
+    font-size: 8vh;
+    width: 100vw;
+    text-align: center;
+    background: white;
+    color: var(--main-background-color);
   }
   .game_title_cont span {
     height: 8vh;
@@ -700,13 +704,13 @@ html, body {
       font-size: 20px;
       color: #ccc;
     }
-    .select_level_btn {
+    .to_menu_btn {
       text-decoration: none;
       color: #aaa;
     }
-    .skip_level_btn {
+    .skip_level_btn, .select_level_btn {
       text-decoration: none;
-      color: red;
+      color: #bbb;
     }
     .glyphicon-remove {
       -webkit-text-stroke: 4px white;

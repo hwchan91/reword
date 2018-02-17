@@ -24,9 +24,9 @@
           <% if @level.id != 9999  %>
             <div><%=link_to "Select Level", levels_path(chapter: (@level.id / 10) + 1), remote: true, class:  "select_level_btn" %></div>
           <% else %>
-            <div><%=link_to "Back to Menu", root_path, remote: true, class:  "select_level_btn" %></div>
-            <div><%= link_to "Skip level?", skip_zen_level_level_path('zen'), remote: true, class:  "skip_level_btn" %></div>
+            <div><%= link_to "Skip Level?", skip_zen_level_level_path('zen'), remote: true, class:  "skip_level_btn" %></div>
           <% end %>
+          <div><%=link_to "To Menu", root_path, remote: true, class:  "to_menu_btn" %></div>
         </div>
 
       </div>
