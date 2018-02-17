@@ -1524,7 +1524,6 @@ eject
 elbow
 elbows
 elders
-eldest
 elect
 elite
 elks
@@ -4368,7 +4367,6 @@ shall
 shalom
 shalt
 sham
-shaman
 shame
 shank
 shanks

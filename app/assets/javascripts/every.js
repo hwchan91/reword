@@ -316,7 +316,7 @@ function everyFunction() {
     })
   }, 1000);
 
-  $('.select_level_btn').click(function() {
+  $('.select_level_btn, .skip_level_btn, .to_menu_btn').click(function() {
     $('.content>div').fadeOut('fast');
   })
 
@@ -403,9 +403,4 @@ function everyFunction() {
     }
     $(".curr_word_container").animate({opacity: "0"}, 500);
   })
-
-  $('.skip_level_btn').click(function() {
-    $('.content').html("")
-  })
-
 }
