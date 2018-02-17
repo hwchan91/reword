@@ -5,7 +5,7 @@ Level.create(start: "mad", target:"hat", path: ["mad", "had", "hat"], limit: 3, 
 # Level.create(start: "lead", target:"gold", path: ["lead", "load", "goad", "gold"], limit: 6, hint: [1])
 Level.create(start: "body", target:"mind", path: ["body", "bony", "bond", "bind", "mind"], limit: 6, hint: [2])
 Level.create(start: "hand", target:"feet", path: ["hand", "band", "bend", "fend", "feed", "feet"], limit: 6, hint: [0])
-Level.create(start: "rock", target:"roll", path: ["rock", "rick", "rice", "rile", "rill", "roll"], limit: 9, hint: [1])
+Level.create(start: "rock", target:"roll", path: ["rock", "rook", "took", "tool", "toll", "roll"], limit: 9, hint: [2])
 Level.create(start: "warm", target:"cool", path: ["warm", "worm", "word", "wood", "wool", "cool"])
 Level.create(start: "jack", target:"rose", path: ["jack", "rack", "rick", "risk", "rise", "rose"])
 Level.create(start: "seed", target:"tree", path: ["seed", "feed", "fled", "flee", "free", "tree"])

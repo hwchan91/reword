@@ -25,6 +25,13 @@ module Definitable
 
     if recursive
       retry_response if third_person_tense? or plural_tense? or past_tense?
+      if @third_person_tense or @past_tense
+        @response.select!{|definition| definition['partOfSpeech'].include? 'verb' and !definition['partOfSpeech'].include? 'adverb' }
+      end
+
+      if @plural_tense
+        @response.select!{|definition| definition['partOfSpeech'].include? 'noun'  and !definition['partOfSpeech'].include? 'pronoun' }
+      end
     end
 
     result = {search_word: @search_word, response: @response}
@@ -48,8 +55,10 @@ module Definitable
   def third_person_tense?
     if @response.empty? and word[-1] == 's'
       @search_word = word[0..-2]
+      @third_person_tense = true
     elsif @response.any? and first_definition.include?('third-person')
       @search_word = first_definition_words.last
+      @third_person_tense = true
     end
   end
 
@@ -60,12 +69,14 @@ module Definitable
       else
         @search_word = first_definition_words.last
       end
+      @plural_tense = true
     end
   end
 
   def past_tense?
     if @response.any? and (['past', 'tense'] - first_definition_words).empty?
       @search_word = first_definition_words.last
+      @past_tense = true
     end
   end
 

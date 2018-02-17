@@ -1,6 +1,10 @@
 <div class="curr_word_container">
   <div class="curr_word text-center">
     <%= render 'flash_notice' if flash[:notice] %>
+
+    <% if @level.id <= 2 && @history.length == 1 %>
+        <div class="instructions">Change from <%= @level.start.upcase %> to <%= @level.target.upcase %></div>
+    <% end %>
     
     <% @word.word.upcase.split("").each_with_index do |letter, index| %>
       <%= render 'curr_word_choice_letter', letter: letter, index: index %>
@@ -9,8 +13,9 @@
     <div class="below_curr_word">
       <%= render 'word_definition' %>
 
-      <% if @choices.empty? %>
+      <% if @choices.empty? || ( @level.id <= 10 && @choices.keys.none?{|i| i.present?}  )%>
         <div class="no_moves_left">NO MORE CHOICES</div>
+        <br>
       <% end %>
     </div>
     

@@ -404,5 +404,4 @@ function everyFunction() {
     $(".curr_word_container").animate({opacity: "0"}, 500);
   })
 
-
 }

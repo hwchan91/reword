@@ -173,13 +173,15 @@ html, body{
   position: fixed;
   top: 23%;
   left: 50%;
-  // width: 50%;
   transform: translate(-50%, -50%);
-  span {
-    display: block;
+  .prev_moves {
     margin: 5px auto;
+    display: block; 
     letter-spacing: 10px;
     padding-left: 10px;
+    span {
+      display: inline-block;
+    }
   }
   .glyphicon-option-vertical {
     color: #eee;
@@ -192,49 +194,48 @@ html, body{
   .last_1 {
     font-size: 4.2vh;
     color: #ccc;
-    // span {
-    //   width: 4.2vh;
-    // }
+    span {
+      width: 4.2vh;
+    }
   }
   .last_2 {
     font-size: 4.0vh;
     color: #ddd;
-    // span {
-    //   width: 4.0vh;
-    // }
+    span {
+      width: 4.0vh;
+    }
   }
   .last_3 {
     font-size: 3.8vh;
     color: #ececec;
-    // span {
-    //   width: 3.8vh;
-    // }
+    span {
+      width: 3.8vh;
+    }
   }
   .last_4 {
     font-size: 3.6vh;
     color: #ededed;
-    // span {
-    //   width: 3.6vh;
-    // }
+    span {
+      width: 3.6vh;
+    }
   }
   .last_5 {
     font-size: 3.4vh;
     color: #eee;
-    // span {
-    //   width: 3.4vh;
-    // }
+    span {
+      width: 3.4vh;
+    }
   }
   .last_6 {
     font-size: 3.2vh;
     color: #efefef;
-    // span {
-    //   width: 3.2vh;
-    // }
+    span {
+      width: 3.2vh;
+    }
     visibility: hidden;
     opacity: 0;
     transition: visibility 0s 0.5s, opacity 0.5s linear;
   }
-
 }
 
 .reset, .limit_count {
@@ -435,20 +436,11 @@ html, body {
 
 
 
-#instructions {
-  color: #aaa;
-  font-size: 2vh;
-  text-align: center;
-  span {
-    font-size: 2.5vh;
-    color: var(--main-background-color);
-  }
+.instructions {
+  color: var(--main-background-color);
+  margin-bottom: 5vh;
 }
 
-.instruction_btn {
-  font-weight: bold;
-  margin-left: 0.8vh;
-}
 
 .level_selection_page, .starting_page {
   background: var(--main-background-color);
@@ -600,7 +592,6 @@ html, body {
       z-index: 5;
       opacity: 0.3;
     }
-
   }
   .completed_level .level_btn {
     color: var(--main-background-color);
