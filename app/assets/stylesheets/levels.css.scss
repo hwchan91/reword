@@ -455,6 +455,8 @@ html, body {
     right: 10px;
     color: white;
     text-decoration: none;
+    opacity: 0.8;
+    font-size: 4vh;
   }
 }
 
@@ -683,46 +685,47 @@ html, body {
     border-width: 0px;
     padding: 0;
   }
-}
-
-.options_container {
-  position: relative;
-  max-width: 300px;
-  padding: 30px;
-  background: white;
-  color: var(--main-background-color);
-  margin: 0 auto;
-  font-size: 28px;
-  .close_options {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    font-size: 20px;
-    color: #ccc;
-  }
-  .select_level_btn {
-    text-decoration: none;
-    color: #aaa;
-  }
-  .skip_level_btn {
-    text-decoration: none;
-    color: red;
-  }
-  .glyphicon-remove {
-    -webkit-text-stroke: 4px white;
-  }
-  .music_btn {
-    left: 80px;
-    top: 3px;
-  }
-  .skip_btn {
-    text-align: center;
-    a:link {
+  .options_container {
+    position: relative;
+    max-width: 300px;
+    padding: 30px;
+    background: white;
+    color: var(--main-background-color);
+    margin: 0 auto;
+    font-size: 28px;
+    .close_options {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      font-size: 20px;
       color: #ccc;
+    }
+    .select_level_btn {
       text-decoration: none;
+      color: #aaa;
+    }
+    .skip_level_btn {
+      text-decoration: none;
+      color: red;
+    }
+    .glyphicon-remove {
+      -webkit-text-stroke: 4px white;
+    }
+    .music_btn {
+      left: 80px;
+      top: 3px;
+    }
+    .skip_btn {
+      text-align: center;
+      a:link {
+        color: #ccc;
+        text-decoration: none;
+      }
     }
   }
 }
+
+
 
 .credits_content, .profile_content {
   font-size: 4vh;

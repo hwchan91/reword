@@ -5661,7 +5661,6 @@ whales
 wham
 whammy
 what
-whats
 wheat
 wheel
 wheels
