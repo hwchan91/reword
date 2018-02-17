@@ -268,6 +268,7 @@ html, body{
     font-size: 4vh;
     display: block;
     color: #ccc;
+    vertical-align: middle;
   }
   .glyphicon-triangle-bottom {
     font-size: 2vh;
@@ -324,7 +325,6 @@ html, body{
     }
   }
   #path_length {
-    margin: 0 10px;
     font-weight: bold;
     display: none;
   }
@@ -438,7 +438,12 @@ html, body {
 
 .instructions {
   color: var(--main-background-color);
-  margin-bottom: 5vh;
+  position: fixed;
+  top: calc(50% - 10vh);
+  left: 50%;
+  width: 100%;
+  transform: translate(-50%, -50%);
+  font-size: 2.5vh;
 }
 
 

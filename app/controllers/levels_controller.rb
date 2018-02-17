@@ -84,7 +84,7 @@ class LevelsController < ApplicationController
         set_zen_level
       end
 
-      @limit = @level.id <= 20 ? 99 : @level.path.size
+      @limit = @level.id <= 20 ? @level.path.size + 5 : @level.path.size
       set_history
     end
 
