@@ -322,9 +322,9 @@ function everyFunction() {
 
 
   $('.send_email').click(function (event) {
-    var email = 'wordlinkthegame@gmail.com';
-    var subject = 'Comments on Word Link';
-    var emailBody = 'Hi, here are my comments on Word Link:';
+    var email = 'hishikari.sora@gmail.com';
+    var subject = 'Comments on REWORD';
+    var emailBody = 'Hi, here are my comments on REWORD:';
     document.location = "mailto:"+email+"?subject="+subject+"&body="+emailBody;
   });
 

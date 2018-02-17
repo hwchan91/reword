@@ -72,7 +72,10 @@ class LevelsController < ApplicationController
 
     cookies.permanent.encrypted[:zen] = nil
     session[:"levelzen_history"] = nil
-    # reload_show
+    render 'loading.js'
+  end
+
+  def loading
     render 'loading.js'
   end
 

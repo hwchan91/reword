@@ -2806,7 +2806,6 @@ lions
 lippy
 lips
 list
-listen
 lists
 lite
 liters
@@ -3671,7 +3670,6 @@ poll
 pollen
 polls
 polo
-poncho
 pond
 ponds
 pong

@@ -6,7 +6,7 @@
     <%= render 'achievement' if within_optimal?  %>
     <div class="next_level_btn_container">
       <% if @level.id == 9999 %> <%# zen %>
-        <%= link_to "New Level", level_path('zen') , class:"btn btn_custom next_level", remote: true %>
+        <%= link_to "New Level", loading_level_path('zen') , class:"btn btn_custom next_level", remote: true %>
       <% elsif @level.id % 10 != 0 %>
         <%= link_to "Next Level", level_path(@level.id + 1) , class:"btn btn_custom next_level", remote: true %>
         <%= link_to "Play Again?", reset_level_path(@level) , class:"play_again_link", remote: true %>
