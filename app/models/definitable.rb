@@ -42,21 +42,22 @@ module Definitable
     cache = Rails.cache.read("asso_#{word}")
     return cache if cache
 
-    non_idiom_definitions = wordnik_response[:response].select{|definition| definition['partOfSpeech'] != 'idiom' }
-    definitions = non_idiom_definitions.map{|definition| remove_additional_info(definition['text']) }.join(" ")
-    words_in_def = definitions.split(/[^-a-zA-Z0-9]+/).reject{|w| w =~ /\d+/}
-    filtered_words = words_in_def.select{|w| w.length == word.length }.map(&:downcase).uniq.reject{|w| w == word or Word.to_reject?(w) }
-    result = filtered_words.select{|w| dict.dict[w] and !Word.new(w).transition_words.empty? } #within common dict
+    non_idiom_definitions = wordnik_response[:response].select{|definition| definition['partOfSpeech'] != 'idiom' && !definition['text'].include?("Slang") }
+    if non_idiom_definitions.any?
+      definitions = non_idiom_definitions.map{|definition| remove_additional_info(definition['text']) }.join(" ")
+      words_in_def = definitions.split(/[^-a-zA-Z0-9]+/).reject{|w| w =~ /\d+/}
+      filtered_words = words_in_def.select{|w| w.length == word.length }.map(&:downcase).uniq.reject{|w| w == word or Word.to_reject?(w) }
+      result = filtered_words.select{|w| dict.dict[w] and !Word.new(w).transition_words.empty? } #within common dict
+    else
+      result = []
+    end
 
     cache_and_return("asso_#{word}", result)
   end
 
   # private
   def third_person_tense?
-    if @response.empty? and word[-1] == 's'
-      @search_word = word[0..-2]
-      @third_person_tense = true
-    elsif @response.any? and first_definition.include?('third-person')
+    if @response.any? and first_definition.include?('third-person')
       @search_word = first_definition_words.last
       @third_person_tense = true
     end
@@ -69,6 +70,9 @@ module Definitable
       else
         @search_word = first_definition_words.last
       end
+      @plural_tense = true
+    elsif @response.empty? and word[-1] == 's'
+      @search_word = word[0..-2]
       @plural_tense = true
     end
   end

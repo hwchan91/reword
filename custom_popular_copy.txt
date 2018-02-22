@@ -457,7 +457,6 @@ bombs
 bond
 bonds
 bone
-boners
 bones
 bong
 bongo
@@ -561,7 +560,6 @@ brig
 bright
 brill
 brim
-brings
 brink
 brit
 broad
@@ -571,7 +569,6 @@ broken
 bronco
 bronze
 brood
-broody
 brook
 brooks
 broom
@@ -726,7 +723,6 @@ casino
 casket
 cast
 caste
-castle
 castor
 casts
 catch
@@ -812,7 +808,6 @@ chin
 chink
 chinks
 chino
-chins
 chip
 chips
 chirp
@@ -978,7 +973,6 @@ cons
 convey
 convoy
 cook
-cookie
 cooks
 cool
 cools
@@ -1059,9 +1053,7 @@ cream
 creamy
 crease
 create
-credit
 credo
-creeds
 creek
 creep
 creeps
@@ -1145,7 +1137,6 @@ cushy
 cusp
 cuss
 cute
-cutest
 cutesy
 cutie
 cutout
@@ -1306,7 +1297,6 @@ dings
 dingy
 dinky
 dips
-dire
 direct
 dirk
 dirt
@@ -1324,7 +1314,6 @@ dismay
 ditch
 ditsy
 ditto
-ditty
 divas
 dive
 divers
@@ -1715,7 +1704,6 @@ films
 filth
 filthy
 finale
-finals
 finch
 find
 finds
@@ -1967,7 +1955,6 @@ gels
 gems
 gene
 genes
-genie
 genius
 genre
 gentle
@@ -2074,7 +2061,6 @@ grabby
 grabs
 grace
 graces
-grad
 grade
 grades
 grafts
@@ -2573,7 +2559,6 @@ jumble
 jumbo
 jump
 jumps
-jumpy
 jungle
 junk
 junky
@@ -2789,7 +2774,6 @@ limit
 limo
 limos
 limp
-limps
 line
 linear
 linen
@@ -3228,7 +3212,6 @@ naive
 name
 names
 nanny
-nappy
 naps
 narc
 narrow
@@ -3990,7 +3973,6 @@ rent
 rental
 rents
 reopen
-repaid
 repair
 repeal
 repeat
@@ -4020,7 +4002,6 @@ retort
 retro
 return
 reveal
-revels
 revere
 revert
 review
@@ -4137,7 +4118,6 @@ rowdy
 rows
 royal
 royals
-rubble
 rube
 rubes
 rubies
@@ -4362,7 +4342,6 @@ shakes
 shaky
 shale
 shall
-shalom
 shalt
 sham
 shame
@@ -4624,7 +4603,6 @@ snails
 snake
 snakes
 snap
-snappy
 snaps
 snarky
 snarl
@@ -5094,7 +5072,6 @@ tape
 tapes
 tardy
 tarot
-tarp
 tart
 tartar
 tarts
@@ -5215,7 +5192,6 @@ tidy
 ties
 tigers
 tight
-tights
 tile
 tiles
 till
@@ -5325,7 +5301,6 @@ travel
 tray
 trays
 tread
-treads
 treat
 treats
 treaty
@@ -5514,7 +5489,6 @@ vessel
 vest
 vests
 veto
-vets
 viable
 vial
 vials
@@ -5535,7 +5509,6 @@ vipers
 viral
 virgin
 visas
-visor
 vital
 vivid
 vocal
