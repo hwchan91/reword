@@ -9,37 +9,53 @@ class Level < ApplicationRecord
 
   @@words = Dict.new('popular').dict.keys
 
-  def check
+  def check_answer
     optimal = WordTrek.new(start, target).solve
     same_optimal = path.length == optimal.length
     [id, same_optimal, optimal]
   end
 
-  def self.generate
+  def self.generate(start)
     valid = false
-    start, target, path = nil, nil, nil
-    until valid
-      start = random_word
-      associated_words = Word.new(start).associated_words.shuffle
+    target, path = nil, nil
+    associated_words = Word.new(start).associated_words.shuffle
 
-      if associated_words.empty?
-        remove_word_from_wordlist(start)
-        next
-      end
+    if associated_words.empty?
+      remove_word_from_wordlist(start)
+      return
+    end
 
-      associated_words.each do |word|
+    associated_words.each do |word|
+      unless valid
         target = word
         path = WordTrek.new(start, target, 7).solve #limit solution to 7 turns
 
-        if path.is_a? Array and path.length > 4 and path.length <=10
+        if path.is_a?(Array) && path.length > 4 && path.length <=10
           valid = true
-          break
         end
       end
-      remove_word_from_wordlist(start) if !valid
+    end
+
+    if !valid
+      remove_word_from_wordlist(start)
+      return
     end
 
     {id: 9999, start: start, target: target, path: path, limit: path.length}
+  end
+
+  def self.random
+    level = nil
+
+    until level
+      level = generate(random_word)
+    end
+
+    level
+  end
+
+  def self.challenge_all
+    @@words.each { |word| generate(word) }
   end
 
   def self.random_word
