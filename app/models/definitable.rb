@@ -42,7 +42,7 @@ module Definitable
     cache = Rails.cache.read("asso_#{word}")
     return cache if cache
 
-    non_idiom_definitions = wordnik_response[:response].select{|definition| definition['partOfSpeech'] != 'idiom' && !definition['text'].include?("Slang") }
+    non_idiom_definitions = wordnik_response[:response].select{|definition| definition['partOfSpeech'] != 'idiom' && !definition['text'].include?("Slang") && definition['text'].split("  ").size == 1 }
     if non_idiom_definitions.any?
       definitions = non_idiom_definitions.map{|definition| remove_additional_info(definition['text']) }.join(" ")
       words_in_def = definitions.split(/[^-a-zA-Z0-9]+/).reject{|w| w =~ /\d+/}
@@ -94,6 +94,10 @@ module Definitable
 
   def retry_response
     @response = Word.new(@search_word).wordnik_response(false)[:response]
+  end
+
+  def response
+    wordnik_response[:response].map{|d| d['text']}
   end
 
   def wordnik_definition
