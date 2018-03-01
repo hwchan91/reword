@@ -38,10 +38,8 @@ gem 'autoprefixer-rails'
 gem 'pg'
 gem 'wordnik'
 # gem "google-cloud-storage"
-gem "google-cloud-translate"
+# gem "google-cloud-translate"
 
-# gem 'sidekiq-scheduler'
-gem "simple_scheduler"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

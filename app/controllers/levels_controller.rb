@@ -92,7 +92,7 @@ class LevelsController < ApplicationController
     end
 
     def set_zen_level
-      cookies.permanent.encrypted[:zen] = Level.generate.as_json.to_json if cookies.encrypted[:zen].nil?
+      cookies.permanent.encrypted[:zen] = Level.random.as_json.to_json if cookies.encrypted[:zen].nil?
       level_in_json = cookies.encrypted[:zen].clone
       @level = OpenStruct.new(JSON.parse(level_in_json))
     end
@@ -169,7 +169,7 @@ class LevelsController < ApplicationController
       current_user.save!
 
       session.delete(:"level#{params[:id]}_history")
-      cookies.permanent.encrypted[:zen] = Level.generate.as_json.to_json
+      cookies.permanent.encrypted[:zen] = Level.random.as_json.to_json
     end
 
     def get_completed_levels
