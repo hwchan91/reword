@@ -9,6 +9,7 @@ class Level < ApplicationRecord
 
   @@words = Dict.new('popular').dict.keys
 
+
   def check_answer
     optimal = WordTrek.new(start, target).solve
     same_optimal = path.length == optimal.length
@@ -16,46 +17,48 @@ class Level < ApplicationRecord
   end
 
   def self.generate(start)
-    valid = false
-    target, path = nil, nil
-    associated_words = Word.new(start).associated_words.shuffle
+    associated_words = Word.new(start).associated_words
+    remove_word_from_wordlist(start) && return if associated_words.empty?
 
-    if associated_words.empty?
-      remove_word_from_wordlist(start)
-      return
-    end
-
-    associated_words.each do |word|
-      unless valid
-        target = word
-        path = WordTrek.new(start, target, 7).solve #limit solution to 7 turns
-
-        if path.is_a?(Array) && path.length > 4 && path.length <=10
-          valid = true
-        end
+    valid_levels = []
+    associated_words.each do |target|
+      path = WordTrek.new(start, target, 7).solve #limit solution to 7 turns
+      if path.is_a?(Array) && path.length > 4 && path.length <=10
+        valid_levels << level_hash(start, target, path)
       end
     end
+    remove_word_from_wordlist(start) && return if valid_levels.empty?
 
-    if !valid
-      remove_word_from_wordlist(start)
-      return
-    end
+    valid_levels
+  end
 
+  def self.level_hash(start, target, path)
     {id: 9999, start: start, target: target, path: path, limit: path.length}
   end
 
   def self.random
-    level = nil
+    # levels = nil
+    # levels = generate(random_word) until levels
+    # levels[rand(levels.size)]
+    # @@all_zen_levels ||= JSON.parse(File.read('./zen_levels.json'))
 
-    until level
-      level = generate(random_word)
-    end
-
-    level
+    @@all_zen_levels[rand(@@all_zen_levels.count)]
   end
 
-  def self.challenge_all
-    @@words.each { |word| generate(word) }
+  def self.generate_all
+    File.open("zen_levels.json", "w") { |f| f.puts("") }
+    File.open("zen_levels.json", "a") { |f| f.puts("[") }
+    final_word_index = @@words.count - 1
+    @@words.each_with_index do |word, word_index|
+      levels = generate(word)
+      next unless levels
+      File.open("zen_levels.json", "a") do |f|
+        levels.each_with_index do |level, level_index|
+          f.puts("  #{level.to_json}#{',' unless word_index == final_word_index && level_index == levels.count - 1 }")
+        end
+      end
+    end
+    File.open("zen_levels.json", "a") { |f| f.puts("]") }
   end
 
   def self.random_word
@@ -68,4 +71,6 @@ class Level < ApplicationRecord
     tmp.close
     FileUtils.mv(tmp.path, 'custom_popular_copy.txt')
   end
+
+  @@all_zen_levels = JSON.parse(File.read('./zen_levels.json'))
 end
