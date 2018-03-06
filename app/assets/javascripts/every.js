@@ -403,4 +403,11 @@ function everyFunction() {
     }
     $(".curr_word_container").animate({opacity: "0"}, 500);
   })
+
+  function clickSkipZenAndDisable() {
+    $('.skip_Level_btn').click(function() {
+      $('.modal-backdrop').fadeOut(1000);
+    });
+  }
+  clickSkipZenAndDisable();
 }

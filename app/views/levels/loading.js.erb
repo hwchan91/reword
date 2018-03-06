@@ -1,2 +1,2 @@
-$('.content').html("<%= j render 'loading'%>")
+$('.content').html("<%= j render 'loading', user: @current_user %>")
 $.getScript('/levels/zen')

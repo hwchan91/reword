@@ -70,6 +70,7 @@ class LevelsController < ApplicationController
       redirect_to levels_path, format: :js
     end
 
+    current_user.update!(continuous_zen_levels: 0)
     cookies.permanent.encrypted[:zen] = nil
     session[:"levelzen_history"] = nil
     render 'loading.js'
@@ -81,6 +82,7 @@ class LevelsController < ApplicationController
 
   private
     def set_level
+      @user = current_user
       unless params[:id] == 'zen'
         @level = Level.default.find(params[:id])
       else

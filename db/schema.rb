@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180130095640) do
+ActiveRecord::Schema.define(version: 20180306101348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,8 +41,8 @@ ActiveRecord::Schema.define(version: 20180130095640) do
     t.text "optimal_levels", default: [], array: true
     t.string "name"
     t.string "password_digest"
-    t.integer "total_completed_zen_levels"
-    t.integer "continuous_zen_levels"
+    t.integer "total_completed_zen_levels", default: 0
+    t.integer "continuous_zen_levels", default: 0
   end
 
 end
