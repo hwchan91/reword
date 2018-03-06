@@ -176,7 +176,7 @@ html, body{
   transform: translate(-50%, -50%);
   .prev_moves {
     margin: 5px auto;
-    display: block; 
+    display: block;
     letter-spacing: 10px;
     padding-left: 10px;
     span {
@@ -814,4 +814,9 @@ html, body {
 
 .loading {
   color: #aaa;
+  display: none;
+  font-size: 3.5vh;
+  .small {
+    font-size: 2vh;
+  }
 }

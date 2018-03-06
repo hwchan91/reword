@@ -1,2 +1,14 @@
 $('.content').html("<%= j render 'loading', user: @current_user %>")
-$.getScript('/levels/zen')
+
+
+function flashLoadingMessage() {
+  $('.loading').fadeIn(500);
+  setTimeout(function() {
+    $('.loading').fadeOut(500);
+  },1500)
+}
+flashLoadingMessage();
+
+setTimeout(function() {
+  $.getScript('/levels/zen')
+},1000)()
