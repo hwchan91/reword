@@ -737,7 +737,6 @@ flute
 foal
 foam
 focus
-foil
 fold
 folds
 fond
@@ -2406,5 +2405,4 @@ zero
 zest
 zesty
 zone
-zones
 zoom
