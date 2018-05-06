@@ -812,11 +812,31 @@ html, body {
   }
 }
 
-.loading {
+.zen_loading {
   color: #aaa;
   display: none;
   font-size: 3.5vh;
   .small {
     font-size: 2vh;
   }
+}
+
+.disabled {
+  pointer-events: none;
+  cursor: default;
+  text-decoration: none;
+  opacity: 0.3;
+}
+.glyphicon-lock::before {
+  font-size: 80%;
+  opacity: 0.3;
+}
+.glyphicon-lock::after {
+  content: "20";
+  color: white;
+  opacity: 1;
+  position: absolute;
+  bottom: 3px;
+  left: 0.72vh;
+  font-size: 50%;
 }

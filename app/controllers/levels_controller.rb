@@ -89,7 +89,7 @@ class LevelsController < ApplicationController
         set_zen_level
       end
 
-      @limit = @level.id <= 20 ? @level.path.size + 2 : @level.path.size
+      @limit = @level.id <= 20 ? @level.path.size + 3 : @level.path.size + 1
       set_history
     end
 
@@ -152,6 +152,7 @@ class LevelsController < ApplicationController
 
       unless completed_levels.any?{|id| id == @level.id }
         current_user.completed_levels << @level.id
+        @zen_unlocked = true if @level.id == 20
       end
 
       if optimal_achieved

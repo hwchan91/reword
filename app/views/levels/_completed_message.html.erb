@@ -12,6 +12,11 @@
         <%= link_to "Play Again?", reset_level_path(@level) , class:"play_again_link", remote: true %>
       <% elsif @level.id != 50 %>
         <div class="chapter_complete">Chapter Complete</div>
+
+        <% if @zen_unlocked %>
+          <div>Zen Mode Unlocked</div>
+        <% end %>
+
         <%= link_to "Next Chapter", levels_path , class:"btn btn_custom next_level", remote: true %>
          <%= link_to "Play Again?", reset_level_path(@level) , class:"play_again_link", remote: true %>
       <% else %>
@@ -19,7 +24,6 @@
         <div class="congrats_message">You have completed all levels!</div>
          <%= link_to "Replay?", levels_path , class:"btn btn_custom next_level", remote: true %>
       <% end %>
-
     </div>
   </div>
 </div>

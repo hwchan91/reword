@@ -13,3 +13,8 @@ function pausePlayer() {
   var soundcloud_player = SC.Widget(soundcloud_elem);
   soundcloud_player.pause();
 }
+
+
+function test() {
+  $('#play_link').toggle();
+}
