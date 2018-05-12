@@ -367,7 +367,6 @@ function everyFunction() {
   // tutorial
   var level_no = $('.hidden').data('level_no');
   var hint = $('.hidden').data('hint');
-  console.log(hint)
   if($('.prev_moves').length == 0 && hint) {
    hint.forEach(function(i) {
       if(i == -1) {
@@ -410,4 +409,16 @@ function everyFunction() {
     });
   }
   clickSkipZenAndDisable();
+
+  $('body, a, div, span').on('click', function(e) {
+    if(!navigator.onLine) {
+      e.stopPropagation();
+      e.preventDefault();
+      $('.shield').show();
+    } else {
+      $('.shield').hide();
+    }
+  });
+
+
 }

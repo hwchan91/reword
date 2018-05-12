@@ -5,7 +5,7 @@
 html, body{
   height: 100%;
   width: 100%;
-  position: fixed;
+  // position: fixed;
   overflow: hidden;
 }
 
@@ -483,7 +483,7 @@ html, body {
     font-family: var(--main-font-family);
   }
   .game_title_cont {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     color: white;
@@ -499,18 +499,6 @@ html, body {
     width: 8vh;
     text-align: center;
     display: inline-block;
-  }
-  .game_title_cont {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-  .overlay_letter {
-    position: absolute;
-    left: calc(8vh * 3);
-    top: 0;
-    color: #bbb;
-    z-index: -1;
   }
   #play_link {
     text-decoration: none;
@@ -839,4 +827,180 @@ html, body {
   bottom: 3px;
   left: 0.72vh;
   font-size: 50%;
+}
+
+.shield {
+  z-index: 10000;
+  background-color: black; //rgba(255, 255, 255, 0.6);
+  display: none;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+
+  div {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+  .wrap {
+    margin: 0 auto;
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+  }
+
+  .glitch {
+    font-size: 3vh;
+    font-weight: bold;
+    color: white;
+    position: relative;
+  }
+  @keyframes glitch-anim-1 {
+    0% {
+      clip: rect(43px, 2000px, 43px, 0);
+    }
+    5.88235% {
+      clip: rect(44px, 2000px, 95px, 0);
+    }
+    11.76471% {
+      clip: rect(9px, 2000px, 91px, 0);
+    }
+    17.64706% {
+      clip: rect(54px, 2000px, 73px, 0);
+    }
+    23.52941% {
+      clip: rect(61px, 2000px, 99px, 0);
+    }
+    29.41176% {
+      clip: rect(113px, 2000px, 15px, 0);
+    }
+    35.29412% {
+      clip: rect(104px, 2000px, 14px, 0);
+    }
+    41.17647% {
+      clip: rect(36px, 2000px, 46px, 0);
+    }
+    47.05882% {
+      clip: rect(5px, 2000px, 2px, 0);
+    }
+    52.94118% {
+      clip: rect(75px, 2000px, 69px, 0);
+    }
+    58.82353% {
+      clip: rect(74px, 2000px, 104px, 0);
+    }
+    64.70588% {
+      clip: rect(54px, 2000px, 27px, 0);
+    }
+    70.58824% {
+      clip: rect(112px, 2000px, 75px, 0);
+    }
+    76.47059% {
+      clip: rect(78px, 2000px, 107px, 0);
+    }
+    82.35294% {
+      clip: rect(16px, 2000px, 41px, 0);
+    }
+    88.23529% {
+      clip: rect(105px, 2000px, 17px, 0);
+    }
+    94.11765% {
+      clip: rect(5px, 2000px, 12px, 0);
+    }
+    100% {
+      clip: rect(107px, 2000px, 30px, 0);
+    }
+  }
+  @keyframes glitch-anim-2 {
+    0% {
+      clip: rect(71px, 2000px, 67px, 0);
+    }
+    5.88235% {
+      clip: rect(21px, 2000px, 97px, 0);
+    }
+    11.76471% {
+      clip: rect(103px, 2000px, 62px, 0);
+    }
+    17.64706% {
+      clip: rect(46px, 2000px, 100px, 0);
+    }
+    23.52941% {
+      clip: rect(76px, 2000px, 2px, 0);
+    }
+    29.41176% {
+      clip: rect(52px, 2000px, 73px, 0);
+    }
+    35.29412% {
+      clip: rect(25px, 2000px, 69px, 0);
+    }
+    41.17647% {
+      clip: rect(65px, 2000px, 14px, 0);
+    }
+    47.05882% {
+      clip: rect(16px, 2000px, 49px, 0);
+    }
+    52.94118% {
+      clip: rect(43px, 2000px, 19px, 0);
+    }
+    58.82353% {
+      clip: rect(27px, 2000px, 100px, 0);
+    }
+    64.70588% {
+      clip: rect(55px, 2000px, 5px, 0);
+    }
+    70.58824% {
+      clip: rect(16px, 2000px, 67px, 0);
+    }
+    76.47059% {
+      clip: rect(89px, 2000px, 65px, 0);
+    }
+    82.35294% {
+      clip: rect(31px, 2000px, 82px, 0);
+    }
+    88.23529% {
+      clip: rect(12px, 2000px, 41px, 0);
+    }
+    94.11765% {
+      clip: rect(54px, 2000px, 64px, 0);
+    }
+    100% {
+      clip: rect(36px, 2000px, 75px, 0);
+    }
+  }
+
+  .glitch:before, .glitch:after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: black;
+    clip: rect(0, 0, 0, 0);
+  }
+  .glitch:after {
+    left: 2px;
+    text-shadow: -1px 0 red;
+    animation: glitch-anim-1 2s infinite linear alternate-reverse;
+  }
+  .glitch:before {
+    left: -2px;
+    text-shadow: 2px 0 blue;
+    animation: glitch-anim-2 3s infinite linear alternate-reverse;
+  }
+
+  .refresh_btn {
+    color: #8be0de;
+    font-size: 5vh;
+    font-weight: bold;
+    margin-top: 10%;
+    margin-bottom: 10%;
+  }
 }
