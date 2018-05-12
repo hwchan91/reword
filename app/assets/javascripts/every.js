@@ -411,14 +411,20 @@ function everyFunction() {
   clickSkipZenAndDisable();
 
   $('body, a, div, span').on('click', function(e) {
+    toggleShield(e)
+  });
+
+  function toggleShield(e) {
     if(!navigator.onLine) {
       e.stopPropagation();
       e.preventDefault();
       $('.shield').show();
-    } else {
-      $('.shield').hide();
     }
-  });
-
+    else {
+      setTimeout(function() {
+        $('.shield').hide();
+      }, 1000)
+    }
+  }
 
 }
