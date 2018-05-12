@@ -30,7 +30,7 @@ gem 'bcrypt', '~> 3.1.7'
 
 # gem 'capistrano-rails', group: :development
 gem 'figaro'
-gem "httparty"
+# gem "httparty"
 # gem 'jquery-ui-rails'
 gem 'dalli'
 gem 'connection_pool'

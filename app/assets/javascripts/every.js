@@ -33,21 +33,25 @@ function everyFunction() {
   function clickAndDisable() {
     $('a').each(function() {
       $(this).click(function(event) {
-        $('a, .btn, .options_btn').css('pointerEvents', 'none'); //disables the link once clicked
-        $('.reorder_btn').off();
-        $('.modal-backdrop').fadeOut("fast");
+        if (navigator.onLine) {
+          $('a, .btn, .options_btn').css('pointerEvents', 'none'); //disables the link once clicked
+          $('.reorder_btn').off();
+          $('.modal-backdrop').fadeOut("fast");
+        }
       })
     });
   }
   clickAndDisable();
 
 
-  function closeModalWhenClickedOutside() {
-    $('.next_word_container').click(function() {
-      $('.modal').modal('hide');
-    })
-  }
-  closeModalWhenClickedOutside();
+  // function closeModalWhenClickedOutside() {
+  //   $('.next_word_container').click(function() {
+  //     if (navigator.onLine) {
+  //       $('.modal').modal('hide');
+  //     }
+  //   })
+  // }
+  // closeModalWhenClickedOutside();
 
 
   function endingAnimation() {
@@ -317,7 +321,9 @@ function everyFunction() {
   }, 1000);
 
   $('.select_level_btn, .skip_level_btn, .to_menu_btn').click(function() {
-    $('.content>div').fadeOut('fast');
+    if (navigator.onLine) {
+      $('.content>div').fadeOut('fast');
+    }
   })
 
 
@@ -416,14 +422,12 @@ function everyFunction() {
 
   function toggleShield(e) {
     if(!navigator.onLine) {
-      e.stopPropagation();
       e.preventDefault();
+      e.stopPropagation();
       $('.shield').show();
     }
     else {
-      setTimeout(function() {
-        $('.shield').hide();
-      }, 1000)
+      $('.shield').hide();
     }
   }
 
