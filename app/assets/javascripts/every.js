@@ -326,7 +326,7 @@ function everyFunction() {
 
 
   $('.send_email').click(function (event) {
-    var email = 'hishikari.sora@gmail.com';
+    var email = 'rewordthegame@gmail.com';
     var subject = 'Comments on REWORD';
     var emailBody = 'Hi, here are my comments on REWORD:';
     document.location = "mailto:"+email+"?subject="+subject+"&body="+emailBody;
