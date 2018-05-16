@@ -41,7 +41,9 @@ html, body{
   height: 10vh;
   z-index: 999;
   width: 100%;
+  background-color: #8be0de;
   background-color: var(--main-background-color);
+  color: white;
   color: var(--main-background-text-color);
   letter-spacing: 10px;
   left: 0;
@@ -66,6 +68,7 @@ html, body{
   width: 100%;
   transform: translate(-50%, -50%);
   .btn {
+    width: 7.1vh;
     width: calc(7vh + 2px);
     line-height: 7vh;
     margin: 0px 1px;
@@ -74,17 +77,22 @@ html, body{
     font-size: 5vh;
   }
   .choosable {
+    border: 2px solid #8be0de;
     border: 2px solid var(--main-border-color);
   }
   .choosable:hover {
+    background-color: #8be0de;
     background-color: var(--main-border-color);
+    color: white;
     color: var(--choosable-hover-color);
   }
   .unchoosable {
+    border: 1px solid  #f4f4f4;
     border: 1px solid var(--unchoosable-color);
     cursor: default !important;
   }
   .complete {
+    color: #8be0de;
     color: var(--main-background-color);
     font-size: 8vh;
     width: 8vh;
@@ -103,7 +111,9 @@ html, body{
 .reorder_btn {
   position: absolute;
   top: 0;
+  left: 7.2vh;
   left: calc(7vh + 5px);
+  color: #8be0de;
   color: var(--main-border-color);
   font-size: 5vh;
   height: 7vh;
@@ -113,6 +123,7 @@ html, body{
 }
 
 .modal-backdrop {
+  background-color: rgb(204, 204, 204);
   background-color: var(--modal-backdrop-color);
   opacity: 0.8 !important;
 }
@@ -142,10 +153,12 @@ html, body{
     padding: 0;
     font-weight: bold;
     font-size: 5vh;
+    border: 1px solid #8be0de;
     border: 1px solid var(--main-border-color);
     margin: 10px auto;
     padding: 0px 10px;
     opacity: 1;
+    background-color: white;
     background-color: var(--choices-background-color);
   }
   .next_word_container {
@@ -158,12 +171,15 @@ html, body{
     .next_word_letter:last-child {
     }
     .highlight {
+      color: #8be0de;
       color: var(--highlight-color);
     }
     a:link, a:visited {
+      color: rgb(50, 163, 202);
       color: var(--word-choice-color);
     }
     .next_word:hover {
+      color: rgb(50, 163, 202);
       color: var(--word-choice-hover-color);
     }
   }
@@ -289,6 +305,7 @@ html, body{
     max-width: 800px;
     color: var(--definition-color);
     opacity: 0.7;
+    color: #aaa;
     text-align: center;
     font-size: 2vh;
     white-space: pre-wrap;
@@ -299,6 +316,7 @@ html, body{
 .no_moves_left {
   width: 100%;
   text-align: center;
+  color: #8be0de;
   color: var(--main-background-color);
   font-weight: bold;
   font-size: 2.5vh;
@@ -310,7 +328,9 @@ html, body{
   min-height: 100vh;
 
   text-align: center;
+  background-color: #8be0de;
   background-color: var(--main-background-color);
+  color: white;
   color: var(--main-background-text-color);
   font-size: 2.5vh;
   padding-top: 3vh;
@@ -365,6 +385,7 @@ html, body{
     display: block;
   }
   .path_word_definition {
+    color: white;
     color: var(--main-background-text-color);
     text-align: center;
     font-size: 2vh;
@@ -382,12 +403,15 @@ html, body{
 }
 
 .btn_custom, .btn_custom:hover, .btn_custom:active, .btn_custom:visited, .btn_custom:link {
+  background-color: white;
   background-color: var(--main-background-text-color);
+  color: #8be0de !important;
   color: var(--main-background-color) !important;
   font-size: 3vh;
   font-weight: bold;
   margin-bottom: 20px;
   padding: 10px 20px;
+  box-shadow: 0px 0px 30px #e8f8ff;
   box-shadow: 0px 0px 30px var(--box-shadow-color);
   max-width: 250px;
   width: 80%;
@@ -411,6 +435,7 @@ html, body{
 }
 .achievement {
   display: none;
+  text-shadow: 0px 0px 5px #e8f8ff;
   text-shadow: 0px 0px 5px var(--box-shadow-color);
   font-weight: bold;
   margin-top: 30px;
@@ -437,8 +462,10 @@ html, body {
 
 
 .instructions {
+  color: #8be0de;
   color: var(--main-background-color);
   position: fixed;
+  top: 40%;
   top: calc(50% - 10vh);
   left: 50%;
   width: 100%;
@@ -448,10 +475,15 @@ html, body {
 
 
 .level_selection_page, .starting_page {
+  background: #8be0de;
   background: var(--main-background-color);
+  background: -webkit-linear-gradient(left, rgb(50, 163, 202), #8be0de); /*Safari 5.1-6*/
   background: -webkit-linear-gradient(left, var(--complete-highlight-color), var(--main-background-color)); /*Safari 5.1-6*/
+  background: -o-linear-gradient(right, rgb(50, 163, 202), #8be0de); /*Opera 11.1-12*/
   background: -o-linear-gradient(right, var(--complete-highlight-color), var(--main-background-color)); /*Opera 11.1-12*/
+  background: -moz-linear-gradient(right, rgb(50, 163, 202), #8be0de);  /*Fx 3.6-15*/
   background: -moz-linear-gradient(right, var(--complete-highlight-color), var(--main-background-color)); /*Fx 3.6-15*/
+  background: linear-gradient(to right, rgb(50, 163, 202), #8be0de); /*Standard*/
   background: linear-gradient(to right, var(--complete-highlight-color), var(--main-background-color)); /*Standard*/
   padding: 20px 0px;
   .back_btn {
@@ -480,6 +512,7 @@ html, body {
     text-align: right;
     margin-top: 70px;
     padding-right: 20px;
+    font-family: Helvetica, sans-serif;
     font-family: var(--main-font-family);
   }
   .game_title_cont {
@@ -492,6 +525,7 @@ html, body {
     width: 100vw;
     text-align: center;
     background: white;
+    color: #8be0de;
     color: var(--main-background-color);
   }
   .game_title_cont span {
@@ -517,10 +551,15 @@ html, body {
     position: fixed;
     top: 0;
     left: 0;
+    background: #8be0de;
     background: var(--main-background-color);
+    background: -webkit-linear-gradient(left, rgb(50, 163, 202), #8be0de); /*Safari 5.1-6*/
     background: -webkit-linear-gradient(left, var(--complete-highlight-color), var(--main-background-color)); /*Safari 5.1-6*/
+    background: -o-linear-gradient(right, rgb(50, 163, 202), #8be0de); /*Opera 11.1-12*/
     background: -o-linear-gradient(right, var(--complete-highlight-color), var(--main-background-color)); /*Opera 11.1-12*/
+    background: -moz-linear-gradient(right, rgb(50, 163, 202), #8be0de);  /*Fx 3.6-15*/
     background: -moz-linear-gradient(right, var(--complete-highlight-color), var(--main-background-color)); /*Fx 3.6-15*/
+    background: linear-gradient(to right, rgb(50, 163, 202), #8be0de); /*Standard*/
     background: linear-gradient(to right, var(--complete-highlight-color), var(--main-background-color)); /*Standard*/
     color: white;
     align-items: center;
@@ -579,7 +618,9 @@ html, body {
     border-radius: 50%;
     background-color: white;
     color: #eee;
+    box-shadow: 0px 0px 30px #e8f8ff;
     box-shadow: 0px 0px 30px var(--box-shadow-color);
+    font-family: Helvetica, sans-serif;
     font-family: var(--main-font-family);
     margin: 0 30px;
     position: relative;
@@ -601,6 +642,7 @@ html, body {
     }
   }
   .completed_level .level_btn {
+    color: #8be0de;
     color: var(--main-background-color);
     cursor: pointer;
   }
@@ -632,6 +674,7 @@ html, body {
     text-transform: uppercase;
     color: #eee;
     font-size: 7vh;
+    font-family: Helvetica, sans-serif;
     font-family:  var(--main-font-family);
     text-align: center;
     margin: 0 auto;
@@ -687,6 +730,7 @@ html, body {
     max-width: 300px;
     padding: 30px;
     background: white;
+    color: #8be0de;
     color: var(--main-background-color);
     margin: 0 auto;
     font-size: 28px;
@@ -770,6 +814,7 @@ html, body {
 @keyframes flash {
   50% {
     color: white;
+    background: #8be0de;
     background: var(--main-background-color);
   }
 }

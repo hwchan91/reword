@@ -144,6 +144,12 @@ function everyFunction() {
     function gradientHighlightLetter() {
       $(".highlight").each(function(index) {
         var highlight_color = window.getComputedStyle(document.documentElement).getPropertyValue('--complete-highlight-color');
+        console.log('printing')
+        console.log(highlight_color);
+        if (!highlight_color) {
+          console.log('running')
+          highlight_color = 'rgb(50, 163, 202)'
+        }
         highlight_color = getRGB(highlight_color);
 
         var red = Number(highlight_color.red) + index * 2
