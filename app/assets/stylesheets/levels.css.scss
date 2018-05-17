@@ -7,7 +7,15 @@ html, body{
   width: 100%;
   // position: fixed;
   overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
+
+div {
+  margin: 0;
+  padding: 0;
+}
+
 
 .content {
   overflow-y: auto;
@@ -42,7 +50,7 @@ html, body{
   z-index: 999;
   width: 100%;
   background-color: var(--main-background-color);
-  color: var(--main-background-text-color);
+  color: white;
   letter-spacing: 10px;
   left: 0;
 }
@@ -66,6 +74,7 @@ html, body{
   width: 100%;
   transform: translate(-50%, -50%);
   .btn {
+    width: 7.1vh;
     width: calc(7vh + 2px);
     line-height: 7vh;
     margin: 0px 1px;
@@ -78,10 +87,10 @@ html, body{
   }
   .choosable:hover {
     background-color: var(--main-border-color);
-    color: var(--choosable-hover-color);
+    color: white;
   }
   .unchoosable {
-    border: 1px solid var(--unchoosable-color);
+    border: 1px solid #f4f4f4;
     cursor: default !important;
   }
   .complete {
@@ -103,6 +112,7 @@ html, body{
 .reorder_btn {
   position: absolute;
   top: 0;
+  left: 7.2vh;
   left: calc(7vh + 5px);
   color: var(--main-border-color);
   font-size: 5vh;
@@ -113,7 +123,7 @@ html, body{
 }
 
 .modal-backdrop {
-  background-color: var(--modal-backdrop-color);
+  background-color: rgb(204, 204, 204);
   opacity: 0.8 !important;
 }
 
@@ -146,25 +156,19 @@ html, body{
     margin: 10px auto;
     padding: 0px 10px;
     opacity: 1;
-    background-color: var(--choices-background-color);
+    background-color: white;
   }
   .next_word_container {
     background-color: none;
+    margin: 0;
+    padding: 0;
     .next_word_letter {
       margin: 0;
       display: inline-block;
       width: 5vh;
     }
-    .next_word_letter:last-child {
-    }
-    .highlight {
+    .highlight, a:link, a:visited, .next_word:hover {
       color: var(--highlight-color);
-    }
-    a:link, a:visited {
-      color: var(--word-choice-color);
-    }
-    .next_word:hover {
-      color: var(--word-choice-hover-color);
     }
   }
 }
@@ -287,7 +291,7 @@ html, body{
   .definition_content {
     padding: 40px;
     max-width: 800px;
-    color: var(--definition-color);
+    color: #aaa;
     opacity: 0.7;
     text-align: center;
     font-size: 2vh;
@@ -311,7 +315,7 @@ html, body{
 
   text-align: center;
   background-color: var(--main-background-color);
-  color: var(--main-background-text-color);
+  color: white;
   font-size: 2.5vh;
   padding-top: 3vh;
   #well_done {
@@ -365,7 +369,7 @@ html, body{
     display: block;
   }
   .path_word_definition {
-    color: var(--main-background-text-color);
+    color: white;
     text-align: center;
     font-size: 2vh;
     max-width: 80vw;
@@ -382,13 +386,13 @@ html, body{
 }
 
 .btn_custom, .btn_custom:hover, .btn_custom:active, .btn_custom:visited, .btn_custom:link {
-  background-color: var(--main-background-text-color);
+  background-color: white;
   color: var(--main-background-color) !important;
   font-size: 3vh;
   font-weight: bold;
   margin-bottom: 20px;
   padding: 10px 20px;
-  box-shadow: 0px 0px 30px var(--box-shadow-color);
+  box-shadow: 0px 0px 30px #e8f8ff;
   max-width: 250px;
   width: 80%;
 
@@ -411,7 +415,7 @@ html, body{
 }
 .achievement {
   display: none;
-  text-shadow: 0px 0px 5px var(--box-shadow-color);
+  text-shadow: 0px 0px 5px #e8f8ff;
   font-weight: bold;
   margin-top: 30px;
   #achievement_header {
@@ -439,6 +443,8 @@ html, body {
 .instructions {
   color: var(--main-background-color);
   position: fixed;
+  padding-bottom: 100px;
+  padding-bottom: calc(0);
   top: calc(50% - 10vh);
   left: 50%;
   width: 100%;
@@ -448,10 +454,10 @@ html, body {
 
 
 .level_selection_page, .starting_page {
-  background: var(--main-background-color);
-  background: -webkit-linear-gradient(left, var(--complete-highlight-color), var(--main-background-color)); /*Safari 5.1-6*/
-  background: -o-linear-gradient(right, var(--complete-highlight-color), var(--main-background-color)); /*Opera 11.1-12*/
-  background: -moz-linear-gradient(right, var(--complete-highlight-color), var(--main-background-color)); /*Fx 3.6-15*/
+  // background: var(--main-background-color);
+  // background: -webkit-linear-gradient(left, var(--complete-highlight-color), var(--main-background-color)); /*Safari 5.1-6*/
+  // background: -o-linear-gradient(right, var(--complete-highlight-color), var(--main-background-color)); /*Opera 11.1-12*/
+  // background: -moz-linear-gradient(right, var(--complete-highlight-color), var(--main-background-color)); /*Fx 3.6-15*/
   background: linear-gradient(to right, var(--complete-highlight-color), var(--main-background-color)); /*Standard*/
   padding: 20px 0px;
   .back_btn {
@@ -480,7 +486,7 @@ html, body {
     text-align: right;
     margin-top: 70px;
     padding-right: 20px;
-    font-family: var(--main-font-family);
+    font-family: Helvetica, sans-serif;
   }
   .game_title_cont {
     position: fixed;
@@ -517,10 +523,10 @@ html, body {
     position: fixed;
     top: 0;
     left: 0;
-    background: var(--main-background-color);
-    background: -webkit-linear-gradient(left, var(--complete-highlight-color), var(--main-background-color)); /*Safari 5.1-6*/
-    background: -o-linear-gradient(right, var(--complete-highlight-color), var(--main-background-color)); /*Opera 11.1-12*/
-    background: -moz-linear-gradient(right, var(--complete-highlight-color), var(--main-background-color)); /*Fx 3.6-15*/
+    // background: var(--main-background-color);
+    // background: -webkit-linear-gradient(left, var(--complete-highlight-color), var(--main-background-color)); /*Safari 5.1-6*/
+    // background: -o-linear-gradient(right, var(--complete-highlight-color), var(--main-background-color)); /*Opera 11.1-12*/
+    // background: -moz-linear-gradient(right, var(--complete-highlight-color), var(--main-background-color)); /*Fx 3.6-15*/
     background: linear-gradient(to right, var(--complete-highlight-color), var(--main-background-color)); /*Standard*/
     color: white;
     align-items: center;
@@ -563,6 +569,8 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 0;
+    padding: 0;
     margin-top: 20px;
     margin-bottom: 20px;
   }
@@ -579,8 +587,8 @@ html, body {
     border-radius: 50%;
     background-color: white;
     color: #eee;
-    box-shadow: 0px 0px 30px var(--box-shadow-color);
-    font-family: var(--main-font-family);
+    box-shadow: 0px 0px 30px #e8f8ff;
+    font-family: Helvetica, sans-serif;
     margin: 0 30px;
     position: relative;
     .level_id {
@@ -632,7 +640,7 @@ html, body {
     text-transform: uppercase;
     color: #eee;
     font-size: 7vh;
-    font-family:  var(--main-font-family);
+    font-family:  Helvetica, sans-serif;
     text-align: center;
     margin: 0 auto;
     position: relative;

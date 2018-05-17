@@ -1,51 +1,87 @@
 <style>
-<% if level.id.between?(11,20) %>
-  :root {
-    --main-background-color: #1e488c;
-    --complete-highlight-color: rgb(112, 159, 204);
-  }
-<% elsif level.id.between?(21,30) %>
-  :root {
-    --main-background-color: #6e845c;
-    --complete-highlight-color: rgb(204, 206, 97);
-  }
-<% elsif level.id.between?(31,40) %>
-  :root {
-    --main-background-color: #580b59;
-    --complete-highlight-color: rgb(119, 126, 168);
-  }
-<% elsif level.id.between?(41,50) %>
-  :root {
-    --main-background-color: black;
-    --complete-highlight-color: rgb(104, 53, 53);
-  }
-<% elsif level.id == 9999 %>
-  :root {
-    --main-background-color: #d1bfba;
-    --complete-highlight-color: rgb(63, 56, 54);
-  }
+<% if false %>
+  <% if level.id.between?(11,20) %>
+    :root {
+      --main-background-color: #1e488c;
+      --complete-highlight-color: rgb(112, 159, 204);
+    }
+  <% elsif level.id.between?(21,30) %>
+    :root {
+      --main-background-color: #6e845c;
+      --complete-highlight-color: rgb(204, 206, 97);
+    }
+  <% elsif level.id.between?(31,40) %>
+    :root {
+      --main-background-color: #580b59;
+      --complete-highlight-color: rgb(119, 126, 168);
+    }
+  <% elsif level.id.between?(41,50) %>
+    :root {
+      --main-background-color: black;
+      --complete-highlight-color: rgb(104, 53, 53);
+    }
+  <% elsif level.id == 9999 %>
+    :root {
+      --main-background-color: #d1bfba;
+      --complete-highlight-color: rgb(63, 56, 54);
+    }
+  <% end %>
 <% end %>
 
+
+
+.start_word, .target_word, .curr_word .choosable:hover, .message_container {
+  background-color: <%= main_color %> !important;
+}
+
+.curr_word .choosable, .choices .next_word {
+  border: 2px solid <%= main_color %> !important;
+}
+
+.instructions, .reorder_btn, .reset a:hover, .reset .options_btn:hover, .next_word_container .highlight, .next_word_container a:visited, .next_word_container .next_word:hover, .no_moves_left, .btn_custom, .btn_custom:hover, .btn_custom:active, .btn_custom:visited, .btn_custom:link, .starting_page .game_title_cont, .level_selection_page .completed_level .level_btn, #options_overlay .options_container, #skip_overlay .options_container, .limit_count .limit_dot:nth-child(<%= @history ? @history.length : 0 %>), .curr_word .complete {
+  color: <%= main_color %> !important;
+}
+
+.next_word_container a:link, .next_word_container a:visited, .next_word_container .next_word:hover, #highlight_color_setter {
+  color: <%= highlight_color %> !important;
+}
+
+.level_selection_page, .starting_page {
+   background: linear-gradient(to right, <%= main_color %>, <%= highlight_color %>) !important;
+}
+
+.starting_page .options_overlay  {
+  background: linear-gradient(to right, <%= highlight_color %>, <%= main_color %>) !important;
+
+}
+
+@keyframes flash {
+  50% {
+    color: white;
+    background: <%= main_color %>;
+  }
+}
+
 <% if level.id == 50 %>
-  .curr_word_letter:not(.complete) {
-    width: 5.5vh;
-    line-height: 5.5vh;
-    font-size: 4.5vh;
-  }
-  .curr_word_letter_container {
-    width: 5.5vh;
-    height: 5.5vh;
-  }
-  .curr_word .complete {
-    font-size: 7vh;
-    width: 7vh;
-    height: 7vh;
-  }
-  .reorder_btn {
-    left: calc(5.5vh + 5px);
-    font-size: 4.5vh;
-    height: 5.5vh;
-  }
+.curr_word_letter:not(.complete) {
+  width: 5.5vh;
+  line-height: 5.5vh;
+  font-size: 4.5vh;
+}
+.curr_word_letter_container {
+  width: 5.5vh;
+  height: 5.5vh;
+}
+.curr_word .complete {
+  font-size: 7vh;
+  width: 7vh;
+  height: 7vh;
+}
+.reorder_btn {
+  left: calc(5.5vh + 5px);
+  font-size: 4.5vh;
+  height: 5.5vh;
+}
 <% end %>
 
 </style>

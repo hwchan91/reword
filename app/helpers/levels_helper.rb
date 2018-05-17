@@ -96,4 +96,26 @@ module LevelsHelper
     return if hint.nil?
     hint.any? ? hint : nil
   end
+
+  def main_color
+    return '#8be0de' unless @level
+    id =  @level.id
+    return '#8be0de' if id.between?(1,10)
+    return '#1e488c' if id.between?(11,20)
+    return '#6e845c' if id.between?(21,30)
+    return '#580b59' if id.between?(31,40)
+    return 'black' if id.between?(41,50)
+    '#d1bfba'
+  end
+
+  def highlight_color
+    return 'rgb(50, 163, 202)' unless @level
+    id =  @level.id
+    return 'rgb(50, 163, 202)' if id.between?(1,10)
+    return 'rgb(112, 159, 204)' if id.between?(11,20)
+    return 'rgb(204, 206, 97)' if id.between?(21,30)
+    return 'rgb(119, 126, 168)' if id.between?(31,40)
+    return 'rgb(104, 53, 53)' if id.between?(41,50)
+    'rgb(63, 56, 54)'
+  end
 end
