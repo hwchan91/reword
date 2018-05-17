@@ -30,7 +30,7 @@
     <% completed_level = (level.id <= up_to) ? "completed_level" : ""%>
     <% all_complete = up_to >= @levels.last.id ? "all_complete" : "" %>
     <div class="level <%=completed_level%> <%= all_complete %>" data-level="<%= level.id %>">
-      <div class="level_start_word"><%= level.start %></div>
+      <div class="level_start_word level_selection_row"><%= level.start %></div>
 
       <div class="level_btn">
         <% if @optimal_levels.include?(level.id) %>
@@ -39,7 +39,7 @@
         <span class="level_id"><%= level.id %></span>
       </div>
 
-      <div class="level_target_word"><%= level.target %></div>
+      <div class="level_target_word level_selection_row"><%= level.target %></div>
     </div>
 
   <% end %>

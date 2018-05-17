@@ -62,11 +62,20 @@
   }
 }
 
+<% if @level %>
+  .choices .next_word {
+    width: <%= @level.start.length * 7.2 %>vh;
+  }
+<% end %>
+
 <% if level.id == 50 %>
 .curr_word_letter:not(.complete) {
   width: 5.5vh;
   line-height: 5.5vh;
   font-size: 4.5vh;
+}
+.choices .next_word {
+  width: <%= 7 * 5.5 %>vh;
 }
 .curr_word_letter_container {
   width: 5.5vh;
