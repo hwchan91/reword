@@ -620,6 +620,10 @@ html, body {
       cursor: default;
     }
   }
+  .level_start_word span, .level_target_word {
+    margin: 0;
+    padding: 0;
+  }
   .level_start_word span, .level_target_word span {
     width: 2vh;
     display: inline-block;
