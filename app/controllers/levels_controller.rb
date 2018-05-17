@@ -49,6 +49,7 @@ class LevelsController < ApplicationController
 
   def index
     @levels = Level.default.where(id: ((@chapter-1) * 10 + 1).. ((@chapter-1) * 10 + 10)).order(:id)
+    @level = @levels.last
     @chapter_title = Chapter.find(@chapter).name
 
     respond_to do |format|
@@ -59,6 +60,7 @@ class LevelsController < ApplicationController
 
   def home
     @user = current_user
+    @level = Level.first
     respond_to do |format|
       format.html
       format.js

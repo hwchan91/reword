@@ -143,7 +143,7 @@ function everyFunction() {
 
     function gradientHighlightLetter() {
       $(".highlight").each(function(index) {
-        var highlight_color = window.getComputedStyle(document.documentElement).getPropertyValue('--complete-highlight-color');
+        var highlight_color = $('#highlight_color_setter').css('color');
         highlight_color = getRGB(highlight_color);
 
         var red = Number(highlight_color.red) + index * 2
