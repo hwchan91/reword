@@ -34,8 +34,12 @@
   background-color: <%= main_color %> !important;
 }
 
-.curr_word .choosable, .choices .next_word {
+.curr_word .choosable {
   border: 2px solid <%= main_color %> !important;
+}
+
+.choices .next_word {
+  box-shadow: 0 0 3pt 2pt <%= main_color %> !important;
 }
 
 .instructions, .reorder_btn, .reset a:hover, .reset .options_btn:hover, .next_word_container .highlight, .next_word_container a:visited, .next_word_container .next_word:hover, .no_moves_left, .btn_custom, .btn_custom:hover, .btn_custom:active, .btn_custom:visited, .btn_custom:link, .starting_page .game_title_cont, .level_selection_page .completed_level .level_btn, #options_overlay .options_container, #skip_overlay .options_container, .limit_count .limit_dot:nth-child(<%= @history ? @history.length : 0 %>), .curr_word .complete {

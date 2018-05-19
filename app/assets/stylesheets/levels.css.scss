@@ -82,9 +82,9 @@ div {
     font-weight: bold;
     font-size: 5vh;
   }
-  .choosable {
-    border: 2px solid var(--main-border-color);
-  }
+  // .choosable {
+  //   outline: 2px solid var(--main-border-color);
+  // }
   .choosable:hover {
     background-color: var(--main-border-color);
     color: white;
@@ -129,13 +129,13 @@ div {
 
 .choices {
   .modal-dialog{
-    position: relative !important;
-    display: table !important; /* This is important */
-    overflow-y: auto !important;
-    overflow-x: auto !important;
-    width: auto;
+    // position: relative !important;
+    // display: table !important; /* This is important */
+    // overflow-y: auto !important;
+    // overflow-x: auto !important;
     min-width: 10px;
     margin: 0 auto;
+    width: 100vw !important;
     // margin-left: 0px !important;
   }
   .modal-content, .modal-body {
@@ -143,6 +143,7 @@ div {
     -webkit-box-shadow: 0 0px 0px rgba(0,0,0,0);
     box-shadow: 0 0px 0px rgba(0,0,0,0);
     border-width: 0px;
+    margin: 0 !important;
     padding: 0 !important;
   }
   .next_word {
@@ -150,13 +151,14 @@ div {
     line-height: 9vh;
     font-weight: bold;
     font-size: 5vh;
-    border: 1px solid var(--main-border-color);
+    // outline: 1px solid var(--main-border-color);
+    border-width: 0px !important;
     margin: 10px auto;
-    padding: 0px 10px;
+    padding: 0px 0px;
     opacity: 1;
     background-color: white;
-    display: flex;
-    justify-content: space-evenly;
+    // display: flex;
+    // justify-content: space-evenly;
   }
   .next_word_container {
     background-color: none;
