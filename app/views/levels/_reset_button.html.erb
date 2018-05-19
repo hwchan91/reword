@@ -21,6 +21,14 @@
             <%= render 'music_btn' %>
           </div>
 
+          <% if display_hint? %>
+            <% if @hints_count > 0 %>
+              <div id="show_hints_btn" data-toggle='modal' data-target="#hints_overlay">Hints</div>
+            <% else %>
+              <div id="want_hints"> Want Hints? <span class="glyphicon glyphicon-facetime-video"></span> </div>
+            <% end %>
+          <% end %>
+
           <% if @level.id != 9999  %>
             <div><%=link_to "Select Level", levels_path(chapter: (@level.id / 10) + 1), remote: true, class:  "select_level_btn" %></div>
           <% else %>
@@ -28,9 +36,31 @@
           <% end %>
           <div><%=link_to "To Menu", root_path, remote: true, class:  "to_menu_btn" %></div>
         </div>
-
       </div>
     </div>
   </div>
 </div>
+
+<div id="hints_overlay" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div id="hints_container">
+          <span data-dismiss="modal" class="glyphicon glyphicon-remove close_options"></span>
+
+          <% @hints_count.times do |i| %>
+            <% number = (i+1) * 2%>
+            <div><%= "Step #{number}:"%> <span class='hint_word'><%="#{@level.path[number].upcase}" %></span></div>
+          <% end %>
+
+          <% if more_hints_available? %>
+            <div id="more_hints"> More Hints? <span class="glyphicon glyphicon-facetime-video"></span> </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 

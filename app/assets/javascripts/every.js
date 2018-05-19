@@ -429,4 +429,11 @@ function everyFunction() {
     }
   }
 
+  function showHints() {
+    $('#show_hints_btn').click(function() {
+      $('#options_overlay').modal('hide');
+    })
+  }
+  showHints();
+
 }

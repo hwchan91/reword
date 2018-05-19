@@ -87,6 +87,7 @@ class LevelsController < ApplicationController
       @user = current_user
       unless params[:id] == 'zen'
         @level = Level.default.find(params[:id])
+        @hints_count = [(@user.hints[@level.id] || 50), (@level.path.count-1)/2].min
       else
         set_zen_level
       end
