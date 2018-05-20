@@ -759,12 +759,11 @@ html, body {
   padding: 10px;
   text-align: center;
   text-weight: bold;
-  .glyphicon-facetime-video {
-    top: 5px;
-    // float: right;
-  }
 }
 
+.glyphicon-facetime-video {
+  top: 5px;
+}
 
 .credits_content, .profile_content {
   font-size: 4vh;

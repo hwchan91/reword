@@ -23,7 +23,7 @@
         <% if @level.id != 9999  %>
           <div><%=link_to "Select Level", levels_path(chapter: (@level.id / 10) + 1), remote: true, class:  "select_level_btn" %></div>
         <% else %>
-          <div class="skip_level_btn">Skip Level?</div>
+          <div class="skip_level_btn">Skip Level? <span class="glyphicon glyphicon-facetime-video"></div>
         <% end %>
         <div><%=link_to "To Menu", root_path, remote: true, class:  "to_menu_btn" %></div>
       </div>
