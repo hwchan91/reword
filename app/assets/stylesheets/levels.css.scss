@@ -742,7 +742,7 @@ html, body {
 
 #hints_container {
   color: #ccc !important;
-  font-size: 28px;
+  font-size: 20px;
   max-width: 350px !important;
   // text-align: center;
   div {
@@ -757,10 +757,11 @@ html, body {
   font-size: 28px;
   box-shadow: 0px 0px 30px #e8f8ff;
   padding: 10px;
+  text-align: center;
   text-weight: bold;
   .glyphicon-facetime-video {
     top: 5px;
-    float: right;
+    // float: right;
   }
 }
 

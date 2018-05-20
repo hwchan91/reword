@@ -11,7 +11,7 @@
       <span class="glyphicon glyphicon-lock"></span>
     <% end %>
 
-    <%= link_to "Zen Mode", loading_level_path('zen'), remote: true, id: "play_link", class: "#{'disabled' if @completed_levels.size < 20}" %><br><br>
+    <%= link_to "Zen Mode", loading_level_path('zen'), remote: true, id: "play_link", class: "#{'disabled' if @completed_levels.max.to_i < 20}" %><br><br>
     <span class="options">options</span>
   </div>
 
