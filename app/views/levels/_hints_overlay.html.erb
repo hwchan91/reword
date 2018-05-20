@@ -1,0 +1,18 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-body">
+      <div id="hints_container">
+        <span data-dismiss="modal" class="glyphicon glyphicon-remove close_options"></span>
+
+        <% @hints_count.times do |i| %>
+          <% number = (i+1) * 2%>
+          <div><%= "Step #{number}:"%> <span class='hint_word'><%="#{@level.path[number].upcase}" %></span></div>
+        <% end %>
+
+        <% if more_hints_available? %>
+          <div id="more_hints"> More Hints? <span class="glyphicon glyphicon-facetime-video"></span> </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

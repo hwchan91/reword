@@ -33,7 +33,7 @@ function everyFunction() {
   function clickAndDisable() {
     $('a').each(function() {
       $(this).click(function(event) {
-        if (navigator.onLine) {
+        if (navigator.onLine && event.target.id !== 'hidden_get_hints_btn_for_video' ) {
           $('a, .btn, .options_btn').css('pointerEvents', 'none'); //disables the link once clicked
           $('.reorder_btn').off();
           $('.modal-backdrop').fadeOut("fast");
@@ -318,12 +318,32 @@ function everyFunction() {
     })
   }, 1000);
 
-  $('.select_level_btn, .skip_level_btn, .to_menu_btn').click(function() {
+  $('.select_level_btn, .to_menu_btn').click(function() {
     if (navigator.onLine) {
       $('.content>div').fadeOut('fast');
     }
   })
 
+  $('.skip_level_btn').click(function() {
+    if (navigator.onLine) {
+      if (typeof reward_display !== 'undefined') {
+        display_video_ad();
+      } else {
+        $('.content>div').fadeOut('fast');
+        $('#hidden_skip_level_btn')[0].click();
+      }
+    }
+  })
+
+  function display_video_ad() {
+    reward_display.performClick();
+  }
+
+  $('#want_hints, #more_hints').click(function() {
+    if (navigator.onLine) {
+      display_video_ad();
+    }
+  })
 
   $('.send_email').click(function (event) {
     var email = 'rewordthegame@gmail.com';
@@ -428,5 +448,19 @@ function everyFunction() {
       $('.shield').hide();
     }
   }
+
+  function showHints() {
+    $('#show_hints_btn').click(function() {
+      $('#options_overlay').modal('hide');
+    })
+  }
+  showHints();
+
+  function checkIfHasVideoAd() {
+    if (typeof reward_display == 'undefined') {
+      $('.hints_related').remove();
+    }
+  }
+  checkIfHasVideoAd();
 
 }
