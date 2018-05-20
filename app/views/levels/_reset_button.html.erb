@@ -10,57 +10,16 @@
 
 
 <div id="options_overlay" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-body">
-
-        <div class="options_container">
-          <span data-dismiss="modal" class="glyphicon glyphicon-remove close_options"></span>
-          <div class="music_row">
-            Music
-            <%= render 'music_btn' %>
-          </div>
-
-          <% if display_hint? %>
-            <% if @hints_count > 0 %>
-              <div id="show_hints_btn" data-toggle='modal' data-target="#hints_overlay">Hints</div>
-            <% else %>
-              <div id="want_hints"> Want Hints? <span class="glyphicon glyphicon-facetime-video"></span> </div>
-            <% end %>
-          <% end %>
-
-          <% if @level.id != 9999  %>
-            <div><%=link_to "Select Level", levels_path(chapter: (@level.id / 10) + 1), remote: true, class:  "select_level_btn" %></div>
-          <% else %>
-            <div><%= link_to "Skip Level?", skip_zen_level_level_path('zen'), remote: true, class:  "skip_level_btn" %></div>
-          <% end %>
-          <div><%=link_to "To Menu", root_path, remote: true, class:  "to_menu_btn" %></div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <%= render 'options_overlay' %>
 </div>
 
 <div id="hints_overlay" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-body">
-        <div id="hints_container">
-          <span data-dismiss="modal" class="glyphicon glyphicon-remove close_options"></span>
-
-          <% @hints_count.times do |i| %>
-            <% number = (i+1) * 2%>
-            <div><%= "Step #{number}:"%> <span class='hint_word'><%="#{@level.path[number].upcase}" %></span></div>
-          <% end %>
-
-          <% if more_hints_available? %>
-            <div id="more_hints"> More Hints? <span class="glyphicon glyphicon-facetime-video"></span> </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
+  <%= render 'hints_overlay' %>
 </div>
 
-
-
+<% if @level.id == 9999  %>
+  <%= link_to "Skip Level?", skip_zen_level_level_path('zen'), remote: true, class:"hidden", id:"hidden_skip_level_btn" %>
+  <%= link_to "Skip Level?", skip_zen_level_level_path('zen', skip_interstitial: 'true'), remote: true, class:"hidden", id:"hidden_skip_level_btn_for_video" %>
+<% else %>
+  <%= link_to 'get_hints', get_hints_level_path(@level.id), remote: true, class: "hidden hints_related", id:"hidden_get_hints_btn_for_video" %>
+<% end %>

@@ -2,13 +2,13 @@ $('.content').html("<%= j render 'loading', user: @current_user %>")
 
 
 function flashLoadingMessage() {
-  $('.loading').fadeIn(500);
+  $('.zen_loading').fadeIn(500);
   setTimeout(function() {
-    $('.loading').fadeOut(500);
+    $('.zen_loading').fadeOut(500);
   },1500)
 }
 flashLoadingMessage();
 
 setTimeout(function() {
-  $.getScript('/levels/zen')
+  $.getScript("/levels/zen<%= "?skip_interstitial=true" if @skip_interstitial %>")
 },1000)()

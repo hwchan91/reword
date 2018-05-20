@@ -1,0 +1,32 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-body">
+
+      <div class="options_container">
+        <span data-dismiss="modal" class="glyphicon glyphicon-remove close_options"></span>
+
+        <div class="music_row">
+          Music
+          <%= render 'music_btn' %>
+        </div>
+
+        <div class='hints_related'>
+          <% if display_hint? %>
+            <% if @hints_count > 0 %>
+              <div id="show_hints_btn" data-toggle='modal' data-target="#hints_overlay">Hints</div>
+            <% else %>
+              <div id="want_hints"> Want Hints? <span class="glyphicon glyphicon-facetime-video"></span> </div>
+            <% end %>
+          <% end %>
+        </div>
+
+        <% if @level.id != 9999  %>
+          <div><%=link_to "Select Level", levels_path(chapter: (@level.id / 10) + 1), remote: true, class:  "select_level_btn" %></div>
+        <% else %>
+          <div class="skip_level_btn">Skip Level?</div>
+        <% end %>
+        <div><%=link_to "To Menu", root_path, remote: true, class:  "to_menu_btn" %></div>
+      </div>
+    </div>
+  </div>
+</div>
