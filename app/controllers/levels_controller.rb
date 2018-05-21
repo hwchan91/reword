@@ -112,7 +112,12 @@ class LevelsController < ApplicationController
         set_zen_level
       end
 
-      @limit = @level.id <= 20 ? @level.path.size + 3 : @level.path.size + 1
+      @limit = case @level.id
+      when *[1..20] then @level.path.size + 3
+      when *[21..40] then @level.path.size + 2
+      else @level.path.size + 1
+      end
+
       set_history
     end
 

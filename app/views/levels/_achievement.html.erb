@@ -1,6 +1,7 @@
 <div class="achievement">
-<%if false %>
-  <div id="achievement_header">Achievement <span class="glyphicon glyphicon-flag"></span></div>
-<% end %>
-<span class="glyphicon glyphicon-flag"></span> Optimal Solution Found
+  <%  if optimal_distance <= 0  %>
+    <span class="glyphicon glyphicon-flag"></span> Optimal Solution Found
+  <% else %>
+    Optimal + <%= optimal_distance %>
+  <% end %>
 </div>

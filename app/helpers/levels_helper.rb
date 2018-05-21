@@ -57,8 +57,8 @@ module LevelsHelper
     @level.path.length - @history.length
   end
 
-  def within_optimal?
-    @history.length <= @level.path.length
+  def optimal_distance
+    @history.length - @level.path.length
   end
 
   def within_limit?
