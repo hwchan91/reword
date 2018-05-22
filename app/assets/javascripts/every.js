@@ -250,8 +250,8 @@ function everyFunction() {
 
   //level selection page functions
   function addSpanAroundLetters() {
-    $(".level_start_word:not(.level_selection_row)").lettering();
-    $(".level_target_word:not(.level_selection_row)").lettering();
+    $(".level_start_word").lettering();
+    $(".level_target_word").lettering();
   }
   addSpanAroundLetters();
 
