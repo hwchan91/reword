@@ -30,15 +30,19 @@
 
 
 
-.start_word, .target_word, .curr_word .choosable:hover, .message_container {
+.start_word, .target_word, .curr_word .choosable:hover, .message_container, #more_hints, #want_hints {
   background-color: <%= main_color %> !important;
 }
 
-.curr_word .choosable, .choices .next_word {
+.curr_word .choosable {
   border: 2px solid <%= main_color %> !important;
 }
 
-.instructions, .reorder_btn, .reset a:hover, .reset .options_btn:hover, .next_word_container .highlight, .next_word_container a:visited, .next_word_container .next_word:hover, .no_moves_left, .btn_custom, .btn_custom:hover, .btn_custom:active, .btn_custom:visited, .btn_custom:link, .starting_page .game_title_cont, .level_selection_page .completed_level .level_btn, #options_overlay .options_container, #skip_overlay .options_container, .limit_count .limit_dot:nth-child(<%= @history ? @history.length : 0 %>), .curr_word .complete {
+.choices .next_word {
+  box-shadow: 0 0 1pt 1pt <%= main_color %> !important;
+}
+
+.instructions, .reorder_btn, .reset a:hover, .reset .options_btn:hover, .next_word_container .highlight, .next_word_container a:visited, .next_word_container .next_word:hover, .no_moves_left, .btn_custom, .btn_custom:hover, .btn_custom:active, .btn_custom:visited, .btn_custom:link, .starting_page .game_title_cont, .level_selection_page .completed_level .level_btn, #options_overlay .options_container, #skip_overlay .options_container, .limit_count .limit_dot:nth-child(<%= @history ? @history.length : 0 %>), .curr_word .complete, .hint_word {
   color: <%= main_color %> !important;
 }
 
@@ -74,6 +78,12 @@
   line-height: 5.5vh;
   font-size: 4.5vh;
 }
+
+.next_word_letter {
+  width: 5.5vh !important;
+  font-size: 4.5vh !important;
+}
+
 .choices .next_word {
   width: <%= 7 * 5.5 %>vh;
 }
@@ -90,6 +100,9 @@
   left: calc(5.5vh + 5px);
   font-size: 4.5vh;
   height: 5.5vh;
+}
+.definition_content {
+  padding: 40px 5vh !important;
 }
 <% end %>
 

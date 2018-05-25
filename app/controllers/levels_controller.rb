@@ -72,6 +72,8 @@ class LevelsController < ApplicationController
       redirect_to levels_path, format: :js
     end
 
+    @skip_interstitial = true if params[:skip_interstitial]
+
     current_user.update!(continuous_zen_levels: 0)
     cookies.permanent.encrypted[:zen] = nil
     session[:"levelzen_history"] = nil
@@ -82,16 +84,40 @@ class LevelsController < ApplicationController
     render 'loading.js'
   end
 
+  def get_hints
+    level_id = params[:id].to_s
+    @level = Level.find(params[:id])
+
+    if current_user.hints[level_id].nil?
+      @hints_count = current_user.hints[level_id] = 1
+    else
+      count = current_user.hints[level_id]
+      @hints_count = current_user.hints[level_id] = count + 1
+    end
+    current_user.save
+    render 'get_hints.js'
+  end
+
   private
     def set_level
       @user = current_user
       unless params[:id] == 'zen'
         @level = Level.default.find(params[:id])
+        if @level.path.count == 2
+          @hints_count = 0
+        else
+          @hints_count = [(@user.hints[@level.id.to_s] || 0), (@level.path.count-1)/2].min
+        end
       else
         set_zen_level
       end
 
-      @limit = @level.id <= 20 ? @level.path.size + 3 : @level.path.size + 1
+      @limit = case @level.id
+      when *[1..20] then @level.path.size + 3
+      when *[21..40] then @level.path.size + 2
+      else @level.path.size + 1
+      end
+
       set_history
     end
 
@@ -99,6 +125,8 @@ class LevelsController < ApplicationController
       cookies.permanent.encrypted[:zen] = Level.random.as_json.to_json if cookies.encrypted[:zen].nil?
       level_in_json = cookies.encrypted[:zen].clone
       @level = OpenStruct.new(JSON.parse(level_in_json))
+      @hints_count = 0
+      @skip_interstitial = true if params[:skip_interstitial]
     end
 
     def set_history

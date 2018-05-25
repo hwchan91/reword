@@ -57,8 +57,8 @@ module LevelsHelper
     @level.path.length - @history.length
   end
 
-  def within_optimal?
-    @history.length <= @level.path.length
+  def optimal_distance
+    @history.length - @level.path.length
   end
 
   def within_limit?
@@ -117,5 +117,14 @@ module LevelsHelper
     return 'rgb(119, 126, 168)' if id.between?(31,40)
     return 'rgb(104, 53, 53)' if id.between?(41,50)
     'rgb(63, 56, 54)'
+  end
+
+  def display_hint?
+    return false if @level.id == 9999
+    (@level.path.count - 1)/2 > 0
+  end
+
+  def more_hints_available?
+    @hints_count < (@level.path.count - 1)/2
   end
 end

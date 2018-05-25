@@ -1,7 +1,9 @@
 $('body').css("backgroundColor", "initial");
 
-<% if @history.size == 1 && !@undo && !@level.id.in?(1..5) && rand(5) == 0 %>
-  ad_display.performClick();
+<% if false && @history.size == 1 && !@undo && !@level.id.in?(1..5) && rand(5) == 0 && !@skip_interstitial %>
+  if (typeof ad_display !== 'undefined') {
+    ad_display.performClick();
+  }
 <% end %>
 
 $('.content').html("<%= j render 'show_as_partial'%>")
