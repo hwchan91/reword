@@ -8,6 +8,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def update_to_has_rated
+    current_user.update(has_rated: true)
+  end
+
   private
   def user_params
     params.require(:user).permit(:name, :password)

@@ -33,7 +33,7 @@ function everyFunction() {
   function clickAndDisable() {
     $('a').each(function() {
       $(this).click(function(event) {
-        if (navigator.onLine && event.target.id !== 'hidden_get_hints_btn_for_video' ) {
+        if (navigator.onLine && event.target.id !== 'hidden_get_hints_btn_for_video' && event.target.id !== 'soundcloud_link') {
           $('a, .btn, .options_btn').css('pointerEvents', 'none'); //disables the link once clicked
           $('.reorder_btn').off();
           $('.modal-backdrop').fadeOut("fast");
@@ -108,11 +108,17 @@ function everyFunction() {
     function fadeInPlayAgain() {
       if ($(".achievement").length == 0) {
         $(".next_level_btn_container").delay(1000).fadeIn();
-        $(".content").stop().delay(1000).animate({ scrollTop: $('.message_container').height() + 500 }, 'slow');
+        $(".content").stop().delay(1000).animate({ scrollTop: $('.message_container').height() + 500 }, 'slow', showRateDialog);
       } else {
         $(".achievement").delay(1000).fadeIn(500);
         $(".next_level_btn_container").delay(2000).fadeIn();
-        $(".content").stop().delay(1500).animate({ scrollTop: $('.message_container').height() + 500 }, 'slow');
+        $(".content").stop().delay(1500).animate({ scrollTop: $('.message_container').height() + 500 }, 'slow', showRateDialog);
+      }
+    }
+
+    function showRateDialog() {
+      if ($('#rate_dialog_overlay')[0] && typeof rate_android_app != 'undefined') {
+        $('#rate_dialog_overlay').modal("show");
       }
     }
 

@@ -182,6 +182,7 @@ class LevelsController < ApplicationController
 
       unless completed_levels.any?{|id| id == @level.id }
         current_user.completed_levels << @level.id
+        @show_rate_dialog = true if @level.id.in?([7,10,15,20,25,30,35,40,45,50]) && !current_user.has_rated
         @zen_unlocked = true if @level.id == 20
       end
 

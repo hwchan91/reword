@@ -504,15 +504,16 @@ html, body {
     opacity: 0.5;
     font-size: 8vh;
     width: 100vw;
+    height: 12vh;
     text-align: center;
     background: white;
     color: var(--main-background-color);
   }
-  .game_title_cont span {
-    height: 8vh;
-    width: 8vh;
-    text-align: center;
-    display: inline-block;
+  .game_title {
+    line-height: 8vh;
+    letter-spacing: 1vw;
+    margin-top: 4vh;
+    font-weight: bold;
   }
   #play_link {
     text-decoration: none;
@@ -680,7 +681,7 @@ html, body {
   }
 }
 
-#options_overlay, #skip_overlay, #hints_overlay {
+#options_overlay, #skip_overlay, #hints_overlay, #rate_dialog_overlay {
   color: #aaa;
   font-size: 5vh;
   @media (min-width: 768px) {
@@ -700,7 +701,7 @@ html, body {
     border-width: 0px;
     padding: 0;
   }
-  .options_container, #hints_container {
+  .options_container, #hints_container, #rate_dialog_container {
     position: relative;
     max-width: 350px;
     padding: 30px;
@@ -750,6 +751,44 @@ html, body {
   // text-align: center;
   div {
     margin: 15px auto;
+  }
+}
+
+#rate_dialog_container {
+  font-size: 16px !important;
+  color: rgb(70, 70, 70) !important;
+  padding: 0px !important;
+  .title {
+    font-size: 20px;
+    color: #8be0de;
+    margin-bottom: 10px;
+    font-weight: bold;
+    padding: 10px 30px;
+    border-bottom: 1px solid #eee;
+  }
+  .body{
+    padding: 20px 30px;
+    #thanks {
+      margin-bottom: 10px;
+    }
+  }
+  #rate_row {
+    margin-top: 40px;
+    #rate_button {
+      display: inline-block;
+      width: 50%;
+      background-color: #8be0de;
+      color: white;
+      font-weight: bold;
+      border-radius: 3px;
+      padding: 10px;
+      text-align: center;
+    }
+    #not_now {
+      margin-left: 10px;
+      font-size: 14px;
+      color: #bbb;
+    }
   }
 }
 

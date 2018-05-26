@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'users/update'
+  get "users/update_to_has_rated"
 
   root to: 'levels#home'
   resources :levels, only: [:show, :index] do
