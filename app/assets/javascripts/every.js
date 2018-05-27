@@ -440,20 +440,20 @@ function everyFunction() {
   }
   clickSkipZenAndDisable();
 
-  $('body, a, div, span').on('click', function(e) {
-    toggleShield(e)
-  });
+  // $('body, a, div, span').on('click', function(e) {
+  //   toggleShield(e)
+  // });
 
-  function toggleShield(e) {
-    if(!navigator.onLine) {
-      e.preventDefault();
-      e.stopPropagation();
-      $('.shield').show();
-    }
-    else {
-      $('.shield').hide();
-    }
-  }
+  // function toggleShield(e) {
+  //   if(!navigator.onLine) {
+  //     e.preventDefault();
+  //     e.stopPropagation();
+  //     $('.shield').show();
+  //   }
+  //   else {
+  //     $('.shield').hide();
+  //   }
+  // }
 
   function showHints() {
     $('#show_hints_btn').click(function() {

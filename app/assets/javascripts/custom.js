@@ -32,3 +32,13 @@ function redirectToPlayStore() {
     rate_android_app.go();
   }
 }
+
+function disconnected() {
+  $('.shield').show();
+}
+
+function connected() {
+  setTimeout(function() {
+    $('.shield').hide();
+  }, 10000);
+}
