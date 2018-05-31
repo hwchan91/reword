@@ -7,9 +7,14 @@ html, body{
   width: 100% !important;
   min-width: 100% !important;
   // position: fixed;
-  overflow: hidden;
+  overflow-x: hidden;
   margin: 0 !important;
   padding: 0 !important;
+  font-family: 'Gloria Hallelujah', cursive;
+}
+
+.firefly {
+  display: none;
 }
 
 div {
@@ -38,7 +43,7 @@ div {
   --word-choice-hover-color: var(--complete-highlight-color);
   --definition-color: #aaa;
   --complete-highlight-color: rgb(50, 163, 202);
-  --main-font-family:  Helvetica, sans-serif;
+  // --main-font-family: Helvetica, sans-serif;
 }
 
 .start_word, .target_word {
@@ -57,10 +62,14 @@ div {
 
 .start_word {
   top: 0;
+  border-bottom-left-radius: 9vh;
+  border-bottom-right-radius: 9vh;
 }
 
 .target_word {
   bottom: 0;
+  border-top-left-radius: 9vh;
+  border-top-right-radius: 9vh;
 }
 
 .curr_word_container {
@@ -277,6 +286,9 @@ div {
     color: #ccc;
     vertical-align: middle;
   }
+  .glyphicon-flag {
+    font-size: 4vh;
+  }
   .glyphicon-triangle-bottom {
     font-size: 2vh;
     padding-top: 0.5vh;
@@ -295,11 +307,12 @@ div {
     padding: 40px 5px;
     max-width: 800px;
     color: #afafaf;
-    // opacity: 0.7;
     text-align: center;
     font-size: 2vh;
     white-space: pre-wrap;
     margin: 0 auto;
+    line-height: 100%;
+    // font-family: Arial, Helvetica, sans-serif;
   }
 }
 
@@ -326,7 +339,7 @@ div {
     margin: 0px auto;
     margin-top: 5vh;
     padding-bottom: 2vh;
-    font-size: 3vh;
+    font-size: 9vh;
     span {
       margin: 0 5px;
     }
@@ -384,6 +397,7 @@ div {
     p {
       margin-bottom: 0;
       padding-bottom: 5px;
+      // font-family: Arial, Helvetica, sans-serif;
     }
   }
 }
@@ -494,7 +508,7 @@ html, body {
     text-align: right;
     margin-top: 70px;
     padding-right: 20px;
-    font-family: Helvetica, sans-serif;
+    // font-family: Helvetica, sans-serif;
   }
   .game_title_cont {
     position: fixed;
@@ -597,7 +611,7 @@ html, body {
     background-color: white;
     color: #eee;
     box-shadow: 0px 0px 30px #e8f8ff;
-    font-family: Helvetica, sans-serif;
+    // font-family: Helvetica, sans-serif;
     margin: 0 30px;
     position: relative;
     .level_id {
@@ -651,7 +665,7 @@ html, body {
     text-transform: uppercase;
     color: #eee;
     font-size: 7vh;
-    font-family:  Helvetica, sans-serif;
+    // font-family: Helvetica, sans-serif;
     text-align: center;
     margin: 0 auto;
     position: relative;
@@ -880,6 +894,59 @@ html, body {
   .not_match {
     color: white;
     opacity: 0.9;
+  }
+  .letter {
+    position: relative;
+  }
+  // .target_word_animation {
+  //   position: absolute;
+  //   bottom: 10vh;
+  //   width: 6vh;
+  //   left: -1vh;
+  // }
+  .orb {
+    position: absolute;
+    bottom: 11vh;
+    width: 5vh;
+    height: 5vh;
+    border-radius: 50%;
+    // background-color: #8be0de;
+    // box-shadow: 0px 0px 1vh 1vh #8be0de;
+    opacity: 0.5;
+  }
+  .misposition_orb {
+    width: 3vh;
+    height: 3vh;
+  }
+  .sleeping_orb {
+    position: absolute;
+    bottom: 11vh;
+    opacity: 0.5;
+    width: 2vh;
+    height: 2vh;
+    left: 2vh;
+    border-radius: 50%;
+    background-color: #ccc;
+    box-shadow: 0px 0px 1vh 1vh #ccc;
+  }
+  .orb_eyes {
+    position: absolute;
+    top: 1.5vh;
+    width: 100%;
+    height: 2vh;
+  }
+  .orb_eye {
+    position: absolute;
+    width: 3px;
+    height: 100%;
+    top: 0;
+    background: white;
+  }
+  .orb_eye_left {
+    left: 0.5vh;
+  }
+  .orb_eye_right {
+    right: 0.5vh;
   }
 }
 

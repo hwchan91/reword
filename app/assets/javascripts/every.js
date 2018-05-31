@@ -70,6 +70,7 @@ function everyFunction() {
         //var background_color = $('.start_word').css("backgroundColor")
         //$("body").css("background", background_color )
         $(".message_container").show();
+        $('.firefly').hide();
       },time_to_close)
     }
     closeLevelAnimation();
@@ -468,5 +469,72 @@ function everyFunction() {
     }
   }
   checkIfHasVideoAd();
+
+
+  for (i = 0; i < 7; i++) {
+    anime_loop(i);
+    anime_loop_2(i);
+  }
+  anime_loop_3();
+  anime_loop_comp();
+
+
+  function anime_loop(i) {
+    var orb_bob = anime({
+      targets: '.orb-' + String(i),
+      translateY: '-' +  anime.random(2,7) + 'vh',
+      scale: 1.1,
+      opacity: Math.random() * 0.3 + 0.2,
+      duration:  function() { return anime.random(1000, 3000); },
+      delay: 0,
+      direction: 'alternate',
+      elasticity: 300,
+      complete: function(anim) {
+        anime_loop(i);
+      }
+    });
+  }
+
+  function anime_loop_comp() {
+    var orb_bob = anime({
+      targets: '.complete_orb',
+      translateY: '-7vh',
+      scale: 1.1,
+      opacity: 1,
+      duration: 2000,
+    });
+  }
+
+
+  function anime_loop_2(i) {
+    var orb_bob = anime({
+      targets: '.orb_eyes-' + String(i),
+      translateY: anime.random(-10,10),
+      translateX: anime.random(-10,10),
+      duration:  function() { return anime.random(1000, 3000); },
+      delay: 0,
+      direction: 'alternate',
+      elasticity: 300,
+      complete: function(anim) {
+        anime_loop_2(i);
+      }
+    });
+  }
+
+  function anime_loop_3() {
+    var orb_bob = anime({
+      targets: '.sleeping_orb',
+      opacity: 0.1,
+      scale: 0.5,
+      duration:  function() { return anime.random(1000, 3000); },
+      delay: 0,
+      direction: 'alternate',
+      elasticity: 300,
+      complete: function(anim) {
+        anime_loop_3(i);
+      }
+    });
+  }
+
 
 }

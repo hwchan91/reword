@@ -1,7 +1,23 @@
 <div class="target_word text-center">
   <span id="target">
     <% @level.target.split("").each_with_index do |letter, index| %>
-      <div class="letter <%= match_status(index) %>"><%= letter %></div>
+      <div class="letter <%= match_status(index) %>">
+        <% if match_status(index) != 'not_match' %>
+
+          <div class="<%= @complete ? 'orb complete_orb' : "orb orb-#{index} #{'misposition_orb' if match_status(index) == 'partial_match'}" %>">
+            <div class="orb_eyes orb_eyes-<%= index %>">
+              <div class="orb_eye orb_eye_left"></div>
+              <div class="orb_eye orb_eye_right"></div>
+            </div>
+          </div>
+
+        <% else %>
+
+          <div class="sleeping_orb" ></div>
+
+        <% end %>
+        <%= letter %>
+      </div>
     <% end %>
   </span>
 </div>

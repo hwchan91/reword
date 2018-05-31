@@ -254,7 +254,7 @@ module Definitable
         "#{index + 1}. #{defin}"
       end
     end
-    definitions.join("\t")
+    definitions.join("\n")
   end
 
   def cache_and_return(key, value, expiry = 1.day)
