@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180519063215) do
+ActiveRecord::Schema.define(version: 20180526164101) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20180519063215) do
     t.integer "total_completed_zen_levels", default: 0
     t.integer "continuous_zen_levels", default: 0
     t.jsonb "hints", default: {}
+    t.boolean "has_rated", default: false
   end
 
 end

@@ -2,10 +2,10 @@
   <div class="curr_word text-center">
     <%= render 'flash_notice' if flash[:notice] %>
 
-    <% if @level.id <= 2 && @history.length == 1 %>
+    <% if @history.length == 1 %>
         <div class="instructions">Change from <%= @level.start.upcase %> to <%= @level.target.upcase %></div>
     <% end %>
-    
+
     <% @word.word.upcase.split("").each_with_index do |letter, index| %>
       <%= render 'curr_word_choice_letter', letter: letter, index: index %>
     <% end %>
@@ -18,7 +18,7 @@
         <br>
       <% end %>
     </div>
-    
+
   </div>
 
 </div>

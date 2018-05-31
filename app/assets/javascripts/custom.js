@@ -25,3 +25,20 @@ function get_hints() {
     $('#hidden_get_hints_btn_for_video')[0].click();
   }
 }
+
+function redirectToPlayStore() {
+  if (typeof rate_android_app != 'undefined') {
+    $.getScript('/users/update_to_has_rated');
+    rate_android_app.go();
+  }
+}
+
+function disconnected() {
+  $('.shield').show();
+}
+
+function connected() {
+  setTimeout(function() {
+    $('.shield').hide();
+  }, 10000);
+}
