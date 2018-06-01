@@ -487,7 +487,7 @@ function everyFunction() {
   function anime_loop(i) {
     var orb_bob = anime({
       targets: '.orb-' + String(i),
-      translateY: '-' +  anime.random(2,7) + 'vh',
+      translateY: anime.random(-20,-70),
       scale: 1.1,
       opacity: Math.random() * 0.3 + 0.2,
       duration:  function() { return anime.random(1000, 3000); },
@@ -503,7 +503,7 @@ function everyFunction() {
   function anime_loop_comp() {
     var orb_bob = anime({
       targets: '.complete_orb',
-      translateY: '-7vh',
+      translateY: '-70',
       scale: 1.1,
       opacity: 1,
       duration: 2000,
@@ -514,8 +514,8 @@ function everyFunction() {
   function anime_loop_2(i) {
     var orb_bob = anime({
       targets: '.orb_eyes-' + String(i),
-      translateY: anime.random(-10,10),
-      translateX: anime.random(-10,10),
+      translateY: anime.random(-5,5),
+      translateX: anime.random(-5,5),
       duration:  function() { return anime.random(1000, 3000); },
       delay: 0,
       direction: 'alternate',
@@ -544,8 +544,8 @@ function everyFunction() {
   function anime_loop_title_eyes() {
     var orb_bob = anime({
       targets: '.title_orb_eyes',
-      translateY: anime.random(-15,15),
-      translateX: anime.random(-15,15),
+      translateY: anime.random(-10,10),
+      translateX: anime.random(-10,10),
       duration:  function() { return anime.random(1000, 3000); },
       delay: 0,
       direction: 'alternate',
@@ -559,7 +559,7 @@ function everyFunction() {
   function anime_loop_title_orb() {
     var orb_bob = anime({
       targets:  '.title_orb',
-      translateY: '-' +  anime.random(2,7) + 'vh',
+      translateY: anime.random(-20,-70),
       scale: 1.1,
       opacity: Math.random() * 0.3 + 0.7,
       duration:  function() { return anime.random(1000, 3000); },
