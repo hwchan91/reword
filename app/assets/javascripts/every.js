@@ -70,6 +70,7 @@ function everyFunction() {
         //var background_color = $('.start_word').css("backgroundColor")
         //$("body").css("background", background_color )
         $(".message_container").show();
+        $('.firefly').hide();
       },time_to_close)
     }
     closeLevelAnimation();
@@ -109,10 +110,12 @@ function everyFunction() {
       if ($(".achievement").length == 0) {
         $(".next_level_btn_container").delay(1000).fadeIn();
         $(".content").stop().delay(1000).animate({ scrollTop: $('.message_container').height() + 500 }, 'slow', showRateDialog);
+        $("#message_footer_orb").delay(1500).fadeIn();
       } else {
         $(".achievement").delay(1000).fadeIn(500);
         $(".next_level_btn_container").delay(2000).fadeIn();
         $(".content").stop().delay(1500).animate({ scrollTop: $('.message_container').height() + 500 }, 'slow', showRateDialog);
+        $("#message_footer_orb").delay(2000).fadeIn();
       }
     }
 
@@ -468,5 +471,121 @@ function everyFunction() {
     }
   }
   checkIfHasVideoAd();
+
+
+  for (i = 0; i < 7; i++) {
+    anime_loop(i);
+    anime_loop_2(i);
+  }
+  anime_loop_3();
+  anime_loop_comp();
+  anime_loop_4();
+  anime_loop_title_eyes();
+  anime_loop_title_orb();
+
+
+  function anime_loop(i) {
+    var orb_bob = anime({
+      targets: '.orb-' + String(i),
+      translateY: '-' +  anime.random(2,7) + 'vh',
+      scale: 1.1,
+      opacity: Math.random() * 0.3 + 0.2,
+      duration:  function() { return anime.random(1000, 3000); },
+      delay: 0,
+      direction: 'alternate',
+      elasticity: 300,
+      complete: function(anim) {
+        anime_loop(i);
+      }
+    });
+  }
+
+  function anime_loop_comp() {
+    var orb_bob = anime({
+      targets: '.complete_orb',
+      translateY: '-7vh',
+      scale: 1.1,
+      opacity: 1,
+      duration: 2000,
+    });
+  }
+
+
+  function anime_loop_2(i) {
+    var orb_bob = anime({
+      targets: '.orb_eyes-' + String(i),
+      translateY: anime.random(-10,10),
+      translateX: anime.random(-10,10),
+      duration:  function() { return anime.random(1000, 3000); },
+      delay: 0,
+      direction: 'alternate',
+      elasticity: 300,
+      complete: function(anim) {
+        anime_loop_2(i);
+      }
+    });
+  }
+
+  function anime_loop_4() {
+    var orb_bob = anime({
+      targets: '.message_footer_orb_eyes',
+      translateY: anime.random(-20,20),
+      translateX: anime.random(-20,20),
+      duration:  function() { return anime.random(1000, 3000); },
+      delay: 0,
+      direction: 'alternate',
+      elasticity: 300,
+      complete: function(anim) {
+        anime_loop_4();
+      }
+    });
+  }
+
+  function anime_loop_title_eyes() {
+    var orb_bob = anime({
+      targets: '.title_orb_eyes',
+      translateY: anime.random(-15,15),
+      translateX: anime.random(-15,15),
+      duration:  function() { return anime.random(1000, 3000); },
+      delay: 0,
+      direction: 'alternate',
+      elasticity: 300,
+      complete: function(anim) {
+        anime_loop_title_eyes();
+      }
+    });
+  }
+
+  function anime_loop_title_orb() {
+    var orb_bob = anime({
+      targets:  '.title_orb',
+      translateY: '-' +  anime.random(2,7) + 'vh',
+      scale: 1.1,
+      opacity: Math.random() * 0.3 + 0.7,
+      duration:  function() { return anime.random(1000, 3000); },
+      delay: 0,
+      direction: 'alternate',
+      elasticity: 300,
+      complete: function(anim) {
+        anime_loop_title_orb();
+      }
+    });
+  }
+
+  function anime_loop_3() {
+    var orb_bob = anime({
+      targets: '.sleeping_orb',
+      opacity: 0.1,
+      scale: 0.5,
+      duration:  function() { return anime.random(1000, 3000); },
+      delay: 0,
+      direction: 'alternate',
+      elasticity: 300,
+      complete: function(anim) {
+        anime_loop_3(i);
+      }
+    });
+  }
+
 
 }

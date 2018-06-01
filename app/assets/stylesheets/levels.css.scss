@@ -7,9 +7,14 @@ html, body{
   width: 100% !important;
   min-width: 100% !important;
   // position: fixed;
-  overflow: hidden;
+  overflow-x: hidden;
   margin: 0 !important;
   padding: 0 !important;
+  font-family: 'Gloria Hallelujah', cursive;
+}
+
+.firefly {
+  display: none;
 }
 
 div {
@@ -38,7 +43,7 @@ div {
   --word-choice-hover-color: var(--complete-highlight-color);
   --definition-color: #aaa;
   --complete-highlight-color: rgb(50, 163, 202);
-  --main-font-family:  Helvetica, sans-serif;
+  // --main-font-family: Helvetica, sans-serif;
 }
 
 .start_word, .target_word {
@@ -57,10 +62,14 @@ div {
 
 .start_word {
   top: 0;
+  border-bottom-left-radius: 9vh;
+  border-bottom-right-radius: 9vh;
 }
 
 .target_word {
   bottom: 0;
+  border-top-left-radius: 9vh;
+  border-top-right-radius: 9vh;
 }
 
 .curr_word_container {
@@ -277,6 +286,9 @@ div {
     color: #ccc;
     vertical-align: middle;
   }
+  .glyphicon-heart {
+    font-size: 4vh;
+  }
   .glyphicon-triangle-bottom {
     font-size: 2vh;
     padding-top: 0.5vh;
@@ -295,11 +307,12 @@ div {
     padding: 40px 5px;
     max-width: 800px;
     color: #afafaf;
-    // opacity: 0.7;
     text-align: center;
     font-size: 2vh;
     white-space: pre-wrap;
     margin: 0 auto;
+    line-height: 100%;
+    // font-family: Arial, Helvetica, sans-serif;
   }
 }
 
@@ -312,6 +325,7 @@ div {
 }
 
 .message_container {
+  overflow: hidden;
   display: none;
   width: 100%;
   min-height: 100vh;
@@ -326,7 +340,7 @@ div {
     margin: 0px auto;
     margin-top: 5vh;
     padding-bottom: 2vh;
-    font-size: 3vh;
+    font-size: 9vh;
     span {
       margin: 0 5px;
     }
@@ -352,6 +366,85 @@ div {
     font-weight: bold;
     font-size: 5vh;
     padding-bottom: 30px;
+  }
+  #message_footer_orb {
+    display: none;
+    width: 100vw;
+    height: 50vw;
+    position: relative;
+    border-top-left-radius: 100vw;
+    border-top-right-radius: 100vw;
+    background-color: white;
+    margin: 0 auto;
+    .orb_eyes {
+      position: absolute;
+      top: 20vw;
+      width: 100vw;
+      height: 20vh;
+    }
+    .orb_eye {
+      position: absolute;
+      width: 5vw;
+      height: 100%;
+      top: 0;
+      background: #8be0de;
+      border-radius: 2vw;
+    }
+    .orb_eye_left {
+      left: 25vw;
+    }
+    .orb_eye_right {
+      right: 25vw;
+    }
+    .blush {
+      position: absolute;
+      bottom: 0;
+      height: 5vw;
+      width: 10vw;
+      background-color: #ffa0db;
+      opacity: 0.5;
+      border-radius: 10vw;
+    }
+    .blush_left {
+      left: -1vw;
+    }
+    .blush_right {
+      right: -1vw;
+    }
+  }
+  @media only screen and (min-width: 400px) {
+    #message_footer_orb {
+      width: 400px;
+      height: 200px;
+      border-top-left-radius: 400px;
+      border-top-right-radius: 400px;
+      .orb_eyes {
+        top: 80px;
+        width: 400px;
+        height: 160px;
+      }
+      .orb_eye {
+        width: 20px;
+        border-radius: 10px;
+      }
+      .orb_eye_left {
+        left: 100px;
+      }
+      .orb_eye_right {
+        right: 100px;
+      }
+      .blush {
+        height: 20px;
+        width: 50px;
+        border-radius: 25px;
+      }
+      .blush_left {
+        left: -20px;
+      }
+      .blush_right {
+        right: -20px;
+      }
+    }
   }
 }
 
@@ -384,6 +477,7 @@ div {
     p {
       margin-bottom: 0;
       padding-bottom: 5px;
+      // font-family: Arial, Helvetica, sans-serif;
     }
   }
 }
@@ -423,6 +517,10 @@ div {
   margin-top: 30px;
   #achievement_header {
     font-size: 3.5vh;
+  }
+  .big_heart {
+    font-size: 8vh;
+    top: 2vh;
   }
 }
 
@@ -466,7 +564,7 @@ html, body {
   // background: -webkit-linear-gradient(left, var(--complete-highlight-color), var(--main-background-color)); /*Safari 5.1-6*/
   // background: -o-linear-gradient(right, var(--complete-highlight-color), var(--main-background-color)); /*Opera 11.1-12*/
   // background: -moz-linear-gradient(right, var(--complete-highlight-color), var(--main-background-color)); /*Fx 3.6-15*/
-  background: linear-gradient(to right, var(--complete-highlight-color), var(--main-background-color)); /*Standard*/
+  background: linear-gradient(to right, rgb(50, 163, 202), #8be0de); /*Standard*/
   padding: 20px 0px;
   .back_btn {
     position: fixed;
@@ -480,6 +578,7 @@ html, body {
 }
 
 .starting_page {
+  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(139, 224, 222, 0.2), rgb(139, 224, 222), rgb(50, 163, 202)); /*Standard*/
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -489,41 +588,89 @@ html, body {
   }
   .play_btn {
     width: 100vw;
+    height: 50vh;
+    position: absolute;
+    bottom: 0;
     font-size: 6vh;
     color: white;
-    text-align: right;
-    margin-top: 70px;
-    padding-right: 20px;
-    font-family: Helvetica, sans-serif;
+    // text-align: right;
+    // margin-top: 70px;
+    // padding-right: 20px;
+    // font-family: Helvetica, sans-serif;
   }
   .game_title_cont {
     position: fixed;
     top: 0;
     left: 0;
-    color: white;
-    opacity: 0.5;
-    font-size: 8vh;
     width: 100vw;
-    height: 12vh;
+    height: 50vh;
     text-align: center;
-    background: white;
-    color: var(--main-background-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+  }
+  .title_orb {
+    display: inline-block;
+    width: 8vh;
+    height: 8vh;
+    border-radius: 8vh;
+    box-shadow: 0 0 5px 5px #8be0de;
+    background-color: #8be0de;
+    // margin-right: 2vh;
+    position: relative;
+    .title_orb_eyes {
+      position: absolute;
+      top: 2vh;
+      width: 8vh;
+      height: 3vh;
+    }
+    .orb_eye {
+      position: absolute;
+      width: 5px;
+      height: 100%;
+      border-radius: 3px;
+      top: 0;
+      background: white;
+    }
+    .orb_eye_left {
+      left: 2vh;
+    }
+    .orb_eye_right {
+      right: 2vh;
+    }
   }
   .game_title {
+    font-size: 8vh;
     line-height: 8vh;
-    letter-spacing: 2vw;
-    margin-top: 4vh;
+    color: #8be0de;
     font-weight: bold;
+    letter-spacing: 2vh;
+    margin-right: -2vh;
+    display: inline-block;
+    #title_empty_space {
+      display: inline-block;
+      width: 2vh;
+    }
   }
-  #play_link {
+  #play_link_container, #zen_play_link_container, .options {
+    padding: 10px;
+    border-radius: 5px;
+    // background-color: #eee;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    // margin-right: 20px;
+    margin-bottom: 20px;
+  }
+  #play_link, #zen_play_link {
     text-decoration: none;
     color: white;
-    margin-right: 20px;
   }
   .options {
     font-size: 5vh;
     opacity: 0.7;
-    margin-right: 20px;
   }
   .options_overlay {
     display: none;
@@ -536,7 +683,7 @@ html, body {
     // background: -webkit-linear-gradient(left, var(--complete-highlight-color), var(--main-background-color)); /*Safari 5.1-6*/
     // background: -o-linear-gradient(right, var(--complete-highlight-color), var(--main-background-color)); /*Opera 11.1-12*/
     // background: -moz-linear-gradient(right, var(--complete-highlight-color), var(--main-background-color)); /*Fx 3.6-15*/
-    background: linear-gradient(to right, var(--complete-highlight-color), var(--main-background-color)); /*Standard*/
+    background: linear-gradient(to right, rgb(50, 163, 202), #8be0de); /*Standard*/
     color: white;
     align-items: center;
     justify-content: center;
@@ -597,24 +744,25 @@ html, body {
     background-color: white;
     color: #eee;
     box-shadow: 0px 0px 30px #e8f8ff;
-    font-family: Helvetica, sans-serif;
+    // font-family: Helvetica, sans-serif;
     margin: 0 30px;
     position: relative;
     .level_id {
       z-index: 10;
       top: 0;
     }
-    .glyphicon-flag, .level_id {
+    .glyphicon-heart, .level_id {
       position: absolute;
       left: 0;
       font-size: 10vh;
       width: 100%;
       text-align: center;
     }
-    .glyphicon-flag {
-      top: 2vh;
+    .glyphicon-heart {
+      top: 3vh;
       z-index: 5;
-      opacity: 0.3;
+      opacity: 0.5;
+      left: -3px;
     }
   }
   .completed_level .level_btn {
@@ -649,9 +797,9 @@ html, body {
   }
   .chapter {
     text-transform: uppercase;
-    color: #eee;
+    color: white;
     font-size: 7vh;
-    font-family:  Helvetica, sans-serif;
+    // font-family: Helvetica, sans-serif;
     text-align: center;
     margin: 0 auto;
     position: relative;
@@ -678,6 +826,13 @@ html, body {
       right: 5px;
     }
 
+  }
+  .love_count {
+    color: #eee;
+    font-size: 3vh;
+    text-align: right;
+    margin-right: 3vh;
+    opacity: 0.5;
   }
 }
 
@@ -881,6 +1036,59 @@ html, body {
     color: white;
     opacity: 0.9;
   }
+  .letter {
+    position: relative;
+  }
+  // .target_word_animation {
+  //   position: absolute;
+  //   bottom: 10vh;
+  //   width: 6vh;
+  //   left: -1vh;
+  // }
+  .orb {
+    position: absolute;
+    bottom: 11vh;
+    width: 5vh;
+    height: 5vh;
+    border-radius: 50%;
+    // background-color: #8be0de;
+    // box-shadow: 0px 0px 1vh 1vh #8be0de;
+    opacity: 0.5;
+  }
+  .misposition_orb {
+    width: 3vh;
+    height: 3vh;
+  }
+  .sleeping_orb {
+    position: absolute;
+    bottom: 11vh;
+    opacity: 0.5;
+    width: 2vh;
+    height: 2vh;
+    left: 2vh;
+    border-radius: 50%;
+    background-color: #ccc;
+    box-shadow: 0px 0px 1vh 1vh #ccc;
+  }
+  .orb_eyes {
+    position: absolute;
+    top: 1.5vh;
+    width: 100%;
+    height: 2vh;
+  }
+  .orb_eye {
+    position: absolute;
+    width: 3px;
+    height: 100%;
+    top: 0;
+    background: white;
+  }
+  .orb_eye_left {
+    left: 0.5vh;
+  }
+  .orb_eye_right {
+    right: 0.5vh;
+  }
 }
 
 .zen_loading {
@@ -910,6 +1118,7 @@ html, body {
   bottom: 3px;
   left: 0.72vh;
   font-size: 50%;
+  font-family: 'Gloria Hallelujah', cursive;
 }
 
 .shield {
@@ -938,145 +1147,145 @@ html, body {
     color: white;
   }
 
-  .glitch {
-    font-size: 3vh;
-    font-weight: bold;
-    color: white;
-    position: relative;
-  }
+  // .glitch {
+  //   font-size: 3vh;
+  //   font-weight: bold;
+  //   color: white;
+  //   position: relative;
+  // }
 
-  @keyframes glitch-anim-1 {
-    0% {
-      clip: rect(43px, 2000px, 43px, 0);
-    }
-    5.88235% {
-      clip: rect(44px, 2000px, 95px, 0);
-    }
-    11.76471% {
-      clip: rect(9px, 2000px, 91px, 0);
-    }
-    17.64706% {
-      clip: rect(54px, 2000px, 73px, 0);
-    }
-    23.52941% {
-      clip: rect(61px, 2000px, 99px, 0);
-    }
-    29.41176% {
-      clip: rect(113px, 2000px, 15px, 0);
-    }
-    35.29412% {
-      clip: rect(104px, 2000px, 14px, 0);
-    }
-    41.17647% {
-      clip: rect(36px, 2000px, 46px, 0);
-    }
-    47.05882% {
-      clip: rect(5px, 2000px, 2px, 0);
-    }
-    52.94118% {
-      clip: rect(75px, 2000px, 69px, 0);
-    }
-    58.82353% {
-      clip: rect(74px, 2000px, 104px, 0);
-    }
-    64.70588% {
-      clip: rect(54px, 2000px, 27px, 0);
-    }
-    70.58824% {
-      clip: rect(112px, 2000px, 75px, 0);
-    }
-    76.47059% {
-      clip: rect(78px, 2000px, 107px, 0);
-    }
-    82.35294% {
-      clip: rect(16px, 2000px, 41px, 0);
-    }
-    88.23529% {
-      clip: rect(105px, 2000px, 17px, 0);
-    }
-    94.11765% {
-      clip: rect(5px, 2000px, 12px, 0);
-    }
-    100% {
-      clip: rect(107px, 2000px, 30px, 0);
-    }
-  }
-  @keyframes glitch-anim-2 {
-    0% {
-      clip: rect(71px, 2000px, 67px, 0);
-    }
-    5.88235% {
-      clip: rect(21px, 2000px, 97px, 0);
-    }
-    11.76471% {
-      clip: rect(103px, 2000px, 62px, 0);
-    }
-    17.64706% {
-      clip: rect(46px, 2000px, 100px, 0);
-    }
-    23.52941% {
-      clip: rect(76px, 2000px, 2px, 0);
-    }
-    29.41176% {
-      clip: rect(52px, 2000px, 73px, 0);
-    }
-    35.29412% {
-      clip: rect(25px, 2000px, 69px, 0);
-    }
-    41.17647% {
-      clip: rect(65px, 2000px, 14px, 0);
-    }
-    47.05882% {
-      clip: rect(16px, 2000px, 49px, 0);
-    }
-    52.94118% {
-      clip: rect(43px, 2000px, 19px, 0);
-    }
-    58.82353% {
-      clip: rect(27px, 2000px, 100px, 0);
-    }
-    64.70588% {
-      clip: rect(55px, 2000px, 5px, 0);
-    }
-    70.58824% {
-      clip: rect(16px, 2000px, 67px, 0);
-    }
-    76.47059% {
-      clip: rect(89px, 2000px, 65px, 0);
-    }
-    82.35294% {
-      clip: rect(31px, 2000px, 82px, 0);
-    }
-    88.23529% {
-      clip: rect(12px, 2000px, 41px, 0);
-    }
-    94.11765% {
-      clip: rect(54px, 2000px, 64px, 0);
-    }
-    100% {
-      clip: rect(36px, 2000px, 75px, 0);
-    }
-  }
+  // @keyframes glitch-anim-1 {
+  //   0% {
+  //     clip: rect(43px, 2000px, 43px, 0);
+  //   }
+  //   5.88235% {
+  //     clip: rect(44px, 2000px, 95px, 0);
+  //   }
+  //   11.76471% {
+  //     clip: rect(9px, 2000px, 91px, 0);
+  //   }
+  //   17.64706% {
+  //     clip: rect(54px, 2000px, 73px, 0);
+  //   }
+  //   23.52941% {
+  //     clip: rect(61px, 2000px, 99px, 0);
+  //   }
+  //   29.41176% {
+  //     clip: rect(113px, 2000px, 15px, 0);
+  //   }
+  //   35.29412% {
+  //     clip: rect(104px, 2000px, 14px, 0);
+  //   }
+  //   41.17647% {
+  //     clip: rect(36px, 2000px, 46px, 0);
+  //   }
+  //   47.05882% {
+  //     clip: rect(5px, 2000px, 2px, 0);
+  //   }
+  //   52.94118% {
+  //     clip: rect(75px, 2000px, 69px, 0);
+  //   }
+  //   58.82353% {
+  //     clip: rect(74px, 2000px, 104px, 0);
+  //   }
+  //   64.70588% {
+  //     clip: rect(54px, 2000px, 27px, 0);
+  //   }
+  //   70.58824% {
+  //     clip: rect(112px, 2000px, 75px, 0);
+  //   }
+  //   76.47059% {
+  //     clip: rect(78px, 2000px, 107px, 0);
+  //   }
+  //   82.35294% {
+  //     clip: rect(16px, 2000px, 41px, 0);
+  //   }
+  //   88.23529% {
+  //     clip: rect(105px, 2000px, 17px, 0);
+  //   }
+  //   94.11765% {
+  //     clip: rect(5px, 2000px, 12px, 0);
+  //   }
+  //   100% {
+  //     clip: rect(107px, 2000px, 30px, 0);
+  //   }
+  // }
+  // @keyframes glitch-anim-2 {
+  //   0% {
+  //     clip: rect(71px, 2000px, 67px, 0);
+  //   }
+  //   5.88235% {
+  //     clip: rect(21px, 2000px, 97px, 0);
+  //   }
+  //   11.76471% {
+  //     clip: rect(103px, 2000px, 62px, 0);
+  //   }
+  //   17.64706% {
+  //     clip: rect(46px, 2000px, 100px, 0);
+  //   }
+  //   23.52941% {
+  //     clip: rect(76px, 2000px, 2px, 0);
+  //   }
+  //   29.41176% {
+  //     clip: rect(52px, 2000px, 73px, 0);
+  //   }
+  //   35.29412% {
+  //     clip: rect(25px, 2000px, 69px, 0);
+  //   }
+  //   41.17647% {
+  //     clip: rect(65px, 2000px, 14px, 0);
+  //   }
+  //   47.05882% {
+  //     clip: rect(16px, 2000px, 49px, 0);
+  //   }
+  //   52.94118% {
+  //     clip: rect(43px, 2000px, 19px, 0);
+  //   }
+  //   58.82353% {
+  //     clip: rect(27px, 2000px, 100px, 0);
+  //   }
+  //   64.70588% {
+  //     clip: rect(55px, 2000px, 5px, 0);
+  //   }
+  //   70.58824% {
+  //     clip: rect(16px, 2000px, 67px, 0);
+  //   }
+  //   76.47059% {
+  //     clip: rect(89px, 2000px, 65px, 0);
+  //   }
+  //   82.35294% {
+  //     clip: rect(31px, 2000px, 82px, 0);
+  //   }
+  //   88.23529% {
+  //     clip: rect(12px, 2000px, 41px, 0);
+  //   }
+  //   94.11765% {
+  //     clip: rect(54px, 2000px, 64px, 0);
+  //   }
+  //   100% {
+  //     clip: rect(36px, 2000px, 75px, 0);
+  //   }
+  // }
 
-  .glitch:before, .glitch:after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: black;
-    clip: rect(0, 0, 0, 0);
-  }
-  .glitch:after {
-    left: 2px;
-    text-shadow: -1px 0 red;
-    animation: glitch-anim-1 2s infinite linear alternate-reverse;
-  }
-  .glitch:before {
-    left: -2px;
-    text-shadow: 2px 0 blue;
-    animation: glitch-anim-2 3s infinite linear alternate-reverse;
-  }
+  // .glitch:before, .glitch:after {
+  //   content: attr(data-text);
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  //   width: 100%;
+  //   background: black;
+  //   clip: rect(0, 0, 0, 0);
+  // }
+  // .glitch:after {
+  //   left: 2px;
+  //   text-shadow: -1px 0 red;
+  //   animation: glitch-anim-1 2s infinite linear alternate-reverse;
+  // }
+  // .glitch:before {
+  //   left: -2px;
+  //   text-shadow: 2px 0 blue;
+  //   animation: glitch-anim-2 3s infinite linear alternate-reverse;
+  // }
 
   .refresh_btn {
     color: #8be0de;

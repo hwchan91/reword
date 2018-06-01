@@ -1,5 +1,6 @@
 $(document).on('turbolinks:load', function() {
   everyFunction();
+  firefly();
 })
 
 function startPlayer() {
@@ -41,4 +42,17 @@ function connected() {
   setTimeout(function() {
     $('.shield').hide();
   }, 10000);
+}
+
+function firefly() {
+  $.firefly({
+    color: '#8be0de',
+    minPixel: 3,
+    maxPixel: 20,
+    total: 30,
+    on: 'document.body',
+    twinkle: 0,
+    borderRadius: 50,
+    namespace: 'firefly'
+  });
 }

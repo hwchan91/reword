@@ -48,6 +48,7 @@ class LevelsController < ApplicationController
   end
 
   def index
+    @user = current_user
     @levels = Level.default.where(id: ((@chapter-1) * 10 + 1).. ((@chapter-1) * 10 + 10)).order(:id)
     @level = @levels.last
     @chapter_title = Chapter.find(@chapter).name
@@ -183,12 +184,12 @@ class LevelsController < ApplicationController
       unless completed_levels.any?{|id| id == @level.id }
         current_user.completed_levels << @level.id
         @show_rate_dialog = true if @level.id.in?([7,10,15,20,25,30,35,40,45,50]) && !current_user.has_rated
-        @zen_unlocked = true if @level.id == 20
       end
 
       if optimal_achieved
         unless optimal_levels.any?{|id| id == @level.id }
           current_user.optimal_levels << @level.id
+          @zen_unlocked = true if optimal_levels.count == 20
         end
       end
 
