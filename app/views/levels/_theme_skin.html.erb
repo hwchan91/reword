@@ -1,35 +1,4 @@
 <style>
-<% if false %>
-  <% if level.id.between?(11,20) %>
-    :root {
-      --main-background-color: #1e488c;
-      --complete-highlight-color: rgb(112, 159, 204);
-    }
-  <% elsif level.id.between?(21,30) %>
-    :root {
-      --main-background-color: #6e845c;
-      --complete-highlight-color: rgb(204, 206, 97);
-    }
-  <% elsif level.id.between?(31,40) %>
-    :root {
-      --main-background-color: #580b59;
-      --complete-highlight-color: rgb(119, 126, 168);
-    }
-  <% elsif level.id.between?(41,50) %>
-    :root {
-      --main-background-color: black;
-      --complete-highlight-color: rgb(104, 53, 53);
-    }
-  <% elsif level.id == 9999 %>
-    :root {
-      --main-background-color: #d1bfba;
-      --complete-highlight-color: rgb(63, 56, 54);
-    }
-  <% end %>
-<% end %>
-
-
-
 .start_word, .target_word, .curr_word .choosable:hover, .message_container, #more_hints, #want_hints, .firefly, .orb {
   background-color: <%= main_color %> !important;
 }
@@ -54,7 +23,7 @@
   color: <%= highlight_color %> !important;
 }
 
-.level_selection_page, .starting_page {
+.level_selection_page {
    background: linear-gradient(to right, <%= main_color %>, <%= highlight_color %>) !important;
 }
 

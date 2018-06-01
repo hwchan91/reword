@@ -2,6 +2,10 @@
 <% up_to = @completed_levels.any? ? @completed_levels.max : 0 %>
 
 <div class="level_selection_page">
+  <div class="love_count">
+    <span class="glyphicon glyphicon-heart"></span> Unlocked x <%= @user.optimal_levels.count %>
+  </div>
+
   <%= link_to root_path, class: "back_btn", remote: true do %>
     back
   <% end %>
@@ -34,7 +38,7 @@
 
       <div class="level_btn">
         <% if @optimal_levels.include?(level.id) %>
-          <span class="glyphicon glyphicon-flag"></span>
+          <span class="glyphicon glyphicon-heart"></span>
         <% end %>
         <span class="level_id"><%= level.id %></span>
       </div>

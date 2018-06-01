@@ -1,18 +1,23 @@
 <%= render 'theme_skin', level: @level %>
 <div class="starting_page">
   <div class="game_title_cont">
-    <div class="game_title">REWORD</div>
+    <div class="game_title">REW<div class='title_orb'><div class="orb_eyes title_orb_eyes"><div class="orb_eye orb_eye_left"></div><div class="orb_eye orb_eye_right"></div></div></div><div id="title_empty_space"></div>RD</div>
   </div>
 
   <div class="play_btn">
-    <%= link_to "Levels", levels_path, remote: true, id: "play_link" %><br>
+    <div id="play_link_container">
+      <%= link_to "Levels", levels_path, remote: true, id: "play_link" %>
+    </div>
 
-    <% if @completed_levels.size < 20 %>
-      <span class="glyphicon glyphicon-lock"></span>
-    <% end %>
+    <div id="zen_play_link_container">
+      <% if @completed_levels.size < 20 %>
+        <span class="glyphicon glyphicon-lock"></span>
+      <% end %>
 
-    <%= link_to "Zen Mode", loading_level_path('zen'), remote: true, id: "play_link", class: "#{'disabled' if @completed_levels.max.to_i < 20}" %><br><br>
-    <span class="options">options</span>
+      <%= link_to "Zen Mode", loading_level_path('zen'), remote: true, id: "zen_play_link", class: "#{'disabled' if @completed_levels.max.to_i < 20}" %>
+    </div>
+
+    <div class="options">options</div>
   </div>
 
 
