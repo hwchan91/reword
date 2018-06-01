@@ -1,6 +1,6 @@
 class LevelsController < ApplicationController
   before_action :get_completed_levels
-  before_action :check_if_hack, only: [:show, :move, :reset, :undo]
+  #before_action :check_if_hack, only: [:show, :move, :reset, :undo]
   before_action :set_level, only: [:show, :move]
   before_action :get_word, only: [:show]
   before_action :get_chapter, only: [:index]

@@ -1,12 +1,15 @@
 <%= render 'theme_skin', level: @level %>
 <div class="starting_page">
   <div class="game_title_cont">
-    <div class="game_title">REW<div class='title_orb'><div class="orb_eyes title_orb_eyes"><div class="orb_eye orb_eye_left"></div><div class="orb_eye orb_eye_right"></div></div></div><div id="title_empty_space"></div>RD</div>
+    <div>
+      <div class="game_title">REW<div class='title_orb'><div class="orb_eyes title_orb_eyes"><div class="orb_eye orb_eye_left"></div><div class="orb_eye orb_eye_right"></div></div></div><div id="title_empty_space"></div>RD</div>
+      <div class="game_catchphrase">Save the faeries - with WORDS!</div>
+    </div>
   </div>
 
   <div class="play_btn">
     <div id="play_link_container">
-      <%= link_to "Levels", levels_path, remote: true, id: "play_link" %>
+      <%= link_to "Journey Mode", levels_path, remote: true, id: "play_link" %>
     </div>
 
     <div id="zen_play_link_container">
@@ -14,7 +17,7 @@
         <span class="glyphicon glyphicon-lock"></span>
       <% end %>
 
-      <%= link_to "Zen Mode", loading_level_path('zen'), remote: true, id: "zen_play_link", class: "#{'disabled' if @completed_levels.max.to_i < 20}" %>
+      <%= link_to "Zen Mode", loading_level_path('zen'), remote: true, id: "zen_play_link", class: "#{'disabled' if @optimal_levels.count < 20}" %>
     </div>
 
     <div class="options">options</div>

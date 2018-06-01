@@ -610,6 +610,7 @@ html, body {
     justify-content: center;
     margin: 0;
     padding: 0;
+    // flex-wrap: wrap;
   }
   .title_orb {
     display: inline-block;
@@ -653,6 +654,11 @@ html, body {
       display: inline-block;
       width: 2vh;
     }
+  }
+  .game_catchphrase {
+    font-size: 5vh;
+    color: #8be0de;
+    margin-top: 1vh;
   }
   #play_link_container, #zen_play_link_container, .options {
     padding: 10px;

@@ -1,5 +1,5 @@
 <style>
-.start_word, .target_word, .curr_word .choosable:hover, .message_container, #more_hints, #want_hints, .firefly, .orb {
+.start_word, .target_word, .curr_word .choosable:hover, .message_container, #more_hints, #want_hints, .firefly, .orb, #message_footer_orb .orb_eye {
   background-color: <%= main_color %> !important;
 }
 
@@ -30,6 +30,10 @@
 .starting_page .options_overlay  {
   background: linear-gradient(to right, <%= highlight_color %>, <%= main_color %>) !important;
 
+}
+
+.start_word .letter, .target_word .letter {
+  width: 5vh;
 }
 
 @keyframes flash {
@@ -76,6 +80,9 @@
 }
 .definition_content {
   padding: 40px 5vh !important;
+}
+.start_word .letter, .target_word .letter {
+  width: 3vh;
 }
 <% end %>
 
