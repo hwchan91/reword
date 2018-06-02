@@ -578,6 +578,10 @@ html, body {
   }
 }
 
+.level_selection_page {
+  padding-bottom: 50px;
+}
+
 .starting_page {
   background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(139, 224, 222, 0.2), rgb(139, 224, 222), rgb(50, 163, 202)); /*Standard*/
   width: 100vw;
@@ -611,38 +615,6 @@ html, body {
     justify-content: center;
     margin: 0;
     padding: 0;
-    // flex-wrap: wrap;
-    // padding-top: 20vh;
-  }
-  .title_orb {
-    display: inline-block;
-    width: 8vh;
-    height: 8vh;
-    border-radius: 8vh;
-    box-shadow: 0 0 5px 5px #8be0de;
-    background-color: #8be0de;
-    // margin-right: 2vh;
-    position: relative;
-    .title_orb_eyes {
-      position: absolute;
-      top: 2vh;
-      width: 8vh;
-      height: 3vh;
-    }
-    .orb_eye {
-      position: absolute;
-      width: 5px;
-      height: 100%;
-      border-radius: 3px;
-      top: 0;
-      background: white;
-    }
-    .orb_eye_left {
-      left: 2vh;
-    }
-    .orb_eye_right {
-      right: 2vh;
-    }
   }
   .game_title {
     font-size: 8vh;
@@ -704,6 +676,37 @@ html, body {
       opacity: 0.8;
       font-size: 4vh;
     }
+  }
+}
+
+.title_orb {
+  display: inline-block;
+  width: 8vh;
+  height: 8vh;
+  border-radius: 8vh;
+  box-shadow: 0 0 5px 5px #8be0de;
+  background-color: #8be0de;
+  // margin-right: 2vh;
+  position: relative;
+  .title_orb_eyes {
+    position: absolute;
+    top: 2vh;
+    width: 8vh;
+    height: 3vh;
+  }
+  .orb_eye {
+    position: absolute;
+    width: 5px;
+    height: 100%;
+    border-radius: 3px;
+    top: 0;
+    background: white;
+  }
+  .orb_eye_left {
+    left: 2vh;
+  }
+  .orb_eye_right {
+    right: 2vh;
   }
 }
 
@@ -1106,7 +1109,7 @@ html, body {
 }
 
 .zen_loading {
-  color: #aaa;
+  color: #cce8e5;
   display: none;
   font-size: 6vh;
   .small {
@@ -1137,11 +1140,12 @@ html, body {
 
 .shield {
   z-index: 10000;
-  background-color: black; //rgba(255, 255, 255, 0.6);
+  background: linear-gradient(to bottom, rgb(218, 218, 218), #8eacc5); /*Standard*/
   display: none;
   height: 100%;
   width: 100%;
   position: fixed;
+  opacity: 0.9;
 
 
   #no_internet_message{
@@ -1305,5 +1309,19 @@ html, body {
     color: #8be0de;
     font-size: 5vh;
     font-weight: bold;
+
+    font-size: 8vh;
+    line-height: 8vh;
+    color: #8be0de;
+    font-weight: bold;
+    letter-spacing: 2vh;
+    margin-right: -2vh;
+    display: inline-block;
+    width: 100vw;
+    #title_empty_space {
+      display: inline-block;
+      width: 2vh;
+    }
+
   }
 }

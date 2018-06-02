@@ -1,6 +1,6 @@
 class LevelsController < ApplicationController
   before_action :get_completed_levels
-  #before_action :check_if_hack, only: [:show, :move, :reset, :undo]
+  before_action :check_if_hack, only: [:show, :move, :reset, :undo]
   before_action :set_level, only: [:show, :move]
   before_action :get_word, only: [:show]
   before_action :get_chapter, only: [:index]
@@ -115,7 +115,7 @@ class LevelsController < ApplicationController
 
       @limit = case @level.id
       when *[1..20] then @level.path.size + 3
-      when *[21..40] then @level.path.size + 2
+      when *[21..40] + [9999] then @level.path.size + 2
       else @level.path.size + 1
       end
 
@@ -200,7 +200,8 @@ class LevelsController < ApplicationController
 
     def update_zen_records
       current_user.total_completed_zen_levels = current_user.total_completed_zen_levels.to_i + 1
-      current_user.continuous_zen_levels = current_user.continuous_zen_levels.to_i + 1 #more logic to be done here
+      current_user.continuous_zen_levels = current_user.continuous_zen_levels.to_i + 1
+      current_user.optimal_zen_levels = current_user.optimal_zen_levels.to_i + 1
       current_user.save!
 
       session.delete(:"level#{params[:id]}_history")

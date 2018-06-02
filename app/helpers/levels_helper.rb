@@ -105,7 +105,7 @@ module LevelsHelper
     return '#6e845c' if id.between?(21,30)
     return '#580b59' if id.between?(31,40)
     return '#f9be27' if id.between?(41,50)
-    '#d1bfba'
+    '#cce8e5'
   end
 
   def highlight_color
@@ -116,7 +116,7 @@ module LevelsHelper
     return 'rgb(204, 206, 97)' if id.between?(21,30)
     return 'rgb(119, 126, 168)' if id.between?(31,40)
     return 'rgb(204, 0, 142)' if id.between?(41,50)
-    'rgb(63, 56, 54)'
+    'rgb(22, 157, 206)'
   end
 
   def display_hint?

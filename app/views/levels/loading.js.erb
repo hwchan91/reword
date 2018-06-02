@@ -1,5 +1,5 @@
 $('.content').html("<%= j render 'loading', user: @current_user %>")
-
+$('.firefly').css('background-color', '#cce8e5')
 
 function flashLoadingMessage() {
   $('.zen_loading').fadeIn(500);
@@ -11,4 +11,4 @@ flashLoadingMessage();
 
 setTimeout(function() {
   $.getScript("/levels/zen<%= "?skip_interstitial=true" if @skip_interstitial %>")
-},1000)()
+},1000)

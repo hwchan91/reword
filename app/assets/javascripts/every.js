@@ -472,20 +472,18 @@ function everyFunction() {
   }
   checkIfHasVideoAd();
 
-
-  for (i = 0; i < 7; i++) {
-    anime_loop(i);
-    anime_loop_2(i);
+  for (i = 1; i < 7; i++) {
+    level_orb_bob(i);
+    level_orb_eyes_gaze(i);
   }
-  anime_loop_3();
-  anime_loop_comp();
-  anime_loop_4();
-  anime_loop_title_eyes();
-  anime_loop_title_orb();
+  level_sleeping_orb_blink();
+  level_complete_orb_finale();
+  title_orb_bob();
+  title_orb_eyes_gaze();
+  message_footer_orb_eyes_gaze();
 
-
-  function anime_loop(i) {
-    var orb_bob = anime({
+  function level_orb_bob(i) {
+    var level_orb = anime({
       targets: '.orb-' + String(i),
       translateY: anime.random(-20,-70),
       scale: 1.1,
@@ -495,24 +493,13 @@ function everyFunction() {
       direction: 'alternate',
       elasticity: 300,
       complete: function(anim) {
-        anime_loop(i);
+        level_orb.restart();
       }
     });
   }
 
-  function anime_loop_comp() {
-    var orb_bob = anime({
-      targets: '.complete_orb',
-      translateY: '-70',
-      scale: 1.1,
-      opacity: 1,
-      duration: 2000,
-    });
-  }
-
-
-  function anime_loop_2(i) {
-    var orb_bob = anime({
+  function level_orb_eyes_gaze(i) {
+    var level_orb_eyes = anime({
       targets: '.orb_eyes-' + String(i),
       translateY: anime.random(-5,5),
       translateX: anime.random(-5,5),
@@ -521,43 +508,38 @@ function everyFunction() {
       direction: 'alternate',
       elasticity: 300,
       complete: function(anim) {
-        anime_loop_2(i);
+        level_orb_eyes.restart();
       }
     });
   }
 
-  function anime_loop_4() {
-    var orb_bob = anime({
-      targets: '.message_footer_orb_eyes',
-      translateY: anime.random(-20,20),
-      translateX: anime.random(-20,20),
+  function level_sleeping_orb_blink() {
+    var level_sleeping_orb = anime({
+      targets: '.sleeping_orb',
+      opacity: 0.1,
+      scale: 0.5,
       duration:  function() { return anime.random(1000, 3000); },
       delay: 0,
       direction: 'alternate',
       elasticity: 300,
       complete: function(anim) {
-        anime_loop_4();
+        level_sleeping_orb.restart();
       }
     });
   }
 
-  function anime_loop_title_eyes() {
-    var orb_bob = anime({
-      targets: '.title_orb_eyes',
-      translateY: anime.random(-10,10),
-      translateX: anime.random(-10,10),
-      duration:  function() { return anime.random(1000, 3000); },
-      delay: 0,
-      direction: 'alternate',
-      elasticity: 300,
-      complete: function(anim) {
-        anime_loop_title_eyes();
-      }
+  function level_complete_orb_finale() {
+    var level_complete_orb = anime({
+      targets: '.complete_orb',
+      translateY: '-70',
+      scale: 1.1,
+      opacity: 1,
+      duration: 2000,
     });
   }
 
-  function anime_loop_title_orb() {
-    var orb_bob = anime({
+  function title_orb_bob() {
+    var title_orb = anime({
       targets:  '.title_orb',
       translateY: anime.random(-20,-70),
       scale: 1.1,
@@ -567,25 +549,45 @@ function everyFunction() {
       direction: 'alternate',
       elasticity: 300,
       complete: function(anim) {
-        anime_loop_title_orb();
+        title_orb.restart();
       }
     });
   }
 
-  function anime_loop_3() {
-    var orb_bob = anime({
-      targets: '.sleeping_orb',
-      opacity: 0.1,
-      scale: 0.5,
+  function title_orb_eyes_gaze() {
+    var title_orb_eyes = anime({
+      targets: '.title_orb_eyes',
+      translateY: anime.random(-10,10),
+      translateX: anime.random(-10,10),
       duration:  function() { return anime.random(1000, 3000); },
       delay: 0,
       direction: 'alternate',
       elasticity: 300,
       complete: function(anim) {
-        anime_loop_3(i);
+        title_orb_eyes.restart();
       }
     });
   }
+
+  function message_footer_orb_eyes_gaze() {
+    var footer_orb_eyes = anime({
+      targets: '.message_footer_orb_eyes',
+      translateY: anime.random(-20,20),
+      translateX: anime.random(-20,20),
+      duration:  function() { return anime.random(1000, 3000); },
+      delay: 0,
+      direction: 'alternate',
+      elasticity: 300,
+      complete: function(anim) {
+        footer_orb_eyes.restart();
+      }
+    });
+  }
+
+
+
+
+
 
 
 }
