@@ -472,7 +472,7 @@ function everyFunction() {
   }
   checkIfHasVideoAd();
 
-  for (i = 1; i < 7; i++) {
+  for (i = 0; i < 7; i++) {
     level_orb_bob(i);
     level_orb_eyes_gaze(i);
   }
