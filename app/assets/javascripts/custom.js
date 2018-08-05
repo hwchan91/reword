@@ -49,7 +49,7 @@ function firefly() {
     color: '#8be0de',
     minPixel: 3,
     maxPixel: 20,
-    total: 15,
+    total: 0,
     on: 'document.body',
     twinkle: 0,
     borderRadius: 50,

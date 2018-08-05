@@ -2,7 +2,7 @@
   <span id="target">
     <% @level.target.split("").each_with_index do |letter, index| %>
       <div class="letter <%= match_status(index) %>">
-        <% if match_status(index) != 'not_match' %>
+        <% if (match_status(index) == 'full_match' && @level.id <= 10) || (match_status(index) != 'not_match' && @level.id > 10)%>
 
           <div class="<%= @complete ? 'orb complete_orb' : "orb orb-#{index} #{'misposition_orb' if match_status(index) == 'partial_match'}" %>">
             <div class="orb_eyes orb_eyes-<%= index %>">
